@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function JamJarDivider() {
   return (
-    <div className="relative py-12 md:py-16 overflow-visible">
+    <div className="relative py-16 md:py-24 overflow-visible">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/20 to-transparent" />
       
       <motion.div 
@@ -16,9 +16,9 @@ export function JamJarDivider() {
         viewport={{ once: true }}
       >
         <div className="relative">
-          {/* Enhanced glow effect behind image - larger and brighter */}
-          <div className="absolute -inset-20 md:-inset-32 bg-gradient-to-r from-pink-500/30 via-purple-500/35 to-blue-500/30 blur-[60px] md:blur-[80px]" />
-          <div className="absolute -inset-12 md:-inset-20 bg-gradient-to-r from-purple-600/25 via-pink-600/30 to-purple-600/25 blur-[40px]" />
+          {/* Tighter glow effect behind image - closer to the jar */}
+          <div className="absolute -inset-8 md:-inset-12 bg-gradient-to-r from-pink-500/25 via-purple-500/30 to-blue-500/25 blur-[40px] md:blur-[50px]" />
+          <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-purple-600/20 via-pink-600/25 to-purple-600/20 blur-[25px]" />
           
           {/* Jam jar image - significantly larger */}
           <motion.img 
