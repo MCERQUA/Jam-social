@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import NavbarWithGlow from '../components/sections/NavbarWithGlow';
 import HeroSection from '../components/sections/HeroSection';
 import FeaturesSection from '../components/sections/FeaturesSection';
 import JamJarDivider from '../components/ui/JamJarDivider';
@@ -12,13 +11,6 @@ import ContactSection from '../components/sections/ContactSection';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
-  <header class="fixed top-0 left-0 right-0 z-50 flex justify-center">
-    <div class="px-4 py-4">
-      <NavbarWithGlow client:only="react" />
-    </div>
-  </header>
-  
-  <main>
     <section id="hero" class="relative min-h-screen bg-black overflow-visible">
       <HeroSection client:only="react" />
     </section>
@@ -41,6 +33,5 @@ import ContactSection from '../components/sections/ContactSection';
     <section id="contact">
       <ContactSection client:only="react" />
     </section>
-  </main>
 </Layout>
 

@@ -1,4 +1,7 @@
 ---
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+
 export interface Props {
   title: string;
   description?: string;
@@ -18,7 +21,11 @@ const { title, description = "Jam Social Media - Professional social media manag
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <Header client:only="react" />
+    <main>
+      <slot />
+    </main>
+    <Footer client:only="react" />
   </body>
 </html>
 
