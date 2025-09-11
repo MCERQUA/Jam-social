@@ -43,17 +43,7 @@ function HeroSection() {
             
             {/* Main Text */}
             <div className="relative z-10">
-              <SparklesText 
-                text="Jam Social Media"
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6"
-                sparklesCount={12}
-              />
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 max-w-2xl lg:max-w-3xl mx-auto mb-4 sm:mb-6 leading-relaxed">
-                Amplify your brand's voice across every platform. From content creation to community management, we deliver strategic social media solutions that drive real engagement and measurable growth.
-              </p>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-xl lg:max-w-2xl mx-auto">
-                Transform your social media presence with data-driven strategies and creative excellence
-              </p>
+              {/* Content removed */}
             </div>
           </div>
           
