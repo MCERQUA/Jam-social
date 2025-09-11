@@ -46,3 +46,13 @@ body {
     radial-gradient(ellipse at bottom, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
   min-height: 100vh;
 }
+
+/* Hide astro-island content before hydration to prevent flash */
+astro-island[ssr] {
+  visibility: hidden;
+}
+
+/* Ensure hero section has min-height during loading */
+#hero {
+  min-height: 100vh;
+}
