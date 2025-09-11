@@ -126,10 +126,11 @@ function ServicesGrid() {
                   {/* Service Header */}
                   <div className="flex items-center gap-4 mb-4">
                     <div 
-                      className="relative p-3 rounded-lg border border-pink-500/50"
+                      className="relative p-3 rounded-lg border"
                       style={{ 
                         backgroundColor: `${service.color}40`,
-                        boxShadow: `0 0 30px ${service.color}80, 0 0 15px rgba(236,72,153,0.4)`
+                        borderColor: `${service.color}60`,
+                        boxShadow: `0 0 30px ${service.color}80, 0 0 15px ${service.color}40`
                       }}
                     >
                       <Icon
