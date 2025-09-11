@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SplitText } from "../ui/split-text";
+import { WaveText } from "../ui/wave-text";
 import { SparklesCore } from "../ui/sparkles";
 import { SplashCursor } from "../ui/splash-cursor";
 import { SocialIconsAnimation } from "../ui/social-icons-animation";
@@ -50,12 +50,12 @@ function HeroSection() {
           
           {/* Hero Text */}
           <div className="text-center">
-            <SplitText 
+            <WaveText 
               text="Jam Social Media"
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 justify-center"
-              animationFrom="bottom"
               delay={0.2}
               gradientWords={["Jam"]}
+              repeatDelay={2}
             />
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 max-w-3xl mx-auto mb-4">
               All Platforms. One Strategy.
