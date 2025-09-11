@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.tsx';
+import Footer from '../components/layout/Footer.tsx';
+import PlatformsHero from '../components/sections/PlatformsHero.tsx';
+import PlatformsGrid from '../components/sections/PlatformsGrid.tsx';
+---
+
+<Layout title="Platforms - Jam Social Media">
+  <Header client:only="react" />
+  <main>
+    <PlatformsHero client:only="react" />
+    <PlatformsGrid client:only="react" />
+  </main>
+  <Footer client:only="react" />
+</Layout>
