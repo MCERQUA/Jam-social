@@ -120,10 +120,11 @@ function PlatformsGrid() {
                 {/* Platform Header */}
                 <div className="flex items-center gap-4 mb-4">
                   <div 
-                    className="relative p-3 rounded-lg"
+                    className="relative p-3 rounded-lg border"
                     style={{ 
                       backgroundColor: `${platform.color}40`,
-                      boxShadow: `0 0 30px ${platform.color}80`
+                      borderColor: platform.color === "#000000" ? "rgba(156, 163, 175, 0.5)" : "rgba(236, 72, 153, 0.5)",
+                      boxShadow: `0 0 30px ${platform.color === "#000000" ? "rgba(156, 163, 175, 0.8)" : platform.color}80, 0 0 15px rgba(236,72,153,0.4)`
                     }}
                   >
                     <img
