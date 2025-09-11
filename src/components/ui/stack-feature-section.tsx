@@ -28,7 +28,7 @@ const Button = ({ variant = "default", children, className, ...props }: {
   className?: string;
   [key: string]: any;
 }) => {
-  const baseStyles = "px-6 py-3 rounded-lg font-medium transition-all duration-300";
+  const baseStyles = "px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-300 w-full sm:w-auto";
   const variants = {
     default: "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl",
     outline: "border-2 border-gray-500 text-gray-200 hover:bg-gray-800/50 backdrop-blur-sm"
@@ -103,18 +103,18 @@ export const StackFeatureSection: React.FC<FeatureSectionProps> = ({
 
   return (
     <section className={cn(
-      "relative max-w-6xl mx-auto my-16 px-10 flex items-center justify-between h-[30rem] overflow-visible",
+      "relative max-w-6xl mx-auto my-8 sm:my-12 lg:my-16 flex flex-col lg:flex-row items-center justify-between min-h-[30rem] lg:h-[30rem] overflow-visible",
       className
     )}>
       {/* Left side: Content */}
-      <div className="w-1/2 z-10 pr-8">
-        <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-white drop-shadow-lg">
+      <div className="w-full lg:w-1/2 z-10 mb-8 lg:mb-0 text-center lg:text-left px-4 sm:px-6 lg:px-0 lg:pr-8">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg">
           {title}
         </h1>
-        <p className="text-gray-200 mb-6 max-w-lg text-lg">
+        <p className="text-gray-200 mb-6 max-w-lg mx-auto lg:mx-0 text-base sm:text-lg">
           {description}
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
           <Button variant="default" onClick={onPrimaryClick}>
             {primaryButtonText}
           </Button>
@@ -125,7 +125,7 @@ export const StackFeatureSection: React.FC<FeatureSectionProps> = ({
       </div>
       
       {/* Right side: Orbiting Icons */}
-      <div className="w-1/2 relative flex items-center justify-center h-full">
+      <div className="w-full lg:w-1/2 relative flex items-center justify-center h-[20rem] sm:h-[25rem] lg:h-full">
         <div className="relative">
           {/* Create orbits */}
           {Array.from({ length: orbitCount }).map((_, orbitIndex) => {
