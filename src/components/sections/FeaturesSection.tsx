@@ -98,7 +98,7 @@ function FeaturesSection() {
             >
               <div className="space-y-4">
                 {feature.content}
-                <div className="pt-4 border-t border-gray-700/50">
+                <div className="pt-4 pb-2 border-t border-gray-700/50">
                   <h4 className="text-lg font-semibold text-white mb-2">
                     {feature.title}
                   </h4>
