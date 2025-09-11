@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/sections/Navbar';
+import NavbarWithGlow from '../components/sections/NavbarWithGlow';
 import HeroSection from '../components/sections/HeroSection';
 import { StackFeatureSection } from '../components/ui/stack-feature-section';
 import FeaturesSection from '../components/sections/FeaturesSection';
@@ -11,9 +11,9 @@ import ContactSection from '../components/sections/ContactSection';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
-  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/20">
+  <header class="fixed top-0 left-0 right-0 z-50">
     <div class="container mx-auto px-4 py-4">
-      <Navbar client:only="react" />
+      <NavbarWithGlow client:only="react" />
     </div>
   </header>
   
