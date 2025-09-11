@@ -9,10 +9,10 @@ import { SplashCursor } from "../ui/splash-cursor";
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full">
       <SplashCursor />
-      <WavyBackground className="relative flex min-h-screen w-full flex-col items-center justify-center">
-        <div className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-4">
+      <WavyBackground className="flex flex-col items-center justify-center">
+        <div className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 py-20">
           {/* Sparkles effect around the text */}
           <div className="relative">
             <SparklesCore 
@@ -39,7 +39,7 @@ function HeroSection() {
           </div>
           
           {/* Stack Feature Section overlaid */}
-          <div className="w-full mt-16">
+          <div className="w-full mt-20">
             <StackFeatureSection />
           </div>
         </div>

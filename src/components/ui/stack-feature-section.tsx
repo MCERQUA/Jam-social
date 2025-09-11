@@ -28,10 +28,10 @@ const Button = ({ variant = "default", children, className, ...props }: {
   className?: string;
   [key: string]: any;
 }) => {
-  const baseStyles = "px-4 py-2 rounded-lg font-medium transition-colors";
+  const baseStyles = "px-6 py-3 rounded-lg font-medium transition-all duration-300";
   const variants = {
-    default: "bg-blue-600 text-white hover:bg-blue-700",
-    outline: "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+    default: "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl",
+    outline: "border-2 border-gray-500 text-gray-200 hover:bg-gray-800/50 backdrop-blur-sm"
   };
   
   return (
@@ -73,10 +73,10 @@ const iconConfigs = [
 ];
 
 export const StackFeatureSection: React.FC<FeatureSectionProps> = ({
-  title = "Build your idea",
-  description = "Transform your concepts into reality with our powerful platform and comprehensive toolset.",
-  primaryButtonText = "Get Started",
-  secondaryButtonText = "Learn More",
+  title = "Schedule your success with Jam Social",
+  description = "Automate your social media posting across all platforms. Create, schedule, and optimize your content strategy effortlessly.",
+  primaryButtonText = "Start Managing",
+  secondaryButtonText = "See Features",
   onPrimaryClick,
   onSecondaryClick,
   className
@@ -103,15 +103,15 @@ export const StackFeatureSection: React.FC<FeatureSectionProps> = ({
 
   return (
     <section className={cn(
-      "relative max-w-6xl mx-auto my-32 pl-10 flex items-center justify-between h-[30rem] border border-gray-200 dark:border-gray-700 bg-white dark:bg-black overflow-hidden rounded-3xl",
+      "relative max-w-6xl mx-auto my-16 px-10 flex items-center justify-between h-[30rem] overflow-visible",
       className
     )}>
       {/* Left side: Content */}
       <div className="w-1/2 z-10 pr-8">
-        <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
+        <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-white drop-shadow-lg">
           {title}
         </h1>
-        <p className="text-gray-500 dark:text-gray-300 mb-6 max-w-lg">
+        <p className="text-gray-200 mb-6 max-w-lg text-lg">
           {description}
         </p>
         <div className="flex items-center gap-3">
@@ -152,7 +152,7 @@ export const StackFeatureSection: React.FC<FeatureSectionProps> = ({
                       }}
                     >
                       <div 
-                        className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center border border-gray-100 dark:border-gray-700"
+                        className="w-10 h-10 rounded-full bg-gray-900/80 backdrop-blur-sm shadow-lg flex items-center justify-center border border-gray-700/50"
                         style={{
                           animation: `spin ${animationDuration}s linear infinite reverse`, // Counter-rotation to keep icons upright
                         }}
