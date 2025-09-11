@@ -42,7 +42,7 @@ function ServicesSection() {
             sparklesCount={12}
           />
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Choose the perfect service package to elevate your social media presence
+            Comprehensive capabilities to elevate your social media presence
           </p>
         </div>
         
@@ -53,7 +53,7 @@ function ServicesSection() {
         
         <div className="text-center mt-12">
           <p className="text-gray-400 text-lg mb-6">
-            Need a custom solution? We create tailored packages for enterprise clients.
+            Need something specific? We create custom solutions tailored to your unique needs.
           </p>
           <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
             Get Custom Quote

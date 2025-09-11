@@ -45,16 +45,11 @@ const ServiceCard: React.FC<ServiceCardProps & { isActive?: boolean; onClick?: (
       onClick={onClick}
       className={cn(
         "relative cursor-pointer rounded-xl border bg-gray-900/80 backdrop-blur-sm p-6 transition-all duration-300",
-        highlight ? "border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.2)]" : "border-gray-700/50",
+        "border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.2)]",
         isActive && "border-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.3)]",
         className
       )}
     >
-      {highlight && (
-        <div className="absolute -top-3 right-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-          POPULAR
-        </div>
-      )}
       
       <div className="mb-4">
         <h3 className="text-xl font-bold text-white mb-2">
