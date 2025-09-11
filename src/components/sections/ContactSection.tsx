@@ -64,8 +64,10 @@ function ContactSection() {
           </p>
         </div>
         
-        <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="relative bg-gray-800/30 backdrop-blur-sm rounded-2xl p-8 border border-pink-500/20 shadow-[0_0_50px_rgba(236,72,153,0.15)]">
+          {/* Pink glow effect */}
+          <div className="absolute -inset-[2px] bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl blur-xl" />
+          <form onSubmit={handleSubmit} className="relative space-y-6 z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -78,7 +80,7 @@ function ContactSection() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-pink-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
                   placeholder="Your full name"
                 />
               </div>
@@ -93,7 +95,7 @@ function ContactSection() {
                   name="company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-pink-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
                   placeholder="Your company name"
                 />
               </div>
@@ -142,8 +144,8 @@ function ContactSection() {
                     onClick={() => handleServiceToggle(service)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                       formData.services.includes(service)
-                        ? "bg-blue-600 text-white border border-blue-500"
-                        : "bg-gray-700/50 text-gray-300 border border-gray-600/50 hover:border-gray-500/50"
+                        ? "bg-pink-600 text-white border border-pink-500"
+                        : "bg-gray-700/50 text-gray-300 border border-pink-500/20 hover:border-pink-500/40"
                     }`}
                   >
                     {service}
@@ -163,7 +165,7 @@ function ContactSection() {
                 rows={4}
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-vertical"
+                className="w-full px-4 py-3 bg-gray-700/50 border border-pink-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 resize-vertical"
                 placeholder="Describe your social media goals, target audience, and any specific requirements..."
               />
             </div>
@@ -171,7 +173,7 @@ function ContactSection() {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-12 py-4 rounded-full font-semibold text-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <SparklesText 
                   text="Send Message"
@@ -188,7 +190,7 @@ function ContactSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
               <span className="text-2xl">📧</span>
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Email Us</h3>
@@ -196,7 +198,7 @@ function ContactSection() {
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
               <span className="text-2xl">📱</span>
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Call Us</h3>
@@ -204,7 +206,7 @@ function ContactSection() {
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
               <span className="text-2xl">📍</span>
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Visit Us</h3>
