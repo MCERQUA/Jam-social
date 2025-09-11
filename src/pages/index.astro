@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/sections/Navbar';
+import HeroSection from '../components/sections/HeroSection';
+import FeaturesSection from '../components/sections/FeaturesSection';
+import ServicesSection from '../components/sections/ServicesSection';
+import PlatformsSection from '../components/sections/PlatformsSection';
+import TeamSection from '../components/sections/TeamSection';
+import ContactSection from '../components/sections/ContactSection';
+---
+
+<Layout title="Jam Social Media - Professional Social Media Management">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/20">
+    <div class="container mx-auto px-4 py-4">
+      <Navbar client:only="react" />
+    </div>
+  </header>
+  
+  <main class="pt-20">
+    <section id="hero">
+      <HeroSection client:only="react" />
+    </section>
+    <section id="features">
+      <FeaturesSection client:only="react" />
+    </section>
+    <section id="services">
+      <ServicesSection client:only="react" />
+    </section>
+    <section id="platforms">
+      <PlatformsSection client:only="react" />
+    </section>
+    <section id="team">
+      <TeamSection client:only="react" />
+    </section>
+    <section id="contact">
+      <ContactSection client:only="react" />
+    </section>
+  </main>
+</Layout>

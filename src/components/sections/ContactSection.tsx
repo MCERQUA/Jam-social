@@ -1,0 +1,219 @@
+"use client";
+
+import React, { useState } from "react";
+import { AnimatedSearchBar } from "../ui/animated-search-bar";
+import { SparklesText } from "../ui/sparkles-text";
+
+function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: "",
+    services: [] as string[]
+  });
+
+  const serviceOptions = [
+    "Content Strategy",
+    "Social Media Management", 
+    "Influencer Partnerships",
+    "Paid Advertising",
+    "Analytics & Reporting",
+    "Community Management"
+  ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleServiceToggle = (service: string) => {
+    setFormData(prev => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter(s => s !== service)
+        : [...prev.services, service]
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Handle form submission here
+  };
+
+  const handleEmailSearch = (email: string) => {
+    setFormData(prev => ({ ...prev, email }));
+  };
+
+  return (
+    <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <SparklesText 
+            text="Let's Get Started"
+            className="text-4xl md:text-6xl font-bold text-white mb-6"
+            sparklesCount={15}
+          />
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+            Ready to transform your social media presence? Get in touch with our team
+          </p>
+        </div>
+        
+        <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  placeholder="Your full name"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  placeholder="Your company name"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Email Address *
+              </label>
+              <AnimatedSearchBar
+                placeholders={[
+                  "Enter your email address...",
+                  "hello@yourcompany.com",
+                  "contact@yourbusiness.com",
+                  "your.email@domain.com"
+                ]}
+                onSearch={handleEmailSearch}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                placeholder="Your phone number"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-4">
+                Services Interested In
+              </label>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {serviceOptions.map((service) => (
+                  <button
+                    key={service}
+                    type="button"
+                    onClick={() => handleServiceToggle(service)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      formData.services.includes(service)
+                        ? "bg-blue-600 text-white border border-blue-500"
+                        : "bg-gray-700/50 text-gray-300 border border-gray-600/50 hover:border-gray-500/50"
+                    }`}
+                  >
+                    {service}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                Tell us about your project *
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={4}
+                value={formData.message}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-vertical"
+                placeholder="Describe your social media goals, target audience, and any specific requirements..."
+              />
+            </div>
+            
+            <div className="text-center">
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <SparklesText 
+                  text="Send Message"
+                  className="text-lg font-semibold"
+                  sparklesCount={8}
+                />
+              </button>
+              <p className="text-gray-400 text-sm mt-4">
+                We'll get back to you within 24 hours with a custom proposal
+              </p>
+            </div>
+          </form>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+          <div className="text-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-2xl">📧</span>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">Email Us</h3>
+            <p className="text-gray-400">hello@jamsocial.com</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-2xl">📱</span>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">Call Us</h3>
+            <p className="text-gray-400">+1 (555) 123-4567</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-2xl">📍</span>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">Visit Us</h3>
+            <p className="text-gray-400">123 Social St, Digital City</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default ContactSection;

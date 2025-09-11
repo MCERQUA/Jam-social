@@ -1,0 +1,30 @@
+{
+  "name": "jam-social",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Jam Social Media - Professional social media management platform",
+  "author": "Jam Social",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "clean": "rm -rf dist .astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.3.1",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "astro": "^5.13.7",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.543.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "simplex-noise": "^4.0.3",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.13"
+  }
+}
