@@ -23,9 +23,10 @@ export function AnimatedBorder({
   };
 
   return (
-    <div className={cn("relative group inline-block", borderRadius, "overflow-hidden", className)}>
-      {/* Rotating gradient background */}
-      <div className={cn("absolute -inset-[2px]", borderRadius, "overflow-hidden")}>
+    <div className={cn("relative group inline-block p-[3px]", borderRadius, className)}>
+      {/* Outer glow container */}
+      <div className={cn("absolute inset-0", borderRadius, "overflow-hidden")}>
+        {/* Rotating gradient background */}
         <div 
           className="absolute inset-0 w-[200%] h-[200%] -left-1/2 -top-1/2"
           style={{
@@ -37,7 +38,7 @@ export function AnimatedBorder({
       
       {/* Glow effect */}
       <div className={cn(
-        "absolute -inset-[3px]",
+        "absolute inset-0",
         borderRadius,
         "bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500",
         glowConfig[glowIntensity],
@@ -47,7 +48,8 @@ export function AnimatedBorder({
       {/* Content container */}
       <div className={cn(
         "relative bg-gray-900/95 backdrop-blur-xl",
-        borderRadius
+        borderRadius,
+        "overflow-hidden"
       )}>
         {children}
       </div>
