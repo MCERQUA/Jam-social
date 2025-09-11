@@ -4,58 +4,52 @@ import React from "react";
 import { VideoCarousel } from "../ui/video-carousel";
 import { SparklesText } from "../ui/sparkles-text";
 
-// To use actual videos, update the entries below with your video files:
-// Example: url: "/videos/your-video.mp4"
-// Add your video files to the /public/videos/ folder
-
+// Mix of actual videos and placeholders
 const sampleVideos = [
   {
     id: "1",
-    title: "Viral Content Creation",
-    thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=450&fit=crop",
-    url: "/videos/viral-content.mp4", // Add your video file here
-    duration: "2:45",
-    description: "Learn how we create viral content that resonates with your audience"
+    title: "HairPHD Commercial",
+    thumbnail: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800&h=450&fit=crop",
+    url: "/videos/HairPHD-Full1-sm.mp4",
+    duration: "1:30",
+    description: "Professional commercial production for HairPHD beauty brand"
   },
   {
     id: "2",
-    title: "Cross-Platform Strategy",
-    thumbnail: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&h=450&fit=crop",
-    url: "/videos/cross-platform.mp4", // Add your video file here
-    duration: "3:12",
-    description: "Maximize your reach across all social media platforms"
-  },
-  {
-    id: "3",
     title: "AI-Powered Analytics",
     thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=450&fit=crop",
-    url: "/videos/ai-analytics.mp4", // Add your video file here
     duration: "4:08",
     description: "Leverage AI to understand and optimize your content performance"
   },
   {
+    id: "3",
+    title: "Noble Insulation Commercial",
+    thumbnail: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=450&fit=crop",
+    url: "/videos/noble-insulation-commerical-sm.mp4",
+    duration: "0:30",
+    description: "High-impact commercial showcasing Noble Insulation services"
+  },
+  {
     id: "4",
-    title: "Influencer Partnerships",
-    thumbnail: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800&h=450&fit=crop",
-    url: "/videos/influencer-partnerships.mp4", // Add your video file here
-    duration: "2:30",
-    description: "Build meaningful connections with influencers in your niche"
+    title: "Strategic Brand Narratives",
+    thumbnail: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=450&fit=crop",
+    duration: "3:45",
+    description: "Crafting powerful stories that resonate with your target audience"
   },
   {
     id: "5",
-    title: "Brand Storytelling",
-    thumbnail: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=450&fit=crop",
-    url: "/videos/brand-storytelling.mp4", // Add your video file here
-    duration: "3:45",
-    description: "Craft compelling narratives that connect with your audience"
+    title: "The Meg Final Cut",
+    thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc81?w=800&h=450&fit=crop",
+    url: "/videos/The Meg Final-SM.mp4",
+    duration: "1:45",
+    description: "Cinematic video production showcasing our creative capabilities"
   },
   {
     id: "6",
-    title: "Social Commerce",
-    thumbnail: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&h=450&fit=crop",
-    url: "/videos/social-commerce.mp4", // Add your video file here
-    duration: "5:20",
-    description: "Turn your social media presence into a revenue engine"
+    title: "Influencer Marketing Mastery",
+    thumbnail: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800&h=450&fit=crop",
+    duration: "2:30",
+    description: "Build authentic partnerships with influencers that drive real results"
   }
 ];
 
