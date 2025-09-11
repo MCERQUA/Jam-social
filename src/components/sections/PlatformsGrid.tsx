@@ -124,7 +124,7 @@ function PlatformsGrid() {
                     style={{ 
                       backgroundColor: `${platform.color}40`,
                       borderColor: platform.color === "#000000" ? "rgba(156, 163, 175, 0.5)" : 
-                                   (platform.name === "Facebook" || platform.name === "LinkedIn") ? "rgba(59, 130, 246, 0.6)" : 
+                                   (platform.name === "Facebook" || platform.name === "LinkedIn" || platform.name === "Google Business" || platform.name === "Bluesky") ? "rgba(59, 130, 246, 0.6)" : 
                                    "rgba(236, 72, 153, 0.5)",
                       boxShadow: `0 0 30px ${platform.color === "#000000" ? "rgba(156, 163, 175, 0.8)" : platform.color}80, 0 0 15px rgba(236,72,153,0.4)`
                     }}
