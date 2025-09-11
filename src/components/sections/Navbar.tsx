@@ -28,12 +28,12 @@ function Navbar() {
         
         <MenuItem setActive={setActive} active={active} item="Platforms">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#platforms">All Platforms</HoveredLink>
-            <HoveredLink href="#platforms">Instagram</HoveredLink>
-            <HoveredLink href="#platforms">LinkedIn</HoveredLink>
-            <HoveredLink href="#platforms">TikTok</HoveredLink>
-            <HoveredLink href="#platforms">Facebook</HoveredLink>
-            <HoveredLink href="#platforms">YouTube</HoveredLink>
+            <HoveredLink href="/platforms">All Platforms</HoveredLink>
+            <HoveredLink href="/platforms#instagram">Instagram</HoveredLink>
+            <HoveredLink href="/platforms#linkedin">LinkedIn</HoveredLink>
+            <HoveredLink href="/platforms#tiktok">TikTok</HoveredLink>
+            <HoveredLink href="/platforms#facebook">Facebook</HoveredLink>
+            <HoveredLink href="/platforms#youtube">YouTube</HoveredLink>
           </div>
         </MenuItem>
         
