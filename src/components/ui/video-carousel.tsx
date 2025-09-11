@@ -129,7 +129,6 @@ export function VideoCarousel({ videos, className }: VideoCarouselProps) {
                   </div>
                 </div>
               </button>
-              </div>
             </div>
           </motion.div>
         </AnimatePresence>
