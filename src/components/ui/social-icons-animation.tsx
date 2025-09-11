@@ -47,11 +47,11 @@ export function SocialIconsAnimation() {
                   rotate: [0, 360, 720, 720, 720],
                 }}
                 transition={{
-                  duration: 20,
-                  delay: index * 0.2,
+                  duration: 25,
+                  delay: index * 0.15,
                   repeat: Infinity,
                   repeatType: "reverse",
-                  ease: "easeInOut",
+                  ease: "linear",
                 }}
               >
                 <motion.div

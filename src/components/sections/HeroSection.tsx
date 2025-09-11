@@ -11,28 +11,18 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen w-full bg-black overflow-visible">
       
-      {/* Aurora Background - Expanded and strengthened */}
-      <div className="absolute -top-40 -left-20 -right-20 h-[150%] opacity-60">
+      {/* Aurora Background - Single optimized layer */}
+      <div className="absolute -top-20 left-0 right-0 h-[110%] opacity-50">
         <Aurora
           colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
-          blend={0.8}
-          amplitude={1.2}
-          speed={0.3}
-        />
-      </div>
-      
-      {/* Additional Aurora layer for more depth */}
-      <div className="absolute -top-20 left-0 right-0 h-[120%] opacity-30">
-        <Aurora
-          colorStops={["#ec4899", "#8b5cf6", "#3b82f6"]}
           blend={0.7}
           amplitude={1.0}
-          speed={0.4}
+          speed={0.35}
         />
       </div>
       
-      {/* Splash Cursor - Desktop Only */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none z-10">
+      {/* Splash Cursor - Large Desktop Only (1536px+) */}
+      <div className="hidden 2xl:block absolute inset-0 pointer-events-none z-10">
         <SplashCursor />
       </div>
       
@@ -55,7 +45,7 @@ function HeroSection() {
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 justify-center"
               delay={0.2}
               gradientWords={["Jam"]}
-              repeatDelay={2}
+              repeatDelay={4}
             />
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 max-w-3xl mx-auto mb-4">
               All Platforms. One Strategy.

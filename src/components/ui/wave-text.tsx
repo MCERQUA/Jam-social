@@ -38,13 +38,11 @@ export const WaveText: React.FC<WaveTextProps> = ({
       scale: 1,
     },
     visible: {
-      y: [0, -20, 0],
-      scale: [1, 1.3, 1],
+      y: [0, -15, 0],
+      scale: [1, 1.2, 1],
       transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-        duration: 0.5,
+        duration: 0.6,
+        ease: "easeInOut",
         repeat: Infinity,
         repeatDelay: repeatDelay,
       },
