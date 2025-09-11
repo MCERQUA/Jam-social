@@ -20,10 +20,10 @@ function Navbar() {
         
         <MenuItem setActive={setActive} active={active} item="Services">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#services">All Services</HoveredLink>
-            <HoveredLink href="#services">Content Strategy</HoveredLink>
-            <HoveredLink href="#services">Social Media Management</HoveredLink>
-            <HoveredLink href="#services">Analytics & Reporting</HoveredLink>
+            <HoveredLink href="/services">All Services</HoveredLink>
+            <HoveredLink href="/services">Content Strategy</HoveredLink>
+            <HoveredLink href="/services">Social Media Management</HoveredLink>
+            <HoveredLink href="/services">Analytics & Reporting</HoveredLink>
           </div>
         </MenuItem>
         

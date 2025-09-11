@@ -29,6 +29,8 @@ export const MenuItem = ({
       window.location.href = "/platforms";
     } else if (item === "Home") {
       window.location.href = "/";
+    } else if (item === "Services") {
+      window.location.href = "/services";
     }
   };
 

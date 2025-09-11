@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.tsx';
+import Footer from '../components/layout/Footer.tsx';
+import ServicesHero from '../components/sections/ServicesHero.tsx';
+import ServicesGrid from '../components/sections/ServicesGrid.tsx';
+---
+
+<Layout title="Services - Jam Social Media">
+  <Header client:only="react" />
+  <main>
+    <ServicesHero client:only="react" />
+    <ServicesGrid client:only="react" />
+  </main>
+  <Footer client:only="react" />
+</Layout>
