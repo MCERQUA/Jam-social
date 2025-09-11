@@ -20,7 +20,7 @@ const socialPlatforms = [
 
 export function SocialIconsAnimation() {
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-visible">
+    <div className="relative w-full h-[350px] md:h-[400px] overflow-visible">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-full max-w-6xl h-full">
           {socialPlatforms.map((platform, index) => {

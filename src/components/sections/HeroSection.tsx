@@ -19,11 +19,11 @@ function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-black to-black" />
       
       {/* Content */}
-      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-7xl mx-auto">
           
           {/* Social Icons Animation */}
-          <div className="relative w-full mb-12">
+          <div className="relative w-full mb-8">
             <SocialIconsAnimation />
           </div>
           
