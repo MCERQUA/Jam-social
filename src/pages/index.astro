@@ -10,41 +10,6 @@ import ContactSection from '../components/sections/ContactSection';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
-  <style>
-    /* CRITICAL: Hide EVERYTHING until React loads */
-    astro-island { 
-      display: none !important;
-    }
-    astro-island:not([ssr]) { 
-      display: block !important;
-      animation: fadeIn 0.3s ease-in;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    /* Hide any stray text */
-    body::before,
-    body::after,
-    main::before,
-    main::after {
-      display: none !important;
-    }
-    
-    .hero-loading {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 9999;
-    }
-    
-    /* Once React loads, hide the loading screen */
-    body:has(astro-island:not([ssr])) .hero-loading {
-      display: none;
-    }
-  </style>
   <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/20">
     <div class="container mx-auto px-4 py-4">
       <Navbar client:only="react" />
@@ -53,8 +18,6 @@ import ContactSection from '../components/sections/ContactSection';
   
   <main class="pt-20">
     <section id="hero" class="relative min-h-screen bg-black overflow-hidden">
-      <!-- Loading state - will be replaced by React component -->
-      <div class="hero-loading absolute inset-0 bg-black" aria-hidden="true"></div>
       <HeroSection client:only="react" />
     </section>
     <section id="features">
@@ -75,33 +38,3 @@ import ContactSection from '../components/sections/ContactSection';
   </main>
 </Layout>
 
-<script>
-  // Remove any text nodes that might be orphaned
-  document.addEventListener('DOMContentLoaded', () => {
-    // Find all text nodes in body
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) => {
-          const text = node.textContent?.trim();
-          if (text && 
-              (text.includes('Amplify your brand') || 
-               text.includes('Transform your social media') ||
-               text.includes('Jam Social Media')) &&
-              !node.parentElement?.closest('astro-island')) {
-            return NodeFilter.FILTER_ACCEPT;
-          }
-          return NodeFilter.FILTER_REJECT;
-        }
-      }
-    );
-    
-    // Remove any orphaned text nodes
-    const nodesToRemove = [];
-    while (walker.nextNode()) {
-      nodesToRemove.push(walker.currentNode);
-    }
-    nodesToRemove.forEach(node => node.remove());
-  });
-</script>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SplashCursorProps {
@@ -48,20 +48,30 @@ export const SplashCursor: React.FC<SplashCursorProps> = ({
     }, fadeSpeed);
   }, [splashColor, fadeSpeed]);
 
+  // Throttle mouse position updates
+  const rafRef = useRef<number>();
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!enabled) return;
     
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      setMousePosition({ x, y });
-      
-      // Create continuous splashes when mouse is down
-      if (isMouseDown) {
-        createSplash(x, y);
-      }
+    // Cancel previous RAF
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
     }
+    
+    // Use requestAnimationFrame to throttle updates
+    rafRef.current = requestAnimationFrame(() => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (rect) {
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setMousePosition({ x, y });
+        
+        // Create continuous splashes when mouse is down
+        if (isMouseDown) {
+          createSplash(x, y);
+        }
+      }
+    });
   }, [enabled, isMouseDown, createSplash]);
 
   const handleMouseDown = useCallback((e: MouseEvent) => {
@@ -104,6 +114,10 @@ export const SplashCursor: React.FC<SplashCursorProps> = ({
     document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
+      // Clean up RAF
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mousedown', handleMouseDown);
       container.removeEventListener('mouseup', handleMouseUp);
@@ -121,8 +135,8 @@ export const SplashCursor: React.FC<SplashCursorProps> = ({
         background: 'transparent',
       }}
     >
-      {/* Custom cursor */}
-      {enabled && (
+      {/* Custom cursor - memoized to prevent unnecessary re-renders */}
+      {enabled && useMemo(() => (
         <div
           className="absolute pointer-events-none z-50 mix-blend-difference"
           style={{
@@ -134,9 +148,10 @@ export const SplashCursor: React.FC<SplashCursorProps> = ({
             backgroundColor: 'white',
             transition: 'transform 0.1s ease',
             transform: isMouseDown ? 'scale(1.5)' : 'scale(1)',
+            willChange: 'transform, left, top',
           }}
         />
-      )}
+      ), [mousePosition.x, mousePosition.y, isMouseDown])}
       
       {/* Splash effects */}
       {splashes.map((splash) => {

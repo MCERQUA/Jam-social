@@ -47,26 +47,10 @@ body {
   min-height: 100vh;
 }
 
-/* CRITICAL: Hide ALL astro-island content until fully loaded */
-astro-island {
-  display: block !important;
-  min-height: 100vh;
-  visibility: hidden !important;
-}
-
-astro-island:not([ssr]) {
-  visibility: visible !important;
-}
-
-/* Ensure hero section styling during loading */
+/* Ensure hero section styling */
 #hero {
   min-height: 100vh;
   background: #000;
   position: relative;
   overflow: hidden;
-}
-
-/* Hide any text that might leak */
-#hero:has(astro-island[ssr]) * {
-  opacity: 0 !important;
 }
