@@ -8,7 +8,7 @@ import { SocialIconsAnimation } from "../ui/social-icons-animation";
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen w-full bg-black overflow-hidden">
+    <section className="relative min-h-screen w-full bg-black overflow-visible">
       
       {/* Splash Cursor - Desktop Only */}
       <div className="hidden lg:block absolute inset-0 pointer-events-none">

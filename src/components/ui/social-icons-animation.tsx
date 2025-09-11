@@ -20,12 +20,12 @@ const socialPlatforms = [
 
 export function SocialIconsAnimation() {
   return (
-    <div className="relative w-full h-[400px] overflow-hidden">
+    <div className="relative w-full h-[500px] md:h-[600px] overflow-visible">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-full max-w-6xl h-full">
           {socialPlatforms.map((platform, index) => {
             const angle = (index * 360) / socialPlatforms.length;
-            const radius = 200;
+            const radius = 150; // Reduced radius to fit better
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             
@@ -103,11 +103,13 @@ export function SocialIconsAnimation() {
             {socialPlatforms.map((_, index) => {
               const angle1 = (index * 360) / socialPlatforms.length;
               const angle2 = ((index + 1) * 360) / socialPlatforms.length;
-              const radius = 200;
-              const x1 = Math.cos((angle1 * Math.PI) / 180) * radius + 300;
-              const y1 = Math.sin((angle1 * Math.PI) / 180) * radius + 200;
-              const x2 = Math.cos((angle2 * Math.PI) / 180) * radius + 300;
-              const y2 = Math.sin((angle2 * Math.PI) / 180) * radius + 200;
+              const radius = 150; // Match the icon radius
+              const centerX = 250; // Adjusted center point
+              const centerY = 250;
+              const x1 = Math.cos((angle1 * Math.PI) / 180) * radius + centerX;
+              const y1 = Math.sin((angle1 * Math.PI) / 180) * radius + centerY;
+              const x2 = Math.cos((angle2 * Math.PI) / 180) * radius + centerX;
+              const y2 = Math.sin((angle2 * Math.PI) / 180) * radius + centerY;
               
               return (
                 <motion.line
