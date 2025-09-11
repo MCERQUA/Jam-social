@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, MenuItem, HoveredLink, ProductItem } from "../ui/navbar-menu";
+import { Menu, MenuItem, HoveredLink } from "../ui/navbar-menu";
 
 function Navbar() {
   const [active, setActive] = useState<string | null>(null);
@@ -14,35 +14,6 @@ function Navbar() {
             <HoveredLink href="#hero">Welcome</HoveredLink>
             <HoveredLink href="#about">About Us</HoveredLink>
             <HoveredLink href="#why-choose-us">Why Choose Us</HoveredLink>
-          </div>
-        </MenuItem>
-        
-        <MenuItem setActive={setActive} active={active} item="Features">
-          <div className="text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Content Creation"
-              href="#features"
-              src="/icons/content-creation.png"
-              description="Professional content that drives engagement"
-            />
-            <ProductItem
-              title="Smart Scheduling"
-              href="#features"
-              src="/icons/scheduling.png"
-              description="AI-powered posting optimization"
-            />
-            <ProductItem
-              title="Advanced Analytics"
-              href="#features"
-              src="/icons/analytics.png"
-              description="Data-driven insights and reporting"
-            />
-            <ProductItem
-              title="Multi-Platform Support"
-              href="#features"
-              src="/icons/platforms.png"
-              description="Manage all your social networks"
-            />
           </div>
         </MenuItem>
         
@@ -63,14 +34,6 @@ function Navbar() {
             <HoveredLink href="#platforms">Facebook</HoveredLink>
             <HoveredLink href="#platforms">YouTube</HoveredLink>
             <HoveredLink href="#platforms">X (Twitter)</HoveredLink>
-          </div>
-        </MenuItem>
-        
-        <MenuItem setActive={setActive} active={active} item="Team">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#team">Our Experts</HoveredLink>
-            <HoveredLink href="#team">Leadership</HoveredLink>
-            <HoveredLink href="#team">Careers</HoveredLink>
           </div>
         </MenuItem>
         
