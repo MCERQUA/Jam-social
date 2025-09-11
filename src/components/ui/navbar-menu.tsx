@@ -23,11 +23,19 @@ export const MenuItem = ({
   item: string;
   children?: React.ReactNode;
 }) => {
+  // Make Platforms menu item directly clickable as fallback
+  const handleMenuClick = () => {
+    if (item === "Platforms") {
+      window.location.href = "/platforms";
+    }
+  };
+
   return (
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-gray-800 hover:text-pink-600 dark:text-white dark:hover:text-pink-400 font-medium"
+        onClick={handleMenuClick}
       >
         {item}
       </motion.p>
@@ -86,34 +94,14 @@ export const HoveredLink = ({
   className?: string;
   [key: string]: any;
 }) => {
-  // MENU FIX ATTEMPT LOG:
-  // 1. Changed href from #platforms to /platforms - DONE
-  // 2. Added z-index fixes (z-50 on dropdown, z-10 on content) - DONE
-  // 3. Added pointerEvents: 'auto' - DONE
-  // 4. Changed window.location.replace to window.location.href - DONE
-  // 5. NOW: Simplifying click handler, removing preventDefault for regular links
+  // SIMPLIFIED: Just use normal anchor behavior
+  // Let the browser handle navigation naturally
   
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    console.log('Menu link clicked:', href);
-    
-    // For hash links on same page
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    // For paths starting with / - let the browser handle it naturally
-    // No preventDefault - allow normal link behavior
-  };
-
   return (
     <a
       href={href}
-      onClick={handleClick}
       className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-[100] ${className}`}
-      style={{ pointerEvents: 'auto', position: 'relative' }}
+      style={{ pointerEvents: 'auto', position: 'relative', zIndex: 100 }}
       {...rest}
     >
       {children}
