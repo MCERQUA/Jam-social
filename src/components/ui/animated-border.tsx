@@ -47,7 +47,7 @@ export function AnimatedBorder({
       
       {/* Content container */}
       <div className={cn(
-        "relative bg-gray-900/95 backdrop-blur-xl",
+        "relative bg-gray-900/95 backdrop-blur-xl z-10",
         borderRadius,
         "overflow-hidden"
       )}>

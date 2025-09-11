@@ -36,9 +36,10 @@ export const MenuItem = ({
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={transition}
+          style={{ pointerEvents: active === item ? 'auto' : 'none' }}
         >
           {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4 z-50">
               <motion.div
                 transition={transition}
                 layoutId="active"
@@ -91,8 +92,8 @@ export const HoveredLink = ({
     if (href.startsWith('/')) {
       e.preventDefault();
       e.stopPropagation();
-      // Use replace for immediate navigation
-      window.location.replace(href);
+      // Use window.location.href for navigation
+      window.location.href = href;
       return false;
     } 
     // For hash links on same page
@@ -109,8 +110,8 @@ export const HoveredLink = ({
     <a
       href={href}
       onClick={handleClick}
-      onMouseDown={(e) => e.preventDefault()} // Prevent default mouse down
-      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block ${className}`}
+      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-50 ${className}`}
+      style={{ pointerEvents: 'auto' }}
       {...rest}
     >
       {children}
