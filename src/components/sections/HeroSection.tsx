@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { WavyBackground } from "../ui/wavy-background";
 import { StackFeatureSection } from "../ui/stack-feature-section";
 import { SparklesText } from "../ui/sparkles-text";
 import { SparklesCore } from "../ui/sparkles";
@@ -10,13 +9,6 @@ import { SplashCursor } from "../ui/splash-cursor";
 function HeroSection() {
   return (
     <section className="relative min-h-screen w-full">
-      {/* Wavy Background */}
-      <div className="absolute inset-0">
-        <WavyBackground />
-      </div>
-      
-      {/* Light Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
       
       {/* Splash Cursor - Desktop Only */}
       <div className="hidden lg:block absolute inset-0 pointer-events-none">
