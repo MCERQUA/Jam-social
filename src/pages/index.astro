@@ -10,6 +10,19 @@ import ContactSection from '../components/sections/ContactSection';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
+  <style>
+    /* Emergency fix: Hide all astro islands until hydrated */
+    astro-island { 
+      opacity: 0 !important; 
+      transition: opacity 0.3s;
+    }
+    astro-island:not([ssr]) { 
+      opacity: 1 !important; 
+    }
+    .hero-loading {
+      z-index: 1;
+    }
+  </style>
   <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/20">
     <div class="container mx-auto px-4 py-4">
       <Navbar client:only="react" />
@@ -17,7 +30,9 @@ import ContactSection from '../components/sections/ContactSection';
   </header>
   
   <main class="pt-20">
-    <section id="hero" class="relative min-h-screen bg-black">
+    <section id="hero" class="relative min-h-screen bg-black overflow-hidden">
+      <!-- Loading state - will be replaced by React component -->
+      <div class="hero-loading absolute inset-0 bg-black" aria-hidden="true"></div>
       <HeroSection client:only="react" />
     </section>
     <section id="features">
