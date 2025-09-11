@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import NavbarWithGlow from '../components/sections/NavbarWithGlow';
 import HeroSection from '../components/sections/HeroSection';
 import FeaturesSection from '../components/sections/FeaturesSection';
-import DashboardShowcase from '../components/sections/DashboardShowcase';
+import JamJarDivider from '../components/ui/JamJarDivider';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
 import TeamSection from '../components/sections/TeamSection';
@@ -25,9 +25,7 @@ import ContactSection from '../components/sections/ContactSection';
     <section id="features">
       <FeaturesSection client:only="react" />
     </section>
-    <section id="dashboard">
-      <DashboardShowcase client:only="react" />
-    </section>
+    <JamJarDivider client:only="react" />
     <section id="services">
       <ServicesSection client:only="react" />
     </section>
