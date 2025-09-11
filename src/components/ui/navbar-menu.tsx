@@ -109,7 +109,6 @@ export const HoveredLink = ({
     <a
       href={href}
       onClick={handleClick}
-      onMouseDown={(e) => e.preventDefault()} // Prevent default mouse down
       className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block ${className}`}
       {...rest}
     >
