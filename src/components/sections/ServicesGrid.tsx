@@ -14,96 +14,84 @@ const services = [
     icon: Calendar,
     color: "#ec4899",
     description: "Strategic content planning that aligns with your brand voice and business goals. We create compelling narratives that resonate with your audience.",
-    features: ["Content calendars", "Brand voice development", "Topic research", "Content pillars"],
-    price: "Starting at $1,500/mo"
+    features: ["Content calendars", "Brand voice development", "Topic research", "Content pillars"]
   },
   {
     name: "Social Media Management",
     icon: Users,
     color: "#3b82f6",
     description: "Full-service management across all platforms. From daily posting to community engagement, we handle everything.",
-    features: ["Daily posting", "Community management", "Engagement monitoring", "Platform optimization"],
-    price: "Starting at $2,000/mo"
+    features: ["Daily posting", "Community management", "Engagement monitoring", "Platform optimization"]
   },
   {
     name: "Content Creation",
     icon: Camera,
     color: "#10b981",
     description: "Professional content creation including graphics, videos, and copy that captures attention and drives engagement.",
-    features: ["Custom graphics", "Video production", "Copywriting", "Photo editing"],
-    price: "Starting at $1,200/mo"
+    features: ["Custom graphics", "Video production", "Copywriting", "Photo editing"]
   },
   {
     name: "Analytics & Reporting",
     icon: BarChart3,
     color: "#f59e0b",
     description: "Data-driven insights to measure success and optimize strategy. Monthly reports with actionable recommendations.",
-    features: ["Monthly reports", "Performance tracking", "ROI analysis", "Competitor analysis"],
-    price: "Starting at $800/mo"
+    features: ["Monthly reports", "Performance tracking", "ROI analysis", "Competitor analysis"]
   },
   {
     name: "Paid Advertising",
     icon: Megaphone,
     color: "#ef4444",
     description: "Strategic paid campaigns across all platforms to maximize reach and conversions while optimizing ad spend.",
-    features: ["Campaign strategy", "Ad creation", "A/B testing", "Budget optimization"],
-    price: "Starting at $1,500/mo + ad spend"
+    features: ["Campaign strategy", "Ad creation", "A/B testing", "Budget optimization"]
   },
   {
     name: "Influencer Marketing",
     icon: Sparkles,
     color: "#a855f7",
     description: "Connect with the right influencers to amplify your brand message and reach new audiences authentically.",
-    features: ["Influencer research", "Campaign coordination", "Contract negotiation", "Performance tracking"],
-    price: "Starting at $2,500/mo"
+    features: ["Influencer research", "Campaign coordination", "Contract negotiation", "Performance tracking"]
   },
   {
     name: "Community Management",
     icon: MessageSquare,
     color: "#06b6d4",
     description: "Build and nurture an engaged community around your brand with proactive engagement and support.",
-    features: ["24/7 monitoring", "Response management", "Community building", "Crisis management"],
-    price: "Starting at $1,800/mo"
+    features: ["24/7 monitoring", "Response management", "Community building", "Crisis management"]
   },
   {
     name: "Brand Development",
     icon: Palette,
     color: "#8b5cf6",
     description: "Develop a cohesive brand identity that stands out in the digital landscape and resonates with your target audience.",
-    features: ["Brand guidelines", "Visual identity", "Voice & tone", "Brand positioning"],
-    price: "Starting at $3,000 project"
+    features: ["Brand guidelines", "Visual identity", "Voice & tone", "Brand positioning"]
   },
   {
     name: "SEO & Growth",
     icon: TrendingUp,
     color: "#14b8a6",
     description: "Optimize your social presence for discovery and growth with SEO-focused strategies and growth hacking techniques.",
-    features: ["Profile optimization", "Hashtag research", "Growth strategies", "SEO optimization"],
-    price: "Starting at $1,000/mo"
+    features: ["Profile optimization", "Hashtag research", "Growth strategies", "SEO optimization"]
   },
   {
     name: "Crisis Management",
     icon: Shield,
     color: "#dc2626",
     description: "Protect your brand reputation with proactive monitoring and rapid response strategies for any situation.",
-    features: ["24/7 monitoring", "Response protocols", "Reputation repair", "PR coordination"],
-    price: "Starting at $2,000/mo"
+    features: ["24/7 monitoring", "Response protocols", "Reputation repair", "PR coordination"]
   },
   {
     name: "Conversion Optimization",
     icon: Target,
     color: "#059669",
     description: "Turn followers into customers with strategic funnel optimization and conversion-focused content strategies.",
-    features: ["Funnel design", "CTA optimization", "Landing pages", "Lead generation"],
-    price: "Starting at $1,500/mo"
+    features: ["Funnel design", "CTA optimization", "Landing pages", "Lead generation"]
   },
   {
     name: "Automation & Tools",
     icon: Zap,
     color: "#ea580c",
     description: "Streamline your social media operations with automation tools and custom workflows for maximum efficiency.",
-    features: ["Tool setup", "Workflow automation", "Chatbot integration", "Scheduling systems"],
-    price: "Starting at $800/mo"
+    features: ["Tool setup", "Workflow automation", "Chatbot integration", "Scheduling systems"]
   }
 ];
 
@@ -180,13 +168,8 @@ function ServicesGrid() {
                     ))}
                   </div>
                   
-                  {/* Price */}
+                  {/* Connect Now CTA */}
                   <div className="mt-auto">
-                    <p className="text-lg font-semibold text-white mb-3" style={{ color: service.color }}>
-                      {service.price}
-                    </p>
-                    
-                    {/* Connect Now CTA */}
                     <a 
                       href="https://www.oneupapp.io/clientconnect?id=7745"
                       target="_blank"
