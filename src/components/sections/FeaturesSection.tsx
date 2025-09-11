@@ -97,7 +97,7 @@ function FeaturesSection() {
   ];
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+    <section className="pb-0 pt-20 px-4 bg-gradient-to-b from-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
         {/* Core Features Section */}
         <div className="text-center mb-16">

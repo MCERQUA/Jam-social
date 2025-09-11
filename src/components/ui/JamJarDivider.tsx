@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 export function JamJarDivider() {
   return (
-    <div className="relative py-16 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/10 to-transparent" />
+    <div className="relative py-12 md:py-16 overflow-visible">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/20 to-transparent" />
       
       <motion.div 
         className="relative flex flex-col justify-center items-center"
@@ -16,16 +16,17 @@ export function JamJarDivider() {
         viewport={{ once: true }}
       >
         <div className="relative">
-          {/* Glow effect behind image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-blue-500/20 blur-3xl" />
+          {/* Enhanced glow effect behind image - larger and brighter */}
+          <div className="absolute -inset-20 md:-inset-32 bg-gradient-to-r from-pink-500/30 via-purple-500/35 to-blue-500/30 blur-[60px] md:blur-[80px]" />
+          <div className="absolute -inset-12 md:-inset-20 bg-gradient-to-r from-purple-600/25 via-pink-600/30 to-purple-600/25 blur-[40px]" />
           
-          {/* Jam jar image */}
+          {/* Jam jar image - significantly larger */}
           <motion.img 
             src="/images/jam-jar.webp" 
-            alt="" 
-            className="relative w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl"
+            alt="Jam Social Media jar with label" 
+            className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] object-contain drop-shadow-2xl"
             animate={{
-              y: [0, -10, 0],
+              y: [0, -15, 0],
             }}
             transition={{
               duration: 4,
@@ -37,7 +38,7 @@ export function JamJarDivider() {
         
         {/* Tagline text */}
         <motion.p 
-          className="mt-6 text-gray-400 italic text-sm md:text-base text-center max-w-md px-4"
+          className="mt-8 text-gray-400 italic text-base md:text-lg text-center max-w-md px-4"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
