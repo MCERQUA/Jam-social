@@ -100,21 +100,8 @@ export function VideoCarousel({ videos, className }: VideoCarouselProps) {
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               
-              {/* Play Button */}
-              <button
-                onClick={() => handleVideoClick(activeIndex)}
-                className="absolute inset-0 flex items-center justify-center group"
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-all duration-300" />
-                  <div className="relative bg-white/90 backdrop-blur-sm rounded-full p-6 group-hover:scale-110 transition-transform duration-300">
-                    <Play className="w-12 h-12 text-gray-900 fill-gray-900 ml-1" />
-                  </div>
-                </div>
-              </button>
-              
-              {/* Video Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
+              {/* Video Info - pointer-events-none so clicks go through to button */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 pointer-events-none z-[5]">
                 <h3 className="text-2xl font-bold text-white mb-2">
                   {videos[activeIndex].title}
                 </h3>
@@ -128,6 +115,20 @@ export function VideoCarousel({ videos, className }: VideoCarouselProps) {
                     {videos[activeIndex].duration}
                   </span>
                 )}
+              </div>
+              
+              {/* Play Button - Higher z-index to be above text */}
+              <button
+                onClick={() => handleVideoClick(activeIndex)}
+                className="absolute inset-0 flex items-center justify-center group z-10"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-all duration-300" />
+                  <div className="relative bg-white/90 backdrop-blur-sm rounded-full p-6 group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-12 h-12 text-gray-900 fill-gray-900 ml-1" />
+                  </div>
+                </div>
+              </button>
               </div>
             </div>
           </motion.div>
