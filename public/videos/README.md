@@ -1,17 +1,20 @@
 # Video Carousel Content
 
-Add your video files to this folder for the video carousel showcase.
+Add your video files and thumbnails to this folder for the video carousel showcase.
+
+## How It Works
+- Videos are NOT loaded until a user clicks to play them
+- Only thumbnails are shown initially for fast page loading
+- Clicking a thumbnail opens a modal with the actual video
 
 ## Supported Formats
-- MP4 (recommended)
-- WebM
-- MOV
+- **Videos**: MP4 (recommended), WebM, MOV
+- **Thumbnails**: JPG, PNG, WebP (recommended)
 
 ## Naming Convention
-Name your video files descriptively, for example:
-- `social-media-campaign.mp4`
-- `viral-content-example.mp4`
-- `brand-promotion.mp4`
+Name your files descriptively, for example:
+- Videos: `social-media-campaign.mp4`, `viral-content.mp4`
+- Thumbnails: `social-media-campaign-thumb.jpg`, `viral-content-thumb.jpg`
 
 ## File Size Recommendations
 - Keep videos under 10MB for optimal loading

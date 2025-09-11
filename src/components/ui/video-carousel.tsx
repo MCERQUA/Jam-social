@@ -4,11 +4,13 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VideoModal } from "./video-modal";
 
 interface Video {
   id: string;
   title: string;
   thumbnail: string;
+  url?: string; // Added URL for actual video file
   duration?: string;
   description?: string;
 }
@@ -21,6 +23,7 @@ interface VideoCarouselProps {
 export function VideoCarousel({ videos, className }: VideoCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const startAutoPlay = () => {
@@ -58,10 +61,19 @@ export function VideoCarousel({ videos, className }: VideoCarouselProps) {
 
   const handleVideoClick = (index: number) => {
     setActiveIndex(index);
-    setIsPlaying(true);
     stopAutoPlay();
-    // Here you would typically play the video
-    console.log("Play video:", videos[index].title);
+    
+    // If video has a URL, open it in the modal
+    if (videos[index].url) {
+      setSelectedVideo(videos[index]);
+      setIsPlaying(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedVideo(null);
+    setIsPlaying(false);
+    startAutoPlay();
   };
 
   return (
@@ -192,6 +204,14 @@ export function VideoCarousel({ videos, className }: VideoCarouselProps) {
           />
         ))}
       </div>
+      
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={!!selectedVideo}
+        onClose={handleCloseModal}
+        videoUrl={selectedVideo?.url}
+        title={selectedVideo?.title}
+      />
     </div>
   );
 }
