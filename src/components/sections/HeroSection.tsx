@@ -22,8 +22,13 @@ function HeroSection() {
       <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
         <div className="w-full max-w-7xl mx-auto">
           
+          {/* Social Icons Animation */}
+          <div className="relative w-full mb-12">
+            <SocialIconsAnimation />
+          </div>
+          
           {/* Hero Text */}
-          <div className="text-center mb-12">
+          <div className="text-center">
             <SparklesText 
               text="Jam Social Media"
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6"
@@ -45,11 +50,6 @@ function HeroSection() {
                 See Features
               </button>
             </div>
-          </div>
-          
-          {/* Social Icons Animation */}
-          <div className="relative w-full">
-            <SocialIconsAnimation />
           </div>
         </div>
       </div>
