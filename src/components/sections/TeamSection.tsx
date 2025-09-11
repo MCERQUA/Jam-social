@@ -29,13 +29,6 @@ function TeamSection() {
     },
     {
       id: 4,
-      name: "Nick",
-      designation: "Analytics Manager",
-      image: "/team/nick.jpg",
-      bio: "Performance optimization expert who transforms social metrics into actionable insights. Ensures every campaign delivers measurable ROI."
-    },
-    {
-      id: 5,
       name: "EchoAI",
       designation: "AI Integration Specialist",
       image: "/images/echoai.webp",
