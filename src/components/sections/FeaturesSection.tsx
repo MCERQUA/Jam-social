@@ -93,7 +93,8 @@ function FeaturesSection() {
             <SpotlightCard
               key={index}
               className="p-6 bg-gray-800/50 border border-gray-700/50 rounded-xl backdrop-blur-sm"
-              spotlightColor="rgba(0, 112, 243, 0.15)"
+              glowColor="pink"
+              intensity="high"
             >
               <div className="space-y-4">
                 {feature.content}
