@@ -130,7 +130,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
             src={item.image}
             alt={item.name}
             className={cn(
-              "object-cover !m-0 !p-0 object-top rounded-full border-2 border-white group-hover:scale-105 group-hover:z-30 relative transition duration-500",
+              "object-cover !m-0 !p-0 object-top rounded-full border-2 border-pink-500/70 shadow-[0_0_20px_rgba(236,72,153,0.4)] group-hover:scale-105 group-hover:z-30 group-hover:shadow-[0_0_30px_rgba(236,72,153,0.6)] relative transition-all duration-500",
               avatarSizeConfigs[avatarSize],
               idx !== 0 && "-ml-4"
             )}
