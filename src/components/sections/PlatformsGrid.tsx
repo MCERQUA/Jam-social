@@ -178,18 +178,34 @@ function PlatformsGrid() {
                   <button 
                     className="w-full py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                     style={{
-                      backgroundColor: `${platform.color}20`,
-                      border: `1px solid ${platform.color}60`,
+                      backgroundColor: (platform.name === "Threads" || platform.name === "TikTok" || platform.name === "X (Twitter)") 
+                        ? "rgba(156, 163, 175, 0.2)" 
+                        : `${platform.color}20`,
+                      border: (platform.name === "Threads" || platform.name === "TikTok" || platform.name === "X (Twitter)")
+                        ? "1px solid rgba(156, 163, 175, 0.6)"
+                        : `1px solid ${platform.color}60`,
                       color: '#ffffff',
-                      boxShadow: `0 0 20px ${platform.color}30`
+                      boxShadow: (platform.name === "Threads" || platform.name === "TikTok" || platform.name === "X (Twitter)")
+                        ? "0 0 20px rgba(156, 163, 175, 0.3)"
+                        : `0 0 20px ${platform.color}30`
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = `${platform.color}40`;
-                      e.currentTarget.style.boxShadow = `0 0 30px ${platform.color}60`;
+                      if (platform.name === "Threads" || platform.name === "TikTok" || platform.name === "X (Twitter)") {
+                        e.currentTarget.style.backgroundColor = "rgba(156, 163, 175, 0.4)";
+                        e.currentTarget.style.boxShadow = "0 0 30px rgba(156, 163, 175, 0.6)";
+                      } else {
+                        e.currentTarget.style.backgroundColor = `${platform.color}40`;
+                        e.currentTarget.style.boxShadow = `0 0 30px ${platform.color}60`;
+                      }
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = `${platform.color}20`;
-                      e.currentTarget.style.boxShadow = `0 0 20px ${platform.color}30`;
+                      if (platform.name === "Threads" || platform.name === "TikTok" || platform.name === "X (Twitter)") {
+                        e.currentTarget.style.backgroundColor = "rgba(156, 163, 175, 0.2)";
+                        e.currentTarget.style.boxShadow = "0 0 20px rgba(156, 163, 175, 0.3)";
+                      } else {
+                        e.currentTarget.style.backgroundColor = `${platform.color}20`;
+                        e.currentTarget.style.boxShadow = `0 0 20px ${platform.color}30`;
+                      }
                     }}
                   >
                     Connect Now
