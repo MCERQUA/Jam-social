@@ -11,16 +11,38 @@ import ContactSection from '../components/sections/ContactSection';
 
 <Layout title="Jam Social Media - Professional Social Media Management">
   <style>
-    /* Emergency fix: Hide all astro islands until hydrated */
+    /* CRITICAL: Hide EVERYTHING until React loads */
     astro-island { 
-      opacity: 0 !important; 
-      transition: opacity 0.3s;
+      display: none !important;
     }
     astro-island:not([ssr]) { 
-      opacity: 1 !important; 
+      display: block !important;
+      animation: fadeIn 0.3s ease-in;
     }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Hide any stray text */
+    body::before,
+    body::after,
+    main::before,
+    main::after {
+      display: none !important;
+    }
+    
     .hero-loading {
-      z-index: 1;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+    }
+    
+    /* Once React loads, hide the loading screen */
+    body:has(astro-island:not([ssr])) .hero-loading {
+      display: none;
     }
   </style>
   <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/20">
@@ -52,3 +74,34 @@ import ContactSection from '../components/sections/ContactSection';
     </section>
   </main>
 </Layout>
+
+<script>
+  // Remove any text nodes that might be orphaned
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find all text nodes in body
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: (node) => {
+          const text = node.textContent?.trim();
+          if (text && 
+              (text.includes('Amplify your brand') || 
+               text.includes('Transform your social media') ||
+               text.includes('Jam Social Media')) &&
+              !node.parentElement?.closest('astro-island')) {
+            return NodeFilter.FILTER_ACCEPT;
+          }
+          return NodeFilter.FILTER_REJECT;
+        }
+      }
+    );
+    
+    // Remove any orphaned text nodes
+    const nodesToRemove = [];
+    while (walker.nextNode()) {
+      nodesToRemove.push(walker.currentNode);
+    }
+    nodesToRemove.forEach(node => node.remove());
+  });
+</script>
