@@ -7,7 +7,7 @@ import { AnimatedBorder } from "../ui/animated-border";
 function NavbarWithGlow() {
   return (
     <AnimatedBorder 
-      className="w-full max-w-4xl mx-auto"
+      className="w-fit mx-auto"
       borderRadius="rounded-full"
       glowIntensity="high"
     >
