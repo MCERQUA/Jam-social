@@ -4,4 +4,5 @@ export { default as FeaturesSection } from "./FeaturesSection";
 export { default as ServicesSection } from "./ServicesSection";
 export { default as PlatformsSection } from "./PlatformsSection";
 export { default as TeamSection } from "./TeamSection";
+export { default as ConnectAccountSection } from "./ConnectAccountSection";
 export { default as ContactSection } from "./ContactSection";

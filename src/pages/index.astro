@@ -7,6 +7,7 @@ import VideoShowcase from '../components/sections/VideoShowcase';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
 import TeamSection from '../components/sections/TeamSection';
+import ConnectAccountSection from '../components/sections/ConnectAccountSection';
 import ContactSection from '../components/sections/ContactSection';
 ---
 
@@ -29,6 +30,9 @@ import ContactSection from '../components/sections/ContactSection';
     </section>
     <section id="team">
       <TeamSection client:only="react" />
+    </section>
+    <section id="connect">
+      <ConnectAccountSection client:only="react" />
     </section>
     <section id="contact">
       <ContactSection client:only="react" />
