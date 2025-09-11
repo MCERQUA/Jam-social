@@ -11,8 +11,8 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen w-full bg-black overflow-visible">
       
-      {/* Aurora Background */}
-      <div className="absolute inset-0 opacity-40">
+      {/* Aurora Background - Extended to cover top gap */}
+      <div className="absolute -top-20 left-0 right-0 bottom-0 opacity-40">
         <Aurora
           colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
           blend={0.6}
