@@ -60,33 +60,11 @@ function TeamSection() {
           </p>
         </div>
         
-        <div className="flex flex-wrap justify-center items-center gap-8 mb-16">
+        <div className="flex flex-wrap justify-center items-center gap-8">
           <AnimatedTooltip items={teamMembers} />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {teamMembers.map((member) => (
-            <div 
-              key={member.id}
-              className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:transform hover:scale-105"
-            >
-              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                {member.name.split(' ').map(n => n[0]).join('')}
-              </div>
-              <h3 className="text-xl font-semibold text-white text-center mb-2">
-                {member.name}
-              </h3>
-              <p className="text-blue-400 text-center mb-4 font-medium">
-                {member.designation}
-              </p>
-              <p className="text-gray-400 text-sm leading-relaxed text-center">
-                {member.bio}
-              </p>
-            </div>
-          ))}
-        </div>
-        
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <p className="text-gray-400 text-lg mb-6">
             Ready to work with industry experts who understand your vision?
           </p>
