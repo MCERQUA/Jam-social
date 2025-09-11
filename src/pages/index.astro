@@ -6,6 +6,7 @@ import FeaturesSection from '../components/sections/FeaturesSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
 import TeamSection from '../components/sections/TeamSection';
+import ClientConnectSection from '../components/sections/ClientConnectSection';
 import ContactSection from '../components/sections/ContactSection';
 ---
 
@@ -31,6 +32,9 @@ import ContactSection from '../components/sections/ContactSection';
     </section>
     <section id="team">
       <TeamSection client:only="react" />
+    </section>
+    <section id="connect">
+      <ClientConnectSection client:only="react" />
     </section>
     <section id="contact">
       <ContactSection client:only="react" />
