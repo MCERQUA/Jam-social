@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import NavbarWithGlow from '../components/sections/NavbarWithGlow';
 import HeroSection from '../components/sections/HeroSection';
-import { StackFeatureSection } from '../components/ui/stack-feature-section';
 import FeaturesSection from '../components/sections/FeaturesSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
@@ -32,9 +31,6 @@ import ContactSection from '../components/sections/ContactSection';
     </section>
     <section id="team">
       <TeamSection client:only="react" />
-    </section>
-    <section id="schedule" class="py-20 bg-gradient-to-b from-gray-900 to-black">
-      <StackFeatureSection client:only="react" />
     </section>
     <section id="contact">
       <ContactSection client:only="react" />
