@@ -27,7 +27,7 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-gray-800 hover:text-blue-600 dark:text-white dark:hover:text-blue-400 font-medium"
+        className="cursor-pointer text-gray-800 hover:text-pink-600 dark:text-white dark:hover:text-pink-400 font-medium"
       >
         {item}
       </motion.p>
@@ -85,11 +85,18 @@ export const HoveredLink = ({
   [key: string]: any;
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // For internal navigation (starting with / or #)
+    console.log('Link clicked:', href); // Debug log
+    
+    // For paths starting with /
     if (href.startsWith('/')) {
       e.preventDefault();
-      window.location.href = href;
-    } else if (href.startsWith('#')) {
+      e.stopPropagation();
+      // Use replace for immediate navigation
+      window.location.replace(href);
+      return false;
+    } 
+    // For hash links on same page
+    else if (href.startsWith('#')) {
       e.preventDefault();
       const element = document.querySelector(href);
       if (element) {
@@ -102,7 +109,8 @@ export const HoveredLink = ({
     <a
       href={href}
       onClick={handleClick}
-      className={`text-neutral-700 dark:text-neutral-200 hover:text-black transition-colors duration-200 ${className}`}
+      onMouseDown={(e) => e.preventDefault()} // Prevent default mouse down
+      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block ${className}`}
       {...rest}
     >
       {children}
