@@ -4,6 +4,7 @@ import NavbarWithGlow from '../components/sections/NavbarWithGlow';
 import HeroSection from '../components/sections/HeroSection';
 import FeaturesSection from '../components/sections/FeaturesSection';
 import JamJarDivider from '../components/ui/JamJarDivider';
+import VideoShowcase from '../components/sections/VideoShowcase';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
 import TeamSection from '../components/sections/TeamSection';
@@ -26,6 +27,9 @@ import ContactSection from '../components/sections/ContactSection';
       <FeaturesSection client:only="react" />
     </section>
     <JamJarDivider client:only="react" />
+    <section id="videos">
+      <VideoShowcase client:only="react" />
+    </section>
     <section id="services">
       <ServicesSection client:only="react" />
     </section>
