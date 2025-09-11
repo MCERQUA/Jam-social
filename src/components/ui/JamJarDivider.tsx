@@ -16,9 +16,9 @@ export function JamJarDivider() {
         viewport={{ once: true }}
       >
         <div className="relative">
-          {/* Subtle, contained glow effect - very close to the jar */}
-          <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-pink-500/15 via-purple-500/20 to-blue-500/15 blur-[30px] md:blur-[35px]" />
-          <div className="absolute -inset-2 md:-inset-3 bg-gradient-to-r from-purple-600/10 via-pink-600/15 to-purple-600/10 blur-[20px]" />
+          {/* Very subtle, tight glow effect - minimal spread */}
+          <div className="absolute -inset-2 md:-inset-3 bg-gradient-to-r from-pink-500/10 via-purple-500/12 to-blue-500/10 blur-[20px] md:blur-[25px]" />
+          <div className="absolute -inset-1 md:-inset-1.5 bg-gradient-to-r from-purple-600/8 via-pink-600/10 to-purple-600/8 blur-[15px]" />
           
           {/* Jam jar image - significantly larger */}
           <motion.img 
