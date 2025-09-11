@@ -24,8 +24,8 @@ export function AnimatedBorder({
 
   return (
     <div className={cn("relative group inline-block p-[3px]", borderRadius, className)}>
-      {/* Outer glow container */}
-      <div className={cn("absolute inset-0", borderRadius, "overflow-hidden")}>
+      {/* Outer glow container - pointer-events-none to not block clicks */}
+      <div className={cn("absolute inset-0 pointer-events-none", borderRadius, "overflow-hidden")}>
         {/* Rotating gradient background */}
         <div 
           className="absolute inset-0 w-[200%] h-[200%] -left-1/2 -top-1/2"
@@ -36,21 +36,21 @@ export function AnimatedBorder({
         />
       </div>
       
-      {/* Glow effect */}
+      {/* Glow effect - pointer-events-none to not block clicks */}
       <div className={cn(
-        "absolute inset-0",
+        "absolute inset-0 pointer-events-none",
         borderRadius,
         "bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500",
         glowConfig[glowIntensity],
         "group-hover:blur-2xl transition-all duration-500"
       )} />
       
-      {/* Content container */}
+      {/* Content container - ensure clicks go through */}
       <div className={cn(
-        "relative bg-gray-900/95 backdrop-blur-xl z-10",
+        "relative bg-gray-900/95 backdrop-blur-xl z-20",
         borderRadius,
         "overflow-hidden"
-      )}>
+      )} style={{ pointerEvents: 'auto' }}>
         {children}
       </div>
       

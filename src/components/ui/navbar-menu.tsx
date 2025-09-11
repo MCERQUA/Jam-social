@@ -39,13 +39,14 @@ export const MenuItem = ({
           style={{ pointerEvents: active === item ? 'auto' : 'none' }}
         >
           {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4 z-50">
+            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4 z-[100]" style={{ pointerEvents: 'auto' }}>
               <motion.div
                 transition={transition}
                 layoutId="active"
                 className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 shadow-2xl"
+                style={{ pointerEvents: 'auto' }}
               >
-                <motion.div layout className="w-max h-full p-4">
+                <motion.div layout className="w-max h-full p-4" style={{ pointerEvents: 'auto' }}>
                   {children}
                 </motion.div>
               </motion.div>
@@ -85,33 +86,34 @@ export const HoveredLink = ({
   className?: string;
   [key: string]: any;
 }) => {
+  // MENU FIX ATTEMPT LOG:
+  // 1. Changed href from #platforms to /platforms - DONE
+  // 2. Added z-index fixes (z-50 on dropdown, z-10 on content) - DONE
+  // 3. Added pointerEvents: 'auto' - DONE
+  // 4. Changed window.location.replace to window.location.href - DONE
+  // 5. NOW: Simplifying click handler, removing preventDefault for regular links
+  
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    console.log('Link clicked:', href); // Debug log
+    console.log('Menu link clicked:', href);
     
-    // For paths starting with /
-    if (href.startsWith('/')) {
-      e.preventDefault();
-      e.stopPropagation();
-      // Use window.location.href for navigation
-      window.location.href = href;
-      return false;
-    } 
     // For hash links on same page
-    else if (href.startsWith('#')) {
+    if (href.startsWith('#')) {
       e.preventDefault();
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    // For paths starting with / - let the browser handle it naturally
+    // No preventDefault - allow normal link behavior
   };
 
   return (
     <a
       href={href}
       onClick={handleClick}
-      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-50 ${className}`}
-      style={{ pointerEvents: 'auto' }}
+      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-[100] ${className}`}
+      style={{ pointerEvents: 'auto', position: 'relative' }}
       {...rest}
     >
       {children}
