@@ -5,18 +5,29 @@ import { SparklesText } from "../ui/sparkles-text";
 import { SparklesCore } from "../ui/sparkles";
 import { SplashCursor } from "../ui/splash-cursor";
 import { SocialIconsAnimation } from "../ui/social-icons-animation";
+import Aurora from "../ui/Aurora";
 
 function HeroSection() {
   return (
     <section className="relative min-h-screen w-full bg-black overflow-visible">
       
+      {/* Aurora Background */}
+      <div className="absolute inset-0 opacity-40">
+        <Aurora
+          colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
+          blend={0.6}
+          amplitude={0.8}
+          speed={0.3}
+        />
+      </div>
+      
       {/* Splash Cursor - Desktop Only */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none">
+      <div className="hidden lg:block absolute inset-0 pointer-events-none z-10">
         <SplashCursor />
       </div>
       
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-black to-black" />
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black z-[5]" />
       
       {/* Content */}
       <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
