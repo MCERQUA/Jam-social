@@ -128,9 +128,9 @@ function ServicesGrid() {
                     <div 
                       className="relative p-3 rounded-lg border"
                       style={{ 
-                        backgroundColor: `${service.color}40`,
-                        borderColor: `${service.color}60`,
-                        boxShadow: `0 0 30px ${service.color}80, 0 0 15px ${service.color}40`
+                        backgroundColor: `${service.color}20`,
+                        borderColor: `${service.color}50`,
+                        boxShadow: `0 0 25px ${service.color}60`
                       }}
                     >
                       <Icon
