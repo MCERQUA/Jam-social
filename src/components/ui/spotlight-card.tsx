@@ -48,9 +48,9 @@ const colorConfigs = {
     glow: '249, 115, 22'
   },
   pink: {
-    primary: 'rgba(236, 72, 153, 0.15)',
-    border: 'rgba(236, 72, 153, 0.3)',
-    glow: '236, 72, 153'
+    primary: 'rgba(255, 20, 147, 0.25)',
+    border: 'rgba(255, 20, 147, 0.5)',
+    glow: '255, 20, 147'
   },
   indigo: {
     primary: 'rgba(99, 102, 241, 0.15)',
@@ -62,7 +62,7 @@ const colorConfigs = {
 const intensityConfigs = {
   low: { opacity: 0.6, blur: 20, scale: 0.8 },
   medium: { opacity: 0.8, blur: 15, scale: 1 },
-  high: { opacity: 1, blur: 10, scale: 1.2 }
+  high: { opacity: 1, blur: 30, scale: 1.05 }
 };
 
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
@@ -120,7 +120,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     overflow: 'hidden',
     transform: isHovered ? `scale(${intensityConfig.scale})` : 'scale(1)',
     boxShadow: isHovered 
-      ? `0 0 ${intensityConfig.blur}px rgba(${colorConfig.glow}, ${intensityConfig.opacity})`
+      ? `0 0 ${intensityConfig.blur}px rgba(${colorConfig.glow}, ${intensityConfig.opacity}), 0 0 ${intensityConfig.blur * 2}px rgba(${colorConfig.glow}, ${intensityConfig.opacity * 0.5}), 0 0 ${intensityConfig.blur * 3}px rgba(${colorConfig.glow}, ${intensityConfig.opacity * 0.3})`
       : 'none',
   };
 
