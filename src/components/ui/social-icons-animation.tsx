@@ -143,15 +143,6 @@ export function SocialIconsAnimation() {
         </div>
       </div>
       
-      {/* Title */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 text-center z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-          All Platforms. One Strategy.
-        </h2>
-        <p className="text-gray-300 text-lg">
-          Unified social media management across every major platform
-        </p>
-      </div>
     </div>
   );
 }

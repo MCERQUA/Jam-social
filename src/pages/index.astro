@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/sections/Navbar';
 import HeroSection from '../components/sections/HeroSection';
+import { StackFeatureSection } from '../components/ui/stack-feature-section';
 import FeaturesSection from '../components/sections/FeaturesSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
@@ -19,6 +20,9 @@ import ContactSection from '../components/sections/ContactSection';
   <main class="pt-20">
     <section id="hero" class="relative min-h-screen bg-black overflow-hidden">
       <HeroSection client:only="react" />
+    </section>
+    <section id="schedule" class="py-20 bg-gradient-to-b from-black to-gray-900">
+      <StackFeatureSection client:only="react" />
     </section>
     <section id="features">
       <FeaturesSection client:only="react" />
