@@ -3,7 +3,7 @@
 import React from "react";
 import { SpotlightCard } from "../ui/spotlight-card";
 import { SparklesText } from "../ui/sparkles-text";
-import { Calendar, Brain, Video, Image, Cube3D, Globe, Search, Sparkles } from "lucide-react";
+import { Calendar, Brain, Video, Image, Box, Globe, Search, Sparkles } from "lucide-react";
 
 function FeaturesSection() {
   const coreFeatures = [
@@ -69,7 +69,7 @@ function FeaturesSection() {
               <span>Interactive</span>
             </div>
             <div className="flex items-center gap-1 text-xs text-gray-300">
-              <Cube3D className="w-4 h-4 text-purple-400" />
+              <Box className="w-4 h-4 text-purple-400" />
               <span>3D Content</span>
             </div>
           </div>
