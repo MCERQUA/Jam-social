@@ -137,9 +137,11 @@ function FeaturesSection() {
         {/* The Jam Difference Section */}
         <div className="mt-24">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              The Jam Difference
-            </h2>
+            <SparklesText 
+              text="The Jam Difference"
+              className="text-3xl md:text-5xl font-bold text-white mb-4"
+              sparklesCount={12}
+            />
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
               What sets us apart in the world of social media management
             </p>

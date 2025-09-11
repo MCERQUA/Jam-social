@@ -10,28 +10,24 @@ function ServicesSection() {
       title: "Content Strategy",
       description: "Comprehensive content planning and strategy development tailored to your brand voice and audience.",
       features: ["Content Calendar Planning", "Brand Voice Development", "Audience Research", "Competitor Analysis"],
-      price: "Starting at $2,500/mo",
       highlight: false
     },
     {
       title: "Social Media Management",
       description: "Full-service social media management including content creation, posting, and community engagement.",
       features: ["Daily Content Creation", "Multi-Platform Posting", "Community Management", "Monthly Analytics Reports"],
-      price: "Starting at $3,500/mo",
       highlight: true
     },
     {
       title: "Influencer Partnerships",
       description: "Connect with the right influencers to amplify your brand reach and build authentic relationships.",
       features: ["Influencer Identification", "Campaign Management", "Contract Negotiation", "Performance Tracking"],
-      price: "Starting at $4,000/mo",
       highlight: false
     },
     {
       title: "Paid Advertising",
       description: "Strategic paid social campaigns across platforms to drive conversions and maximize ROI.",
       features: ["Campaign Strategy", "Ad Creative Development", "Audience Targeting", "Performance Optimization"],
-      price: "Starting at $2,000/mo + ad spend",
       highlight: false
     }
   ];

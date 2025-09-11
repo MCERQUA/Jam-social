@@ -76,18 +76,11 @@ const ServiceCard: React.FC<ServiceCardProps & { isActive?: boolean; onClick?: (
         </ul>
       )}
       
-      {price && (
-        <div className="pt-4 border-t border-gray-700">
-          <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
-              {price}
-            </span>
-            <button className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300">
-              Get Started
-            </button>
-          </div>
-        </div>
-      )}
+      <div className="pt-4 border-t border-gray-700">
+        <button className="w-full px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300">
+          Get Started
+        </button>
+      </div>
     </motion.div>
   );
 };
