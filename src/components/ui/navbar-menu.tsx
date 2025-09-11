@@ -84,9 +84,24 @@ export const HoveredLink = ({
   className?: string;
   [key: string]: any;
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // For internal navigation (starting with / or #)
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      window.location.href = href;
+    } else if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <a
       href={href}
+      onClick={handleClick}
       className={`text-neutral-700 dark:text-neutral-200 hover:text-black transition-colors duration-200 ${className}`}
       {...rest}
     >

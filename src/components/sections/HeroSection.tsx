@@ -11,12 +11,12 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen w-full bg-black overflow-visible">
       
-      {/* Aurora Background - Single optimized layer */}
-      <div className="absolute -top-20 left-0 right-0 h-[110%] opacity-50">
+      {/* Aurora Background - Enhanced intensity and size */}
+      <div className="absolute -top-40 left-0 right-0 h-[140%] opacity-80">
         <Aurora
           colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
-          blend={0.7}
-          amplitude={1.0}
+          blend={0.9}
+          amplitude={1.5}
           speed={0.35}
         />
       </div>
@@ -26,8 +26,8 @@ function HeroSection() {
         <SplashCursor />
       </div>
       
-      {/* Background gradient overlay - Lighter to show more Aurora */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80 z-[5]" />
+      {/* Background gradient overlay - Even lighter to show more Aurora */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70 z-[5]" />
       
       {/* Content */}
       <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
