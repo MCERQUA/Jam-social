@@ -46,12 +46,12 @@ function VideoShowcase() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <SparklesText 
-            text="Success Stories"
+            text="Branded Commercials"
             className="text-4xl md:text-6xl font-bold text-white mb-6"
             sparklesCount={15}
           />
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            See how we've helped brands transform their social media presence
+            Spreading your brand like jam - smooth, sweet, and impossible to ignore
           </p>
         </div>
         
