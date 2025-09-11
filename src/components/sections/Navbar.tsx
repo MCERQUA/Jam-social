@@ -12,36 +12,36 @@ function Navbar() {
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="#hero">Welcome</HoveredLink>
-            <HoveredLink href="#about">About Us</HoveredLink>
-            <HoveredLink href="#why-choose-us">Why Choose Us</HoveredLink>
+            <HoveredLink href="#features">Features</HoveredLink>
+            <HoveredLink href="#videos">Videos</HoveredLink>
           </div>
         </MenuItem>
         
         <MenuItem setActive={setActive} active={active} item="Services">
           <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="#services">All Services</HoveredLink>
             <HoveredLink href="#services">Content Strategy</HoveredLink>
             <HoveredLink href="#services">Social Media Management</HoveredLink>
-            <HoveredLink href="#services">Influencer Partnerships</HoveredLink>
-            <HoveredLink href="#services">Paid Advertising</HoveredLink>
+            <HoveredLink href="#services">Analytics & Reporting</HoveredLink>
           </div>
         </MenuItem>
         
         <MenuItem setActive={setActive} active={active} item="Platforms">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/platforms">All Platforms</HoveredLink>
-            <HoveredLink href="/platforms#instagram">Instagram</HoveredLink>
-            <HoveredLink href="/platforms#linkedin">LinkedIn</HoveredLink>
-            <HoveredLink href="/platforms#tiktok">TikTok</HoveredLink>
-            <HoveredLink href="/platforms#facebook">Facebook</HoveredLink>
-            <HoveredLink href="/platforms#youtube">YouTube</HoveredLink>
+            <HoveredLink href="#platforms">All Platforms</HoveredLink>
+            <HoveredLink href="#platforms">Instagram</HoveredLink>
+            <HoveredLink href="#platforms">LinkedIn</HoveredLink>
+            <HoveredLink href="#platforms">TikTok</HoveredLink>
+            <HoveredLink href="#platforms">Facebook</HoveredLink>
+            <HoveredLink href="#platforms">YouTube</HoveredLink>
           </div>
         </MenuItem>
         
-        <MenuItem setActive={setActive} active={active} item="Contact">
+        <MenuItem setActive={setActive} active={active} item="More">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#contact">Get In Touch</HoveredLink>
-            <HoveredLink href="#contact">Request Quote</HoveredLink>
-            <HoveredLink href="#contact">Support</HoveredLink>
+            <HoveredLink href="#team">Our Team</HoveredLink>
+            <HoveredLink href="#connect">Connect Accounts</HoveredLink>
+            <HoveredLink href="#contact">Contact Us</HoveredLink>
           </div>
         </MenuItem>
       </Menu>
