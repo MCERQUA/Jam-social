@@ -53,7 +53,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
         y: Math.random() * rect.height,
         color: Math.random() > 0.5 ? colors.first : colors.second,
         delay: Math.random() * 2,
-        scale: 0.5 + Math.random() * 0.5,
+        scale: 0.7 + Math.random() * 0.8,
         duration: 1 + Math.random() * 2
       });
     }
@@ -116,8 +116,8 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
           custom={index}
         >
           <svg
-            width="10"
-            height="10"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="currentColor"
             className="animate-pulse"
@@ -132,7 +132,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
         {Array.from({ length: Math.floor(sparklesCount / 2) }).map((_, i) => (
           <motion.div
             key={`ambient-${i}`}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-2 h-2 rounded-full"
             style={{
               background: `linear-gradient(45deg, ${colors.first}, ${colors.second})`,
               left: `${Math.random() * 100}%`,
