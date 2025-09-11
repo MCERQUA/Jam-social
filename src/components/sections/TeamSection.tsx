@@ -10,21 +10,21 @@ function TeamSection() {
       id: 1,
       name: "Josh",
       designation: "Creative Director",
-      image: "/team/josh.jpg",
+      image: "/images/josh.webp",
       bio: "Visionary creative leader with expertise in brand storytelling and innovative campaign development. Drives the creative vision across all client projects."
     },
     {
       id: 2,
       name: "Mike",
       designation: "Social Media Strategist",
-      image: "/team/mike.jpg",
+      image: "/images/mike-cerqua.webp",
       bio: "Strategic mastermind specializing in data-driven growth tactics and multi-platform optimization. Expert in scaling brand presence across social channels."
     },
     {
       id: 3,
       name: "Danielle",
       designation: "Content Creator",
-      image: "/team/danielle.jpg",
+      image: "/images/danielle.webp",
       bio: "Creative content specialist with a keen eye for trending formats and viral potential. Crafts compelling narratives that resonate with target audiences."
     },
     {
@@ -38,7 +38,7 @@ function TeamSection() {
       id: 5,
       name: "EchoAI",
       designation: "AI Integration Specialist",
-      image: "/team/echoai.jpg",
+      image: "/images/echoai.webp",
       bio: "Advanced AI system powering intelligent automation and content optimization. Enhances creativity with cutting-edge machine learning capabilities."
     }
   ];
