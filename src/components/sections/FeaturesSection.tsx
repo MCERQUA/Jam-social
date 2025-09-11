@@ -111,17 +111,20 @@ function FeaturesSection() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-20 max-w-6xl mx-auto">
           {coreFeatures.map((feature, index) => (
             <SpotlightCard
               key={index}
-              className="p-6 bg-gray-800/50 border border-gray-700/50 rounded-xl backdrop-blur-sm"
+              className="w-full h-auto min-h-[280px] md:min-h-[320px] p-5 md:p-6 bg-gray-800/50 border border-gray-700/50 rounded-xl backdrop-blur-sm"
               glowColor="pink"
               intensity="high"
+              customSize={true}
+              width="100%"
+              height="auto"
             >
-              <div className="space-y-4">
+              <div className="space-y-4 h-full flex flex-col">
                 {feature.content}
-                <div className="pt-4 pb-2 border-t border-gray-700/50">
+                <div className="pt-4 pb-2 border-t border-gray-700/50 mt-auto">
                   <p className="text-gray-400 text-sm leading-relaxed">
                     {feature.description}
                   </p>
@@ -142,11 +145,11 @@ function FeaturesSection() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {jamDifference.map((item, index) => (
               <div 
                 key={index}
-                className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 p-6 rounded-xl border border-gray-700/30 hover:border-purple-500/30 transition-all duration-300"
+                className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 p-5 md:p-6 rounded-xl border border-gray-700/30 hover:border-purple-500/30 transition-all duration-300"
               >
                 <div className="flex flex-col items-center text-center space-y-4">
                   {item.icon}
