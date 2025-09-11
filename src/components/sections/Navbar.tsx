@@ -11,9 +11,10 @@ function Navbar() {
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="#hero">Welcome</HoveredLink>
-            <HoveredLink href="#features">Features</HoveredLink>
-            <HoveredLink href="#videos">Videos</HoveredLink>
+            <HoveredLink href="/">Home</HoveredLink>
+            <HoveredLink href="/#hero">Welcome</HoveredLink>
+            <HoveredLink href="/#features">Features</HoveredLink>
+            <HoveredLink href="/#videos">Videos</HoveredLink>
           </div>
         </MenuItem>
         

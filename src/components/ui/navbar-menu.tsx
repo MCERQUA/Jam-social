@@ -23,10 +23,12 @@ export const MenuItem = ({
   item: string;
   children?: React.ReactNode;
 }) => {
-  // Make Platforms menu item directly clickable as fallback
+  // Make menu items directly clickable as fallback
   const handleMenuClick = () => {
     if (item === "Platforms") {
       window.location.href = "/platforms";
+    } else if (item === "Home") {
+      window.location.href = "/";
     }
   };
 
