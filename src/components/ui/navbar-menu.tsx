@@ -38,7 +38,7 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-gray-800 hover:text-pink-600 dark:text-white dark:hover:text-pink-400 font-medium"
+        className="cursor-pointer text-white hover:text-pink-400 font-medium"
         onClick={handleMenuClick}
       >
         {item}
@@ -55,7 +55,7 @@ export const MenuItem = ({
               <motion.div
                 transition={transition}
                 layoutId="active"
-                className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 shadow-2xl"
+                className="bg-gray-900/95 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl"
                 style={{ pointerEvents: 'auto' }}
               >
                 <motion.div layout className="w-max h-full p-4" style={{ pointerEvents: 'auto' }}>
@@ -80,7 +80,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)}
-      className="relative rounded-full border border-transparent dark:bg-gray-900/90 dark:border-gray-700/50 bg-white/90 backdrop-blur-md shadow-lg flex justify-center space-x-6 px-8 py-4"
+      className="relative rounded-full bg-gray-900/90 border border-gray-700/50 backdrop-blur-md shadow-lg flex justify-center space-x-6 px-8 py-4"
     >
       {children}
     </nav>
@@ -104,7 +104,7 @@ export const HoveredLink = ({
   return (
     <a
       href={href}
-      className={`text-neutral-700 dark:text-neutral-200 hover:text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-[100] ${className}`}
+      className={`text-neutral-200 hover:text-pink-500 hover:bg-pink-900/20 p-1 rounded transition-all duration-200 cursor-pointer block relative z-[100] ${className}`}
       style={{ pointerEvents: 'auto', position: 'relative', zIndex: 100 }}
       {...rest}
     >
