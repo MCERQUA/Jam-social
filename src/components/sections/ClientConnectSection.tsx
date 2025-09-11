@@ -15,7 +15,7 @@ function ClientConnectSection() {
             sparklesCount={12}
           />
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Schedule your consultation and let's discuss how we can elevate your social media presence
+            Connect your social media accounts directly - no login required
           </p>
         </div>
         
