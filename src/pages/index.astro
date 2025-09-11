@@ -21,9 +21,6 @@ import ContactSection from '../components/sections/ContactSection';
     <section id="hero" class="relative min-h-screen bg-black overflow-visible">
       <HeroSection client:only="react" />
     </section>
-    <section id="schedule" class="py-20 bg-gradient-to-b from-black to-gray-900">
-      <StackFeatureSection client:only="react" />
-    </section>
     <section id="features">
       <FeaturesSection client:only="react" />
     </section>
@@ -35,6 +32,9 @@ import ContactSection from '../components/sections/ContactSection';
     </section>
     <section id="team">
       <TeamSection client:only="react" />
+    </section>
+    <section id="schedule" class="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <StackFeatureSection client:only="react" />
     </section>
     <section id="contact">
       <ContactSection client:only="react" />
