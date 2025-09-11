@@ -8,38 +8,38 @@ function TeamSection() {
   const teamMembers = [
     {
       id: 1,
-      name: "Sarah Chen",
+      name: "Josh",
       designation: "Creative Director",
-      image: "/team/sarah-chen.jpg",
-      bio: "10+ years in creative direction with expertise in visual storytelling and brand identity. Former creative lead at major advertising agencies."
+      image: "/team/josh.jpg",
+      bio: "Visionary creative leader with expertise in brand storytelling and innovative campaign development. Drives the creative vision across all client projects."
     },
     {
       id: 2,
-      name: "Marcus Rodriguez",
+      name: "Mike",
       designation: "Social Media Strategist",
-      image: "/team/marcus-rodriguez.jpg",
-      bio: "Data-driven strategist specializing in audience growth and engagement optimization. Expert in multi-platform content strategy."
+      image: "/team/mike.jpg",
+      bio: "Strategic mastermind specializing in data-driven growth tactics and multi-platform optimization. Expert in scaling brand presence across social channels."
     },
     {
       id: 3,
-      name: "Emily Thompson",
+      name: "Danielle",
       designation: "Content Creator",
-      image: "/team/emily-thompson.jpg",
-      bio: "Award-winning content creator with a focus on video production and trending content. TikTok and Instagram specialist with viral expertise."
+      image: "/team/danielle.jpg",
+      bio: "Creative content specialist with a keen eye for trending formats and viral potential. Crafts compelling narratives that resonate with target audiences."
     },
     {
       id: 4,
-      name: "David Kim",
+      name: "Nick",
       designation: "Analytics Manager",
-      image: "/team/david-kim.jpg",
-      bio: "Data scientist turned social media analyst. Transforms complex metrics into actionable insights for campaign optimization."
+      image: "/team/nick.jpg",
+      bio: "Performance optimization expert who transforms social metrics into actionable insights. Ensures every campaign delivers measurable ROI."
     },
     {
       id: 5,
-      name: "Aisha Patel",
-      designation: "Community Manager",
-      image: "/team/aisha-patel.jpg",
-      bio: "Expert in building authentic online communities and managing brand reputation across all social platforms."
+      name: "EchoAI",
+      designation: "AI Integration Specialist",
+      image: "/team/echoai.jpg",
+      bio: "Advanced AI system powering intelligent automation and content optimization. Enhances creativity with cutting-edge machine learning capabilities."
     }
   ];
 
