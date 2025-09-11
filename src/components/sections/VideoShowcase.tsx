@@ -4,7 +4,7 @@ import React from "react";
 import { VideoCarousel } from "../ui/video-carousel";
 import { SparklesText } from "../ui/sparkles-text";
 
-// Mix of actual videos and placeholders
+// Client video portfolio
 const sampleVideos = [
   {
     id: "1",
@@ -32,25 +32,11 @@ const sampleVideos = [
   },
   {
     id: "4",
-    title: "AI-Powered Analytics",
-    thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=450&fit=crop",
-    duration: "4:08",
-    description: "Leverage AI to understand and optimize your content performance"
-  },
-  {
-    id: "5",
     title: "Contractors Choice Agency",
     thumbnail: "/videos/Contractors-Choice-Agency-Commerical-Thub.webp",
     url: "/videos/The Meg Final-SM.mp4",
     duration: "1:45",
     description: "Professional agency commercial for Contractors Choice"
-  },
-  {
-    id: "6",
-    title: "Strategic Brand Narratives",
-    thumbnail: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=450&fit=crop",
-    duration: "3:45",
-    description: "Crafting powerful stories that resonate with your target audience"
   }
 ];
 
