@@ -5,29 +5,23 @@ import { createNoise3D } from 'simplex-noise';
 import { cn } from '@/lib/utils';
 
 interface WavyBackgroundProps {
-  children?: React.ReactNode;
   className?: string;
-  containerClassName?: string;
   colors?: string[];
   waveWidth?: number;
   backgroundFill?: string;
   blur?: number;
   speed?: "slow" | "fast";
   waveOpacity?: number;
-  [key: string]: any;
 }
 
 export const WavyBackground: React.FC<WavyBackgroundProps> = ({
-  children,
   className,
-  containerClassName,
   colors = ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"],
   waveWidth = 50,
   backgroundFill = "black",
   blur = 10,
   speed = "fast",
   waveOpacity = 0.5,
-  ...props
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noise = createNoise3D();
@@ -124,27 +118,14 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
   }, [colors, waveWidth, backgroundFill, blur, speed, waveOpacity]);
 
   return (
-    <div
-      className={cn(
-        'w-full h-full',
-        containerClassName
-      )}
-      {...props}
-    >
-      <canvas
-        className="w-full h-full"
-        ref={canvasRef}
-        style={{
-          width: '100%',
-          height: '100%',
-          ...(backgroundFill && { backgroundColor: backgroundFill }),
-        }}
-      />
-      {children && (
-        <div className={cn('absolute inset-0 z-10', className)}>
-          {children}
-        </div>
-      )}
-    </div>
+    <canvas
+      className={cn('w-full h-full', className)}
+      ref={canvasRef}
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: backgroundFill,
+      }}
+    />
   );
 };
