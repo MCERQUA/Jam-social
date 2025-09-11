@@ -126,13 +126,13 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
   return (
     <div
       className={cn(
-        'absolute inset-0 w-full h-full',
+        'w-full h-full',
         containerClassName
       )}
       {...props}
     >
       <canvas
-        className="absolute inset-0 w-full h-full"
+        className="w-full h-full"
         ref={canvasRef}
         style={{
           width: '100%',
@@ -140,9 +140,11 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
           ...(backgroundFill && { backgroundColor: backgroundFill }),
         }}
       />
-      <div className={cn('relative z-10 w-full h-full', className)}>
-        {children}
-      </div>
+      {children && (
+        <div className={cn('absolute inset-0 z-10', className)}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };
