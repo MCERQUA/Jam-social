@@ -116,21 +116,28 @@ function PlatformsGrid() {
               whileHover={{ scale: 1.02, y: -5 }}
               className="relative group"
             >
-              <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border border-pink-500/30 p-6 h-full transition-all duration-300 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.2)]">
+              <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border-2 border-pink-500/60 p-6 h-full transition-all duration-300 hover:border-purple-500/80 hover:shadow-[0_0_50px_rgba(236,72,153,0.5)] shadow-[0_0_20px_rgba(236,72,153,0.2)] flex flex-col">
                 {/* Platform Header */}
                 <div className="flex items-center gap-4 mb-4">
                   <div 
                     className="relative p-3 rounded-lg"
-                    style={{ backgroundColor: `${platform.color}20` }}
+                    style={{ 
+                      backgroundColor: `${platform.color}40`,
+                      boxShadow: `0 0 30px ${platform.color}80`
+                    }}
                   >
                     <img
                       src={platform.icon}
                       alt={platform.name}
-                      className="w-8 h-8 object-contain"
-                      style={{ filter: platform.color === "#000000" ? "brightness(0) invert(1)" : "none" }}
+                      className="w-8 h-8 object-contain relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                      style={{ 
+                        filter: platform.color === "#000000" 
+                          ? "brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.8))" 
+                          : `brightness(1.3) saturate(1.5) drop-shadow(0 0 10px ${platform.color})`
+                      }}
                     />
                     <div 
-                      className="absolute inset-0 rounded-lg blur-xl opacity-30"
+                      className="absolute inset-0 rounded-lg blur-xl opacity-60"
                       style={{ backgroundColor: platform.color }}
                     />
                   </div>
@@ -143,24 +150,64 @@ function PlatformsGrid() {
                 </p>
                 
                 {/* Benefits */}
-                <div className="space-y-2">
+                <div className="space-y-2 mb-6">
                   {platform.benefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-2">
                       <div 
-                        className="w-1.5 h-1.5 rounded-full"
-                        style={{ backgroundColor: platform.color === "#000000" ? "#a855f7" : platform.color }}
+                        className="w-1.5 h-1.5 rounded-full shadow-[0_0_6px_currentColor]"
+                        style={{ 
+                          backgroundColor: platform.color === "#000000" ? "#a855f7" : platform.color,
+                          boxShadow: `0 0 6px ${platform.color === "#000000" ? "#a855f7" : platform.color}`
+                        }}
                       />
                       <span className="text-xs text-gray-500">{benefit}</span>
                     </div>
                   ))}
                 </div>
                 
+                {/* Connect Now CTA */}
+                <a 
+                  href="https://www.oneupapp.io/clientconnect?id=7745"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full mt-auto"
+                >
+                  <button 
+                    className="w-full py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                    style={{
+                      backgroundColor: `${platform.color}20`,
+                      border: `1px solid ${platform.color}60`,
+                      color: '#ffffff',
+                      boxShadow: `0 0 20px ${platform.color}30`
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = `${platform.color}40`;
+                      e.currentTarget.style.boxShadow = `0 0 30px ${platform.color}60`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = `${platform.color}20`;
+                      e.currentTarget.style.boxShadow = `0 0 20px ${platform.color}30`;
+                    }}
+                  >
+                    Connect Now
+                  </button>
+                </a>
+                
                 {/* Hover Glow Effect */}
                 <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <div 
-                    className="absolute inset-0 rounded-xl blur-2xl"
+                    className="absolute inset-0 rounded-xl blur-3xl"
                     style={{ 
-                      background: `radial-gradient(circle at center, ${platform.color}15 0%, transparent 70%)`
+                      background: `radial-gradient(circle at center, ${platform.color}40 0%, ${platform.color}20 50%, transparent 70%)`
+                    }}
+                  />
+                </div>
+                {/* Always visible subtle glow */}
+                <div className="absolute inset-0 rounded-xl pointer-events-none">
+                  <div 
+                    className="absolute inset-0 rounded-xl blur-xl opacity-20"
+                    style={{ 
+                      background: `radial-gradient(circle at center, ${platform.color} 0%, transparent 60%)`
                     }}
                   />
                 </div>
