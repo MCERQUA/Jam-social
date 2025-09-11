@@ -1,43 +1,117 @@
-# Astro Starter Kit: Minimal
+# Jam Social Media
 
-```sh
-npm create astro@latest -- --template minimal
+Professional social media management platform built with Astro, React, and Tailwind CSS.
+
+## Features
+
+- **Multi-Platform Support**: Manage content across Instagram, LinkedIn, TikTok, X, Facebook, YouTube, Pinterest, Google Business, Threads, Snapchat, Bluesky, and Reddit
+- **Content Creation**: AI-powered content creation and optimization
+- **Smart Scheduling**: Automated posting at optimal times
+- **Advanced Analytics**: Track performance across all platforms
+- **Team Collaboration**: Work together with your team seamlessly
+
+## Tech Stack
+
+- **Framework**: [Astro](https://astro.build) v5.13
+- **UI Framework**: React 19
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Components**: Custom components inspired by 21st.dev
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/jam-social.git
+cd jam-social
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+2. Install dependencies:
+```bash
+npm install
+```
 
-## 🚀 Project Structure
+3. Run the development server:
+```bash
+npm run dev
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+4. Open [http://localhost:4321](http://localhost:4321) in your browser
 
-```text
-/
-├── public/
+### Building for Production
+
+```bash
+npm run build
+```
+
+The production-ready files will be in the `dist/` directory.
+
+## Deployment
+
+### Netlify
+
+This project includes a `netlify.toml` configuration file for easy deployment to Netlify.
+
+1. Push your code to GitHub
+2. Connect your GitHub repository to Netlify
+3. Deploy with these settings:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+
+### Vercel
+
+```bash
+npm run build
+vercel --prod
+```
+
+## Project Structure
+
+```
+jam-social/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/
+│   │   ├── sections/     # Page sections (Hero, Features, etc.)
+│   │   └── ui/           # Reusable UI components
+│   ├── layouts/          # Page layouts
+│   ├── lib/             # Utility functions
+│   ├── pages/           # Astro pages
+│   └── styles/          # Global styles
+├── public/              # Static assets
+├── dist/                # Production build
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Components
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The project uses modern React components with animations:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **WavyBackground**: Animated hero background
+- **SparklesText**: Text with sparkle effects
+- **SpotlightCard**: Interactive feature cards
+- **AnimatedTooltip**: Team member profiles
+- **NavbarMenu**: Navigation with dropdowns
+- And many more...
 
-## 🧞 Commands
+## Scripts
 
-All commands are run from the root of the project, from a terminal:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run clean` - Clean build artifacts
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## License
 
-## 👀 Want to learn more?
+MIT License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Contact
+
+For inquiries, please contact us through the website contact form or at hello@jamsocial.com
