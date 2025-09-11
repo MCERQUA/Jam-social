@@ -1,129 +1,116 @@
 "use client";
 
-import React from 'react';
-import { Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, DollarSign, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface DisplayCardProps {
+interface ServiceCardProps {
   className?: string;
-  icon?: React.ReactNode;
   title?: string;
   description?: string;
-  date?: string;
-  iconClassName?: string;
-  titleClassName?: string;
+  features?: string[];
+  price?: string;
+  highlight?: boolean;
 }
 
 interface DisplayCardsProps {
-  cards?: DisplayCardProps[];
+  cards?: ServiceCardProps[];
   className?: string;
 }
 
-const DisplayCard: React.FC<DisplayCardProps & { style?: React.CSSProperties }> = ({
+const ServiceCard: React.FC<ServiceCardProps & { isActive?: boolean; onClick?: () => void; index?: number }> = ({
   className,
-  icon,
   title,
   description,
-  date,
-  iconClassName,
-  titleClassName,
-  style,
+  features,
+  price,
+  highlight,
+  isActive,
+  onClick,
+  index = 0,
 }) => {
   return (
-    <div
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ 
+        opacity: 1, 
+        y: 0,
+        scale: isActive ? 1.05 : 1,
+        zIndex: isActive ? 10 : 1
+      }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+      whileHover={{ scale: 1.02, y: -5 }}
+      onClick={onClick}
       className={cn(
-        "h-36 w-[22rem] select-none -skew-y-[8deg] rounded-lg border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm shadow-sm p-4 flex flex-col justify-between",
+        "relative cursor-pointer rounded-xl border bg-gray-900/80 backdrop-blur-sm p-6 transition-all duration-300",
+        highlight ? "border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.2)]" : "border-gray-700/50",
+        isActive && "border-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.3)]",
         className
       )}
-      style={style}
     >
-      <div className="flex items-start justify-between">
-        <div className="flex items-center space-x-2">
-          {icon && (
-            <div className={cn("flex-shrink-0", iconClassName)}>
-              {icon}
-            </div>
-          )}
-          {title && (
-            <h3 className={cn("font-semibold text-sm", titleClassName)}>
-              {title}
-            </h3>
-          )}
+      {highlight && (
+        <div className="absolute -top-3 right-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          POPULAR
         </div>
-        {date && (
-          <span className="text-xs text-gray-500 dark:text-gray-400">
-            {date}
-          </span>
-        )}
-      </div>
+      )}
       
-      {description && (
-        <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2 mt-2">
+      <div className="mb-4">
+        <h3 className="text-xl font-bold text-white mb-2">
+          {title}
+        </h3>
+        <p className="text-gray-400 text-sm">
           {description}
         </p>
+      </div>
+      
+      {features && features.length > 0 && (
+        <ul className="space-y-2 mb-6">
+          {features.map((feature, idx) => (
+            <li key={idx} className="flex items-start text-sm text-gray-300">
+              <Zap className="w-4 h-4 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
+              {feature}
+            </li>
+          ))}
+        </ul>
       )}
-    </div>
+      
+      {price && (
+        <div className="pt-4 border-t border-gray-700">
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+              {price}
+            </span>
+            <button className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300">
+              Get Started
+            </button>
+          </div>
+        </div>
+      )}
+    </motion.div>
   );
 };
 
-const defaultCards: DisplayCardProps[] = [
-  {
-    icon: <Sparkles className="size-4 text-blue-300" />,
-    title: "Featured",
-    description: "Discover amazing content and connect with like-minded creators",
-    date: "Just now",
-    iconClassName: "text-blue-500",
-    titleClassName: "text-blue-500",
-  },
-  {
-    icon: <Sparkles className="size-4 text-green-300" />,
-    title: "Popular",
-    description: "Most viewed and shared content this week across all categories",
-    date: "2 hours ago",
-    iconClassName: "text-green-500",
-    titleClassName: "text-green-500",
-  },
-  {
-    icon: <Sparkles className="size-4 text-purple-300" />,
-    title: "New",
-    description: "Fresh content just added to the platform from top creators",
-    date: "5 minutes ago",
-    iconClassName: "text-purple-500",
-    titleClassName: "text-purple-500",
-  }
-];
-
 export const DisplayCards: React.FC<DisplayCardsProps> = ({
-  cards = defaultCards,
+  cards = [],
   className
 }) => {
-  const displayCards = cards.length > 0 ? cards : defaultCards;
+  const [activeCard, setActiveCard] = useState<number | null>(null);
   
   return (
     <div className={cn("relative", className)}>
-      {/* Grid container with stacked effect */}
-      <div className="grid [grid-template-areas:'stack'] place-items-center opacity-100 animate-in fade-in-0 duration-700">
-        {displayCards.map((cardProps, index) => (
-          <DisplayCard
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {cards.map((cardProps, index) => (
+          <ServiceCard
             key={index}
             {...cardProps}
-            style={{
-              gridArea: 'stack',
-              zIndex: displayCards.length - index,
-              transform: `translateY(${index * -8}px) translateX(${index * 4}px) skewY(-8deg)`,
-            }}
-            className={cn(
-              cardProps.className,
-              "transition-transform duration-300 hover:scale-105 hover:z-50"
-            )}
+            index={index}
+            isActive={activeCard === index}
+            onClick={() => setActiveCard(activeCard === index ? null : index)}
           />
         ))}
       </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute -top-2 -left-2 w-2 h-2 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-60 animate-pulse" />
-      <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-gradient-to-br from-green-400 to-blue-500 rounded-full opacity-40 animate-pulse delay-700" />
-      <div className="absolute top-1/2 -right-4 w-1.5 h-1.5 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-50 animate-pulse delay-1000" />
     </div>
   );
 };
