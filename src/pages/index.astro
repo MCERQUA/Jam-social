@@ -9,9 +9,11 @@ import PlatformsSection from '../components/sections/PlatformsSection';
 import TeamSection from '../components/sections/TeamSection';
 import ConnectAccountSection from '../components/sections/ConnectAccountSection';
 import ContactSection from '../components/sections/ContactSection';
+import { FloatingChatButton } from '../components/ui/FloatingChatButton';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
+    <FloatingChatButton client:only="react" />
     <section id="hero" class="relative min-h-screen bg-black overflow-visible">
       <HeroSection client:only="react" />
     </section>
