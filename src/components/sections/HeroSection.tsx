@@ -11,7 +11,7 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen w-full bg-black overflow-visible">
       
-      {/* Aurora Background - Enhanced intensity and size */}
+      {/* Aurora Background - DISABLED FOR PERFORMANCE 
       <div className="absolute -top-40 left-0 right-0 h-[140%] opacity-80">
         <Aurora
           colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
@@ -19,12 +19,18 @@ function HeroSection() {
           amplitude={1.5}
           speed={0.35}
         />
+      </div> */}
+      
+      {/* Static gradient background instead of Aurora */}
+      <div className="absolute inset-0 opacity-60">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-blue-900/40" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 via-purple-900/20 to-pink-900/30" />
       </div>
       
-      {/* Splash Cursor - Large Desktop Only (1536px+) */}
+      {/* Splash Cursor - DISABLED FOR PERFORMANCE
       <div className="hidden 2xl:block absolute inset-0 pointer-events-none z-10">
         <SplashCursor />
-      </div>
+      </div> */}
       
       {/* Background gradient overlay - Even lighter to show more Aurora */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70 z-[5]" />
