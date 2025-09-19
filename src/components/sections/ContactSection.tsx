@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { AnimatedSearchBar } from "../ui/animated-search-bar";
 import { SparklesText } from "../ui/sparkles-text";
 
 function ContactSection() {
@@ -44,10 +43,6 @@ function ContactSection() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Handle form submission here
-  };
-
-  const handleEmailSearch = (email: string) => {
-    setFormData(prev => ({ ...prev, email }));
   };
 
   return (
@@ -102,18 +97,18 @@ function ContactSection() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email Address *
               </label>
-              <AnimatedSearchBar
-                placeholders={[
-                  "Enter your email address...",
-                  "hello@yourcompany.com",
-                  "contact@yourbusiness.com",
-                  "your.email@domain.com"
-                ]}
-                onSearch={handleEmailSearch}
-                className="w-full"
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 bg-gray-700/50 border border-pink-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                placeholder="your.email@example.com"
               />
             </div>
             
