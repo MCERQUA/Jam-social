@@ -61,9 +61,11 @@ function TeamSection() {
           <p className="text-gray-400 text-lg mb-6">
             Ready to work with industry experts who understand your vision?
           </p>
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+          <a
+            href="#contact"
+            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
             Schedule a Consultation
-          </button>
+          </a>
         </div>
       </div>
     </section>

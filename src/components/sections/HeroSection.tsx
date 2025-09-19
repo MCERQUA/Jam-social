@@ -62,12 +62,16 @@ function HeroSection() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+              <a
+                href="#connect"
+                className="px-8 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                 Start Managing
-              </button>
-              <button className="px-8 py-3 border-2 border-gray-500 text-gray-200 font-semibold rounded-lg hover:bg-gray-800/50 backdrop-blur-sm transition-all duration-300">
+              </a>
+              <a
+                href="#features"
+                className="px-8 py-3 border-2 border-gray-500 text-gray-200 font-semibold rounded-lg hover:bg-gray-800/50 backdrop-blur-sm transition-all duration-300">
                 See Features
-              </button>
+              </a>
             </div>
           </div>
         </div>
