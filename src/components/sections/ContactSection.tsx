@@ -14,12 +14,11 @@ function ContactSection() {
   });
 
   const serviceOptions = [
-    "Content Strategy",
-    "Social Media Management", 
-    "Influencer Partnerships",
-    "Paid Advertising",
-    "Analytics & Reporting",
-    "Community Management"
+    "Social Media Management",
+    "Branded Video Creation",
+    "Websites and SEO",
+    "Brand Consultations",
+    "Logos and Asset Creation"
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,8 +40,26 @@ function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Handle form submission here
+    // Form submission is handled by Netlify Forms
+    const form = e.target as HTMLFormElement;
+    const formDataToSubmit = new FormData(form);
+
+    // Add services as comma-separated string
+    formDataToSubmit.set('services', formData.services.join(', '));
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formDataToSubmit as any).toString()
+    })
+    .then(() => {
+      // Redirect to success page
+      window.location.href = '/success';
+    })
+    .catch((error) => {
+      alert('Error submitting form. Please try again.');
+      console.error('Form submission error:', error);
+    });
   };
 
   return (
@@ -62,7 +79,21 @@ function ContactSection() {
         <div className="relative bg-gray-800/30 backdrop-blur-sm rounded-2xl p-8 border border-pink-500/20 shadow-[0_0_50px_rgba(236,72,153,0.15)]">
           {/* Pink glow effect */}
           <div className="absolute -inset-[2px] bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl blur-xl" />
-          <form onSubmit={handleSubmit} className="relative space-y-6 z-10">
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+            className="relative space-y-6 z-10"
+          >
+            {/* Hidden fields for Netlify Forms */}
+            <input type="hidden" name="form-name" value="contact" />
+            <div style={{ display: 'none' }}>
+              <label>
+                Don't fill this out if you're human: <input name="bot-field" />
+              </label>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -131,15 +162,15 @@ function ContactSection() {
               <label className="block text-sm font-medium text-gray-300 mb-4">
                 Services Interested In
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {serviceOptions.map((service) => (
                   <button
                     key={service}
                     type="button"
                     onClick={() => handleServiceToggle(service)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                       formData.services.includes(service)
-                        ? "bg-pink-600 text-white border border-pink-500"
+                        ? "bg-pink-600 text-white border border-pink-500 shadow-lg"
                         : "bg-gray-700/50 text-gray-300 border border-pink-500/20 hover:border-pink-500/40"
                     }`}
                   >
@@ -147,6 +178,12 @@ function ContactSection() {
                   </button>
                 ))}
               </div>
+              {/* Hidden input to store selected services for form submission */}
+              <input
+                type="hidden"
+                name="services"
+                value={formData.services.join(', ')}
+              />
             </div>
             
             <div>
