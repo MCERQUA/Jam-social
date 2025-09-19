@@ -8,6 +8,14 @@ import { SparklesText } from "../ui/sparkles-text";
 const sampleVideos = [
   {
     id: "1",
+    title: "Call Me - Brand Film",
+    thumbnail: "/videos/Call-me-thumb.jpg",
+    url: "/videos/call-me-small.mp4",
+    duration: "2:00",
+    description: "Captivating brand storytelling with cinematic production value"
+  },
+  {
+    id: "2",
     title: "HairPHD Salon Commercial",
     thumbnail: "/videos/Hair-PHD-Salon-commerical-thumb.webp",
     url: "/videos/HairPHD-Full1-sm.mp4",
@@ -15,7 +23,7 @@ const sampleVideos = [
     description: "Professional commercial production for HairPHD beauty brand"
   },
   {
-    id: "2",
+    id: "3",
     title: "Cortez Industries - Rex Game",
     thumbnail: "/videos/cortez-industries-Rex-game-thumb.webp",
     url: "/videos/rex-game-sm.mp4",
@@ -23,7 +31,7 @@ const sampleVideos = [
     description: "Dynamic gaming content for Cortez Industries Rex game"
   },
   {
-    id: "3",
+    id: "4",
     title: "Noble Insulation Commercial",
     thumbnail: "/videos/noble-insulation-video-thumbnail.webp",
     url: "/videos/noble-insulation-commerical-sm.mp4",
@@ -31,7 +39,7 @@ const sampleVideos = [
     description: "High-impact commercial showcasing Noble Insulation services"
   },
   {
-    id: "4",
+    id: "5",
     title: "Contractors Choice Agency",
     thumbnail: "/videos/Contractors-Choice-Agency-Commerical-Thub.webp",
     url: "/videos/The Meg Final-SM.mp4",
