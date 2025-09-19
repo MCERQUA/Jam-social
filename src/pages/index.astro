@@ -13,6 +13,17 @@ import { FloatingChatButton } from '../components/ui/FloatingChatButton';
 ---
 
 <Layout title="Jam Social Media - Professional Social Media Management">
+    <!-- Hidden form for Netlify Forms to detect -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="services" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+
     <FloatingChatButton client:only="react" />
     <section id="hero" class="relative min-h-screen bg-black overflow-visible">
       <HeroSection client:only="react" />

@@ -38,28 +38,35 @@ function ContactSection() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission is handled by Netlify Forms
-    const form = e.target as HTMLFormElement;
-    const formDataToSubmit = new FormData(form);
 
-    // Add services as comma-separated string
-    formDataToSubmit.set('services', formData.services.join(', '));
+    // Create form data with all values
+    const submitData = new URLSearchParams();
+    submitData.append('form-name', 'contact');
+    submitData.append('name', formData.name);
+    submitData.append('company', formData.company);
+    submitData.append('email', formData.email);
+    submitData.append('phone', formData.phone);
+    submitData.append('services', formData.services.join(', '));
+    submitData.append('message', formData.message);
 
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formDataToSubmit as any).toString()
-    })
-    .then(() => {
-      // Redirect to success page
-      window.location.href = '/success';
-    })
-    .catch((error) => {
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: submitData.toString()
+      });
+
+      if (response.ok) {
+        window.location.href = '/success';
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
       alert('Error submitting form. Please try again.');
       console.error('Form submission error:', error);
-    });
+    }
   };
 
   return (
@@ -80,20 +87,9 @@ function ContactSection() {
           {/* Pink glow effect */}
           <div className="absolute -inset-[2px] bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl blur-xl" />
           <form
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
             className="relative space-y-6 z-10"
           >
-            {/* Hidden fields for Netlify Forms */}
-            <input type="hidden" name="form-name" value="contact" />
-            <div style={{ display: 'none' }}>
-              <label>
-                Don't fill this out if you're human: <input name="bot-field" />
-              </label>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -178,12 +174,6 @@ function ContactSection() {
                   </button>
                 ))}
               </div>
-              {/* Hidden input to store selected services for form submission */}
-              <input
-                type="hidden"
-                name="services"
-                value={formData.services.join(', ')}
-              />
             </div>
             
             <div>
