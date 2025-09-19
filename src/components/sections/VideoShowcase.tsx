@@ -8,7 +8,7 @@ import { SparklesText } from "../ui/sparkles-text";
 const sampleVideos = [
   {
     id: "1",
-    title: "Call Me - Brand Film",
+    title: "Mrs.SprayFoam Call Me Maybe",
     thumbnail: "/videos/Call-me-thumb.jpg",
     url: "/videos/call-me-small.mp4",
     duration: "2:00",
