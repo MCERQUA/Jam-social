@@ -83,7 +83,7 @@ const AddonsMenu: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-16 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#2D1B69]/20 to-[#0A0A0A]" />
 
       <div className="absolute inset-0">
