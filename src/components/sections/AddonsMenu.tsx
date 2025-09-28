@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plus, Video, Music, Palette, Package, Star, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Video, Music, Palette, Package, Star, ArrowRight, X } from 'lucide-react';
 
 interface Addon {
   id: string;
@@ -70,6 +70,7 @@ const addons: Addon[] = [
 const AddonsMenu: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'video' | 'audio' | '3d'>('all');
   const [hoveredAddon, setHoveredAddon] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const filteredAddons = selectedCategory === 'all'
     ? addons
@@ -184,6 +185,7 @@ const AddonsMenu: React.FC = () => {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={() => setShowPopup(true)}
                       className="w-full py-3 rounded-xl font-semibold text-white
                         bg-gradient-to-r from-purple-600/80 to-pink-600/80
                         hover:from-purple-600 hover:to-pink-600
@@ -226,6 +228,7 @@ const AddonsMenu: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setShowPopup(true)}
               className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
             >
               <Music className="w-5 h-5" />
@@ -234,6 +237,62 @@ const AddonsMenu: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Popup Notification */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowPopup(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 15 }}
+              className="bg-gradient-to-br from-[#1A0E2E] to-[#2D1B69] p-8 rounded-2xl border border-purple-500/30 shadow-2xl max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-2xl font-bold text-white">Coming Soon!</h3>
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <p className="text-gray-300 mb-6">
+                This feature is still in development. Please let us know your interest in the contact form below and we'll notify you when it's ready!
+              </p>
+              <div className="flex gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setShowPopup(false);
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="flex-1 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                >
+                  Go to Contact Form
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowPopup(false)}
+                  className="px-6 py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300"
+                >
+                  Close
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
