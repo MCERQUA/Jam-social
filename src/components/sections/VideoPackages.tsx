@@ -138,7 +138,8 @@ const packages: Package[] = [
         category: "3D Branding",
         items: [
           "3D version of logo",
-          "Character leaning on 3D logo"
+          "Character leaning on 3D logo",
+          "3D character creation for games/print"
         ]
       },
       {
