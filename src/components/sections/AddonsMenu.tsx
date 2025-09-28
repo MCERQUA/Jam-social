@@ -213,7 +213,12 @@ const AddonsMenu: React.FC = () => {
                 Note on Custom Songs
               </h3>
               <p className="text-gray-300 max-w-2xl">
-                All songs produced (SprayFoam Radio) typically require 2+ hours and potentially
+                All songs produced (<a
+                  href="https://sprayfoamradio.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-400 hover:text-purple-300 underline transition-colors"
+                >SprayFoam Radio</a>) typically require 2+ hours and potentially
                 a hundred generations to find the perfect match. With our enhanced systems,
                 we're confident we'll find your "jam" in one session!
               </p>
