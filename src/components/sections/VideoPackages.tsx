@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Star, Film, Sparkles } from 'lucide-react';
+import { Check, Star, Film } from 'lucide-react';
 
 declare global {
   namespace JSX {
@@ -69,7 +69,7 @@ const packages: Package[] = [
     price: "$750",
     tier: 'advanced',
     popular: true,
-    stripeBuyButtonId: "buy_btn_1SC9H9AsB00o6gkb6UQeEpNw",
+    stripeBuyButtonId: "buy_btn_1SC9JAAsB00o6gkbWhss5fvX",
     features: [
       {
         category: "Everything in Basic Setup Plus",
@@ -155,6 +155,25 @@ const VideoPackages: React.FC = () => {
     }, 100);
 
     return () => clearInterval(checkStripeLoaded);
+  }, []);
+
+  useEffect(() => {
+    // Add styles to control Stripe button appearance
+    const style = document.createElement('style');
+    style.textContent = `
+      .stripe-button-wrapper {
+        margin-top: 1rem;
+        min-height: 48px;
+      }
+      stripe-buy-button {
+        display: block;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []);
 
   return (
