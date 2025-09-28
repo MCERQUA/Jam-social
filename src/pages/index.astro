@@ -6,6 +6,8 @@ import JamJarDivider from '../components/ui/JamJarDivider';
 import VideoShowcase from '../components/sections/VideoShowcase';
 import ServicesSection from '../components/sections/ServicesSection';
 import PlatformsSection from '../components/sections/PlatformsSection';
+import VideoPackages from '../components/sections/VideoPackages';
+import AddonsMenu from '../components/sections/AddonsMenu';
 import TeamSection from '../components/sections/TeamSection';
 import ConnectAccountSection from '../components/sections/ConnectAccountSection';
 import ContactSection from '../components/sections/ContactSection';
@@ -40,6 +42,12 @@ import { FloatingChatButton } from '../components/ui/FloatingChatButton';
     </section>
     <section id="platforms">
       <PlatformsSection client:only="react" />
+    </section>
+    <section id="video-packages">
+      <VideoPackages client:only="react" />
+    </section>
+    <section id="addons">
+      <AddonsMenu client:only="react" />
     </section>
     <section id="team">
       <TeamSection client:only="react" />
