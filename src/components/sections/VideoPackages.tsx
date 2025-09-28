@@ -61,6 +61,12 @@ const packages: Package[] = [
           "3 clips with 2-line script",
           "3 holiday video clips (Valentine's, July 4th, Christmas)"
         ]
+      },
+      {
+        category: "Social Media Management",
+        items: [
+          "Jam social media scheduling of all content from setup included on any Connected Platforms requested"
+        ]
       }
     ]
   },
@@ -99,6 +105,12 @@ const packages: Package[] = [
           "Multiple location video clips",
           "Full combined video compilation"
         ]
+      },
+      {
+        category: "Social Media Management",
+        items: [
+          "Jam social media scheduling of all content from setup included on any Connected Platforms requested"
+        ]
       }
     ]
   },
@@ -136,6 +148,12 @@ const packages: Package[] = [
           "4 additional scripted clips",
           "4 more holiday videos",
           "St. Patrick's, Memorial, Veterans, Halloween"
+        ]
+      },
+      {
+        category: "Social Media Management",
+        items: [
+          "Jam social media scheduling of all content from setup included on any Connected Platforms requested"
         ]
       }
     ]
