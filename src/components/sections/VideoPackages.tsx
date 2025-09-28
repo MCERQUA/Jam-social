@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Star, Film, Sparkles } from 'lucide-react';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'stripe-buy-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        'buy-button-id': string;
+        'publishable-key': string;
+      };
+    }
+  }
+}
 
 interface Package {
   name: string;
   price: string;
   tier: 'base' | 'advanced' | 'full';
+  stripeBuyButtonId: string;
   features: {
     category: string;
     items: string[];
@@ -13,11 +25,14 @@ interface Package {
   popular?: boolean;
 }
 
+const STRIPE_PUBLISHABLE_KEY = "pk_live_51HpgGeAsB00o6gkbydLQYxUZPk1qt5MNmS3RNySpwOSgj7N76qCJUqxGLuSauHw7TMVyRVnGBKqOf4FsBHsdRcGk00aIqek4Yr";
+
 const packages: Package[] = [
   {
     name: "Company Base Character Setup",
     price: "$500",
     tier: 'base',
+    stripeBuyButtonId: "buy_btn_1SC9EwAsB00o6gkbBN5Ik34n",
     features: [
       {
         category: "Character Creation",
@@ -54,6 +69,7 @@ const packages: Package[] = [
     price: "$750",
     tier: 'advanced',
     popular: true,
+    stripeBuyButtonId: "buy_btn_1SC9H9AsB00o6gkb6UQeEpNw",
     features: [
       {
         category: "Everything in Basic Setup Plus",
@@ -90,6 +106,7 @@ const packages: Package[] = [
     name: "Full Setup Package",
     price: "$1,000",
     tier: 'full',
+    stripeBuyButtonId: "buy_btn_1SC9NVAsB00o6gkbyXhPkmJJ",
     features: [
       {
         category: "Everything in Advanced Setup Plus",
@@ -127,6 +144,18 @@ const packages: Package[] = [
 
 const VideoPackages: React.FC = () => {
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+  const [isStripeLoaded, setIsStripeLoaded] = useState(false);
+
+  useEffect(() => {
+    const checkStripeLoaded = setInterval(() => {
+      if (document.querySelector('script[src*="stripe.com"]')) {
+        setIsStripeLoaded(true);
+        clearInterval(checkStripeLoaded);
+      }
+    }, 100);
+
+    return () => clearInterval(checkStripeLoaded);
+  }, []);
 
   return (
     <section className="relative py-32 overflow-hidden">
@@ -221,24 +250,12 @@ const VideoPackages: React.FC = () => {
                     ))}
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      w-full py-4 rounded-xl font-bold text-white
-                      transition-all duration-300
-                      ${pkg.popular
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500'
-                        : 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-600 hover:to-pink-600'
-                      }
-                      shadow-lg hover:shadow-xl
-                    `}
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      <Sparkles className="w-5 h-5" />
-                      Get Started
-                    </span>
-                  </motion.button>
+                  <div className="stripe-button-wrapper">
+                    <stripe-buy-button
+                      buy-button-id={pkg.stripeBuyButtonId}
+                      publishable-key={STRIPE_PUBLISHABLE_KEY}
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
