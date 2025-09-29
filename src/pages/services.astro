@@ -3,14 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/layout/Header.tsx';
 import Footer from '../components/layout/Footer.tsx';
 import ServicesHero from '../components/sections/ServicesHero.tsx';
-import ServicesGrid from '../components/sections/ServicesGrid.tsx';
+import NewServicesGrid from '../components/sections/NewServicesGrid.tsx';
+import ServiceNavSidebar from '../components/ui/ServiceNavSidebar.tsx';
 ---
 
 <Layout title="Services - Jam Social Media">
   <Header client:only="react" />
+  <ServiceNavSidebar client:only="react" />
   <main>
     <ServicesHero client:only="react" />
-    <ServicesGrid client:only="react" />
+    <NewServicesGrid client:only="react" />
   </main>
   <Footer client:only="react" />
 </Layout>
