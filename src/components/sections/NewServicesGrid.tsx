@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle } from 'lucide-react';
 import SocialSchedulingForm from '../forms/SocialSchedulingForm';
 import { SparklesText } from '../ui/sparkles-text';
+import ConnectAccountSection from './ConnectAccountSection';
 
 const NewServicesGrid: React.FC = () => {
   const services = [
@@ -67,15 +68,16 @@ const NewServicesGrid: React.FC = () => {
       <div className="relative z-10 container mx-auto px-4">
         <div className="space-y-32">
           {services.map((service, index) => (
-            <motion.section
-              key={service.id}
-              id={service.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="scroll-mt-24"
-            >
+            <>
+              <motion.section
+                key={service.id}
+                id={service.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="scroll-mt-24"
+              >
               <div className={`grid lg:grid-cols-2 gap-12 items-center ${
                 index % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}>
@@ -159,6 +161,12 @@ const NewServicesGrid: React.FC = () => {
                 </div>
               </div>
             </motion.section>
+            {service.id === 'social-scheduling' && (
+              <div className="mt-16">
+                <ConnectAccountSection />
+              </div>
+            )}
+          </>
           ))}
         </div>
       </div>
