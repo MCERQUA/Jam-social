@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Upload, Send, CheckCircle, Repeat, Image, Video, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, Upload, Send, CheckCircle, Repeat, Image, Video, AlertCircle, X } from 'lucide-react';
 
 const SocialSchedulingForm: React.FC = () => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
@@ -9,7 +9,7 @@ const SocialSchedulingForm: React.FC = () => {
   const [scheduleTime, setScheduleTime] = useState('');
   const [repeatFrequency, setRepeatFrequency] = useState('none');
   const [repeatEnd, setRepeatEnd] = useState('');
-  const [fileName, setFileName] = useState('');
+  const [uploadedFile, setUploadedFile] = useState<{ name: string; type: string; preview?: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -20,6 +20,12 @@ const SocialSchedulingForm: React.FC = () => {
     { id: 'linkedin', name: 'LinkedIn', icon: '💼' },
     { id: 'tiktok', name: 'TikTok', icon: '🎵' },
     { id: 'youtube', name: 'YouTube', icon: '📺' },
+    { id: 'pinterest', name: 'Pinterest', icon: '📌' },
+    { id: 'google-business', name: 'Google Business', icon: '🔍' },
+    { id: 'threads', name: 'Threads', icon: '🧵' },
+    { id: 'snapchat', name: 'Snapchat', icon: '👻' },
+    { id: 'bluesky', name: 'Bluesky', icon: '☁️' },
+    { id: 'reddit', name: 'Reddit', icon: '🤖' },
   ];
 
   const repeatOptions = [
@@ -41,7 +47,30 @@ const SocialSchedulingForm: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFileName(file.name);
+      const isImage = file.type.startsWith('image/');
+      const fileData = {
+        name: file.name,
+        type: isImage ? 'image' : 'video',
+        preview: undefined as string | undefined
+      };
+
+      if (isImage) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setUploadedFile({ ...fileData, preview: reader.result as string });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        setUploadedFile(fileData);
+      }
+    }
+  };
+
+  const removeFile = () => {
+    setUploadedFile(null);
+    const fileInput = document.getElementById('media-upload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   };
 
@@ -67,7 +96,7 @@ const SocialSchedulingForm: React.FC = () => {
         setScheduleTime('');
         setRepeatFrequency('none');
         setRepeatEnd('');
-        setFileName('');
+        setUploadedFile(null);
       } else {
         setSubmitStatus('error');
       }
@@ -113,7 +142,7 @@ const SocialSchedulingForm: React.FC = () => {
             <label className="block text-white mb-3 font-medium">
               Select Platforms *
             </label>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {platforms.map(platform => (
                 <motion.button
                   key={platform.id}
@@ -165,35 +194,67 @@ const SocialSchedulingForm: React.FC = () => {
             <label htmlFor="media-upload" className="block text-white mb-3 font-medium">
               Upload Media (Image or Video)
             </label>
-            <div className="relative">
-              <input
-                type="file"
-                id="media-upload"
-                name="media"
-                accept="image/*,video/*"
-                onChange={handleFileChange}
-                className="hidden"
-              />
-              <label
-                htmlFor="media-upload"
-                className="flex items-center justify-center gap-3 p-4 bg-white/5 border-2 border-dashed border-white/20 rounded-lg cursor-pointer hover:border-violet-500/50 transition-colors"
-              >
-                <Upload className="w-6 h-6 text-gray-400" />
-                <span className="text-gray-400">
-                  {fileName || 'Click to upload image or video'}
-                </span>
-              </label>
-              {fileName && (
-                <div className="mt-2 flex items-center gap-2 text-sm text-violet-400">
-                  {fileName.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
-                    <Image className="w-4 h-4" />
+
+            {!uploadedFile ? (
+              <div className="relative">
+                <input
+                  type="file"
+                  id="media-upload"
+                  name="media"
+                  accept="image/*,video/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <label
+                  htmlFor="media-upload"
+                  className="flex items-center justify-center gap-3 p-8 bg-white/5 border-2 border-dashed border-white/20 rounded-lg cursor-pointer hover:border-violet-500/50 transition-colors"
+                >
+                  <Upload className="w-8 h-8 text-gray-400" />
+                  <span className="text-gray-400">
+                    Click to upload image or video
+                  </span>
+                </label>
+              </div>
+            ) : (
+              <div className="bg-white/10 border border-white/20 rounded-lg p-4">
+                <div className="flex items-start gap-4">
+                  {uploadedFile.preview ? (
+                    <img
+                      src={uploadedFile.preview}
+                      alt="Preview"
+                      className="w-24 h-24 object-cover rounded-lg"
+                    />
                   ) : (
-                    <Video className="w-4 h-4" />
+                    <div className="w-24 h-24 bg-white/5 rounded-lg flex items-center justify-center">
+                      <Video className="w-10 h-10 text-gray-400" />
+                    </div>
                   )}
-                  {fileName}
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-white font-medium truncate max-w-xs">
+                          {uploadedFile.name}
+                        </p>
+                        <p className="text-gray-400 text-sm mt-1">
+                          {uploadedFile.type === 'image' ? 'Image file' : 'Video file'}
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={removeFile}
+                        className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                      >
+                        <X className="w-5 h-5 text-gray-400 hover:text-white" />
+                      </button>
+                    </div>
+                    <div className="mt-3 flex items-center gap-2 text-sm text-green-400">
+                      <CheckCircle className="w-4 h-4" />
+                      File uploaded successfully
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Schedule */}
