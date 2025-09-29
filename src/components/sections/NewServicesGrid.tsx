@@ -60,7 +60,7 @@ const NewServicesGrid: React.FC = () => {
   ];
 
   return (
-    <div className="relative py-24 overflow-hidden">
+    <div className="relative py-12 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
 
       <div className="relative z-10 container mx-auto px-4">

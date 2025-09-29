@@ -8,6 +8,7 @@ const SocialSchedulingForm: React.FC = () => {
   const [scheduleDate, setScheduleDate] = useState('');
   const [scheduleTime, setScheduleTime] = useState('');
   const [repeatFrequency, setRepeatFrequency] = useState('none');
+  const [customFrequency, setCustomFrequency] = useState('');
   const [repeatEnd, setRepeatEnd] = useState('');
   const [uploadedFile, setUploadedFile] = useState<{ name: string; type: string; preview?: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,6 +35,7 @@ const SocialSchedulingForm: React.FC = () => {
     { value: 'weekly', label: 'Weekly' },
     { value: 'biweekly', label: 'Bi-weekly' },
     { value: 'monthly', label: 'Monthly' },
+    { value: 'other', label: 'Other (specify)' },
   ];
 
   const handlePlatformToggle = (platformId: string) => {
@@ -95,6 +97,7 @@ const SocialSchedulingForm: React.FC = () => {
         setScheduleDate('');
         setScheduleTime('');
         setRepeatFrequency('none');
+        setCustomFrequency('');
         setRepeatEnd('');
         setUploadedFile(null);
       } else {
@@ -306,7 +309,12 @@ const SocialSchedulingForm: React.FC = () => {
               id="repeat-frequency"
               name="repeat-frequency"
               value={repeatFrequency}
-              onChange={(e) => setRepeatFrequency(e.target.value)}
+              onChange={(e) => {
+                setRepeatFrequency(e.target.value);
+                if (e.target.value !== 'other') {
+                  setCustomFrequency('');
+                }
+              }}
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-violet-500 transition-colors"
             >
               {repeatOptions.map(option => (
@@ -316,6 +324,28 @@ const SocialSchedulingForm: React.FC = () => {
               ))}
             </select>
           </div>
+
+          {repeatFrequency === 'other' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+            >
+              <label htmlFor="custom-frequency" className="block text-white mb-3 font-medium">
+                Specify Custom Frequency *
+              </label>
+              <input
+                type="text"
+                id="custom-frequency"
+                name="custom-frequency"
+                value={customFrequency}
+                onChange={(e) => setCustomFrequency(e.target.value)}
+                placeholder="e.g., Every 3 days, Twice a week, Every Tuesday and Thursday"
+                required={repeatFrequency === 'other'}
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-violet-500 transition-colors"
+              />
+            </motion.div>
+          )}
 
           {repeatFrequency !== 'none' && (
             <motion.div
