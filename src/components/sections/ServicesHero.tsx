@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 function ServicesHero() {
   return (
-    <section className="relative min-h-[50vh] flex items-center justify-center py-20 px-4 overflow-hidden">
+    <section className="relative min-h-[50vh] flex items-center justify-center py-12 px-4 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-pink-900/10 to-black" />
       

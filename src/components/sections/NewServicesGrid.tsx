@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle } from 'lucide-react';
+import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 import SocialSchedulingForm from '../forms/SocialSchedulingForm';
 
 const NewServicesGrid: React.FC = () => {
@@ -64,21 +64,6 @@ const NewServicesGrid: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
 
       <div className="relative z-10 container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-8"
-        >
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent mb-4">
-            Our Core Services
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Focused solutions that drive real results for your business
-          </p>
-        </motion.div>
-
         <div className="space-y-32">
           {services.map((service, index) => (
             <motion.section
@@ -98,8 +83,15 @@ const NewServicesGrid: React.FC = () => {
                     <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} shadow-lg`}>
                       {service.icon}
                     </div>
-                    <h3 className="text-3xl font-bold text-white">
+                    <h3 className="text-3xl font-bold text-white relative">
                       {service.title}
+                      {service.id === 'social-scheduling' && (
+                        <>
+                          <Sparkles className="absolute -top-3 -left-3 w-5 h-5 text-violet-400 animate-pulse" />
+                          <Sparkles className="absolute -top-3 -right-3 w-5 h-5 text-indigo-400 animate-pulse delay-150" />
+                          <Sparkles className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 text-violet-400 animate-pulse delay-300" />
+                        </>
+                      )}
                     </h3>
                   </div>
 
