@@ -73,7 +73,7 @@ const ServiceNavSidebar: React.FC = () => {
         transition={{ delay: 0.5 }}
         className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block"
       >
-        <div className="bg-black/20 backdrop-blur-sm border border-white/10 rounded-full p-3">
+        <div className="bg-black/20 backdrop-blur-sm border border-violet-500/50 rounded-full p-3 shadow-lg shadow-violet-500/20">
           <nav className="flex flex-col gap-4">
             {services.map((service) => (
               <motion.button
@@ -114,7 +114,7 @@ const ServiceNavSidebar: React.FC = () => {
         transition={{ delay: 0.5 }}
         className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 lg:hidden"
       >
-        <div className="bg-black/80 backdrop-blur-sm border border-white/10 rounded-full px-4 py-3">
+        <div className="bg-black/80 backdrop-blur-sm border border-violet-500/50 rounded-full px-4 py-3 shadow-lg shadow-violet-500/20">
           <nav className="flex gap-3">
             {services.map((service) => (
               <motion.button
