@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Plus, Music, Palette, Video, Image, Calendar, Truck, Phone, ThumbsUp, Star } from 'lucide-react';
+import { CheckCircle, Plus, Music, Palette, Video, Image, Calendar, Truck, Phone, ThumbsUp, Star, Film, Sparkles } from 'lucide-react';
 import { SparklesText } from '../ui/sparkles-text';
 
 const CharacterPackages: React.FC = () => {
@@ -114,40 +114,6 @@ const CharacterPackages: React.FC = () => {
     }
   ];
 
-  const addons = [
-    {
-      name: 'Custom Video Request with 8 Gen Pack',
-      price: '$25',
-      icon: <Video className="w-5 h-5" />
-    },
-    {
-      name: 'Custom Video Request with 16 Gen Pack',
-      price: '$35',
-      icon: <Video className="w-5 h-5" />
-    },
-    {
-      name: 'Additional 4 spins on custom request',
-      price: '$5',
-      icon: <Plus className="w-5 h-5" />
-    },
-    {
-      name: 'Custom 3D avatar (can be printed or setup for games)',
-      price: '$25',
-      icon: <Palette className="w-5 h-5" />
-    },
-    {
-      name: 'Add tool to 3D character hand and pose',
-      price: '$75+',
-      icon: <Palette className="w-5 h-5" />,
-      note: 'May be required for spray foam gun animation setup'
-    },
-    {
-      name: 'Custom Songs: "Jam Session"',
-      price: '$50/hour',
-      icon: <Music className="w-5 h-5" />,
-      note: 'Client should be present. Takes 1-3 hours to find your perfect "JAM"'
-    }
-  ];
 
   return (
     <div className="py-16">
@@ -250,7 +216,7 @@ const CharacterPackages: React.FC = () => {
         ))}
       </div>
 
-      {/* Addons Section */}
+      {/* Custom Videos Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -258,45 +224,103 @@ const CharacterPackages: React.FC = () => {
         viewport={{ once: true }}
         className="mt-20"
       >
-        <h3 className="text-3xl font-bold text-white text-center mb-8">
-          Addons Menu
-        </h3>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+              <Film className="w-10 h-10 text-violet-400" />
+              Custom Video Production
+              <Sparkles className="w-10 h-10 text-violet-400" />
+            </h3>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Professional custom videos combining existing and newly created assets
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-          {addons.map((addon, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-violet-500/50 transition-all duration-300"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-violet-600/20 text-violet-400">
-                    {addon.icon}
+          <div className="bg-gradient-to-r from-violet-600/10 to-purple-600/10 border-2 border-violet-500/30 rounded-2xl p-8">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Video className="w-8 h-8 text-violet-400" />
+                <h4 className="text-2xl font-bold text-white">Custom Video Services</h4>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <h5 className="text-lg font-semibold text-violet-400">What's Included:</h5>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">10-60 second professional videos</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">Clipped and combined 8-second segments</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">Uses your existing character assets</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">Newly created assets for your specific request</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">Professional editing and post-production</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h5 className="text-lg font-semibold text-violet-400 mb-3">Pricing</h5>
+                    <div className="bg-black/30 rounded-xl p-4 border border-violet-500/20">
+                      <div className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
+                        $750 - $1,200
+                      </div>
+                      <p className="text-gray-400 text-sm mt-2">per custom video project</p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-white font-semibold">{addon.name}</h4>
-                    <div className="text-violet-400 font-bold mt-1">{addon.price}</div>
+
+                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+                    <p className="text-amber-400 font-semibold flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                      Prerequisites Required
+                    </p>
+                    <p className="text-gray-300 text-sm mt-2">
+                      Minimum Basic Company Setup package ($500) required before custom video services
+                    </p>
                   </div>
                 </div>
               </div>
-              {addon.note && (
-                <p className="text-gray-400 text-sm mt-2">{addon.note}</p>
-              )}
-            </motion.div>
-          ))}
-        </div>
 
-        <div className="mt-8 p-6 bg-gradient-to-r from-violet-600/10 to-purple-600/10 border border-violet-500/30 rounded-xl max-w-4xl mx-auto">
-          <p className="text-gray-300 text-center">
-            <strong className="text-violet-400">Note on Custom Songs:</strong> All songs we have produced so far (SprayFoam Radio)
-            have taken 2+ hours and potentially a hundred songs generated to pick from.
-            With our upgraded systems, we expect to find your "jam" in one session!
-          </p>
+              <div className="mt-8 flex justify-center">
+                <a
+                  href="https://www.oneupapp.io/clientconnect?id=7745"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-4 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold text-lg hover:shadow-lg hover:shadow-violet-500/30 transition-all duration-300 flex items-center gap-2"
+                  >
+                    Request Custom Video
+                    <Video className="w-5 h-5" />
+                  </motion.button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 p-6 bg-gradient-to-r from-blue-600/10 to-cyan-600/10 border border-blue-500/30 rounded-xl">
+            <p className="text-gray-300 text-center">
+              <strong className="text-blue-400">Pro Tip:</strong> Custom videos are perfect for special promotions,
+              seasonal campaigns, product launches, or any unique content needs that go beyond your standard package assets.
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>
