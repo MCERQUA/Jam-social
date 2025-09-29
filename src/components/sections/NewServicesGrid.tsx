@@ -86,17 +86,11 @@ const NewServicesGrid: React.FC = () => {
                     <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} shadow-lg`}>
                       {service.icon}
                     </div>
-                    {service.id === 'social-scheduling' ? (
-                      <SparklesText
-                        text={service.title}
-                        className="text-3xl font-bold text-white"
-                        sparklesCount={12}
-                      />
-                    ) : (
-                      <h3 className="text-3xl font-bold text-white">
-                        {service.title}
-                      </h3>
-                    )}
+                    <SparklesText
+                      text={service.title}
+                      className="text-3xl font-bold text-white"
+                      sparklesCount={12}
+                    />
                   </div>
 
                   <p className="text-lg text-gray-300 mb-8">
