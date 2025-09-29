@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle } from 'lucide-react';
+import SocialSchedulingForm from '../forms/SocialSchedulingForm';
 
 const NewServicesGrid: React.FC = () => {
   const services = [
@@ -122,37 +123,45 @@ const NewServicesGrid: React.FC = () => {
                     ))}
                   </ul>
 
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      px-8 py-4 rounded-full bg-gradient-to-r ${service.gradient}
-                      text-white font-semibold flex items-center gap-2
-                      hover:shadow-lg transition-shadow duration-300
-                    `}
-                  >
-                    Get Started
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.button>
+                  {service.id !== 'social-scheduling' && (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`
+                        px-8 py-4 rounded-full bg-gradient-to-r ${service.gradient}
+                        text-white font-semibold flex items-center gap-2
+                        hover:shadow-lg transition-shadow duration-300
+                      `}
+                    >
+                      Get Started
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.button>
+                  )}
                 </div>
 
                 <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <div className={`
-                    aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
-                    opacity-20 blur-3xl absolute inset-0
-                  `} />
-                  <div className={`
-                    relative aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
-                    p-[1px]
-                  `}>
-                    <div className="w-full h-full rounded-3xl bg-black/50 backdrop-blur-sm flex items-center justify-center">
-                      <div className="text-white/20">
-                        {React.cloneElement(service.icon as React.ReactElement, {
-                          className: "w-48 h-48"
-                        })}
+                  {service.id === 'social-scheduling' ? (
+                    <SocialSchedulingForm />
+                  ) : (
+                    <>
+                      <div className={`
+                        aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
+                        opacity-20 blur-3xl absolute inset-0
+                      `} />
+                      <div className={`
+                        relative aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
+                        p-[1px]
+                      `}>
+                        <div className="w-full h-full rounded-3xl bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                          <div className="text-white/20">
+                            {React.cloneElement(service.icon as React.ReactElement, {
+                              className: "w-48 h-48"
+                            })}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.section>
