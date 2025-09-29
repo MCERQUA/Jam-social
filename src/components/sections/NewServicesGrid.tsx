@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
+import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle } from 'lucide-react';
 import SocialSchedulingForm from '../forms/SocialSchedulingForm';
+import { SparklesText } from '../ui/sparkles-text';
 
 const NewServicesGrid: React.FC = () => {
   const services = [
@@ -83,16 +84,17 @@ const NewServicesGrid: React.FC = () => {
                     <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} shadow-lg`}>
                       {service.icon}
                     </div>
-                    <h3 className="text-3xl font-bold text-white relative">
-                      {service.title}
-                      {service.id === 'social-scheduling' && (
-                        <>
-                          <Sparkles className="absolute -top-3 -left-3 w-5 h-5 text-violet-400 animate-pulse" />
-                          <Sparkles className="absolute -top-3 -right-3 w-5 h-5 text-indigo-400 animate-pulse delay-150" />
-                          <Sparkles className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 text-violet-400 animate-pulse delay-300" />
-                        </>
-                      )}
-                    </h3>
+                    {service.id === 'social-scheduling' ? (
+                      <SparklesText
+                        text={service.title}
+                        className="text-3xl font-bold text-white"
+                        sparklesCount={12}
+                      />
+                    ) : (
+                      <h3 className="text-3xl font-bold text-white">
+                        {service.title}
+                      </h3>
+                    )}
                   </div>
 
                   <p className="text-lg text-gray-300 mb-8">
