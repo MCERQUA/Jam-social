@@ -4,6 +4,7 @@ import { Calendar, Users, Video, Brain, ArrowRight, CheckCircle } from 'lucide-r
 import SocialSchedulingForm from '../forms/SocialSchedulingForm';
 import { SparklesText } from '../ui/sparkles-text';
 import ConnectAccountSection from './ConnectAccountSection';
+import CharacterPackages from './CharacterPackages';
 
 const NewServicesGrid: React.FC = () => {
   const services = [
@@ -132,6 +133,8 @@ const NewServicesGrid: React.FC = () => {
                 <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                   {service.id === 'social-scheduling' ? (
                     <SocialSchedulingForm />
+                  ) : service.id === 'mascot-setup' ? (
+                    <CharacterPackages />
                   ) : (
                     <>
                       <div className={`
