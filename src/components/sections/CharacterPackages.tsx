@@ -114,6 +114,40 @@ const CharacterPackages: React.FC = () => {
     }
   ];
 
+  const addons = [
+    {
+      name: 'Custom Video Request with 8 Gen Pack',
+      price: '$25',
+      icon: <Video className="w-5 h-5" />
+    },
+    {
+      name: 'Custom Video Request with 16 Gen Pack',
+      price: '$35',
+      icon: <Video className="w-5 h-5" />
+    },
+    {
+      name: 'Additional 4 spins on custom request',
+      price: '$5',
+      icon: <Plus className="w-5 h-5" />
+    },
+    {
+      name: 'Custom 3D avatar (can be printed or setup for games)',
+      price: '$25',
+      icon: <Palette className="w-5 h-5" />
+    },
+    {
+      name: 'Add tool to 3D character hand and pose',
+      price: '$75+',
+      icon: <Palette className="w-5 h-5" />,
+      note: 'May be required for spray foam gun animation setup'
+    },
+    {
+      name: 'Custom Songs: "Jam Session"',
+      price: '$50/hour',
+      icon: <Music className="w-5 h-5" />,
+      note: 'Client should be present. Takes 1-3 hours to find your perfect "JAM"'
+    }
+  ];
 
   return (
     <div className="py-16">
@@ -321,6 +355,56 @@ const CharacterPackages: React.FC = () => {
               seasonal campaigns, product launches, or any unique content needs that go beyond your standard package assets.
             </p>
           </div>
+        </div>
+      </motion.div>
+
+      {/* Addons Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="mt-16"
+      >
+        <h3 className="text-3xl font-bold text-white text-center mb-8">
+          Additional Services
+        </h3>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+          {addons.map((addon, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-violet-500/50 transition-all duration-300"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-violet-600/20 text-violet-400">
+                    {addon.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-semibold">{addon.name}</h4>
+                    <div className="text-violet-400 font-bold mt-1">{addon.price}</div>
+                  </div>
+                </div>
+              </div>
+              {addon.note && (
+                <p className="text-gray-400 text-sm mt-2">{addon.note}</p>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-6 bg-gradient-to-r from-violet-600/10 to-purple-600/10 border border-violet-500/30 rounded-xl max-w-4xl mx-auto">
+          <p className="text-gray-300 text-center">
+            <strong className="text-violet-400">Note on Custom Songs:</strong> All songs we have produced so far (SprayFoam Radio)
+            have taken 2+ hours and potentially a hundred songs generated to pick from.
+            With our upgraded systems, we expect to find your "jam" in one session!
+          </p>
         </div>
       </motion.div>
     </div>
