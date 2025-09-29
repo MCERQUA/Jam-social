@@ -227,16 +227,23 @@ const CharacterPackages: React.FC = () => {
                   ))}
                 </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`
-                    w-full mt-8 py-3 rounded-full bg-gradient-to-r ${pkg.gradient}
-                    text-white font-semibold hover:shadow-lg transition-shadow duration-300
-                  `}
+                <a
+                  href="https://www.oneupapp.io/clientconnect?id=7745"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
                 >
-                  Select Package
-                </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`
+                      w-full mt-8 py-3 rounded-full bg-gradient-to-r ${pkg.gradient}
+                      text-white font-semibold hover:shadow-lg transition-shadow duration-300
+                    `}
+                  >
+                    Select Package
+                  </motion.button>
+                </a>
               </div>
             </div>
           </motion.div>

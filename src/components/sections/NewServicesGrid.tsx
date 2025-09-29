@@ -114,19 +114,26 @@ const NewServicesGrid: React.FC = () => {
                     ))}
                   </ul>
 
-                  {service.id !== 'social-scheduling' && (
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`
-                        px-8 py-4 rounded-full bg-gradient-to-r ${service.gradient}
-                        text-white font-semibold flex items-center gap-2
-                        hover:shadow-lg transition-shadow duration-300
-                      `}
+                  {service.id !== 'social-scheduling' && service.id !== 'mascot-setup' && (
+                    <a
+                      href="https://www.oneupapp.io/clientconnect?id=7745"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
                     >
-                      Get Started
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`
+                          px-8 py-4 rounded-full bg-gradient-to-r ${service.gradient}
+                          text-white font-semibold flex items-center gap-2
+                          hover:shadow-lg transition-shadow duration-300
+                        `}
+                      >
+                        Get Started
+                        <ArrowRight className="w-5 h-5" />
+                      </motion.button>
+                    </a>
                   )}
                 </div>
 
