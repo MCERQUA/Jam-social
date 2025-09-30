@@ -79,26 +79,25 @@ const NewServicesGrid: React.FC = () => {
                 viewport={{ once: true, margin: "-100px" }}
                 className="scroll-mt-24"
               >
-              <div className={`grid lg:grid-cols-2 gap-12 items-center ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              }`}>
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-center gap-4 mb-6">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-12">
+                  <div className="flex items-center justify-center gap-4 mb-6">
                     <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} shadow-lg`}>
                       {service.icon}
                     </div>
-                    <SparklesText
-                      text={service.title}
-                      className="text-3xl font-bold text-white"
-                      sparklesCount={12}
-                    />
                   </div>
 
-                  <p className="text-lg text-gray-300 mb-8">
+                  <SparklesText
+                    text={service.title}
+                    className="text-4xl md:text-5xl font-bold text-white mb-6"
+                    sparklesCount={12}
+                  />
+
+                  <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
                     {service.description}
                   </p>
 
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-3 mb-8 max-w-2xl mx-auto text-left">
                     {service.features.map((feature, idx) => (
                       <motion.li
                         key={idx}
@@ -137,31 +136,12 @@ const NewServicesGrid: React.FC = () => {
                   )}
                 </div>
 
-                <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                <div className="mt-12">
                   {service.id === 'social-scheduling' ? (
                     <SocialSchedulingForm />
                   ) : service.id === 'mascot-setup' ? (
                     <CharacterPackages />
-                  ) : (
-                    <>
-                      <div className={`
-                        aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
-                        opacity-20 blur-3xl absolute inset-0
-                      `} />
-                      <div className={`
-                        relative aspect-square rounded-3xl bg-gradient-to-br ${service.gradient}
-                        p-[1px]
-                      `}>
-                        <div className="w-full h-full rounded-3xl bg-black/50 backdrop-blur-sm flex items-center justify-center">
-                          <div className="text-white/20">
-                            {React.cloneElement(service.icon as React.ReactElement, {
-                              className: "w-48 h-48"
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </motion.section>
