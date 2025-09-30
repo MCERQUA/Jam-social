@@ -150,7 +150,7 @@ const CharacterPackages: React.FC = () => {
   ];
 
   return (
-    <div className="py-16">
+    <div className="w-full max-w-7xl mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -160,16 +160,16 @@ const CharacterPackages: React.FC = () => {
       >
         <SparklesText
           text="Character Video Creation Setup Packages"
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
           sparklesCount={15}
         />
-        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+        <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
           Professional character creation and branding packages to bring your company mascot to life
         </p>
       </motion.div>
 
       {/* Package Cards */}
-      <div className="grid lg:grid-cols-3 gap-8 mb-16">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16 px-4 lg:px-8">
         {packages.map((pkg, index) => (
           <motion.div
             key={pkg.id}
@@ -197,28 +197,28 @@ const CharacterPackages: React.FC = () => {
                 ${selectedPackage === pkg.id ? 'shadow-2xl shadow-violet-500/30' : ''}
               `}
             >
-              <div className="h-full bg-black/90 backdrop-blur-sm rounded-2xl p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{pkg.name}</h3>
-                  <div className="text-4xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+              <div className="h-full bg-black/90 backdrop-blur-sm rounded-2xl p-6">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-2">{pkg.name}</h3>
+                  <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
                     {pkg.price}
                   </div>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {pkg.features.map((section, idx) => (
                     <div key={idx}>
                       {section.category && (
-                        <h4 className="text-sm font-semibold text-violet-400 mb-3">
+                        <h4 className="text-xs lg:text-sm font-semibold text-violet-400 mb-2">
                           {section.category}
                         </h4>
                       )}
                       {section.items.length > 0 && (
-                        <ul className="space-y-2">
+                        <ul className="space-y-1.5">
                           {section.items.map((item, itemIdx) => (
                             <li key={itemIdx} className="flex items-start gap-2">
-                              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                              <span className="text-gray-300 text-sm">{item}</span>
+                              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                              <span className="text-gray-300 text-xs lg:text-sm leading-relaxed">{item}</span>
                             </li>
                           ))}
                         </ul>
