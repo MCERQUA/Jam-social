@@ -85,12 +85,13 @@ export const DashboardSidebar: React.FC = () => {
 
   return (
     <motion.aside
-      className={`h-screen bg-gradient-to-b from-gray-900/98 to-gray-900/95 backdrop-blur-xl border-r border-gray-500/20 flex flex-col relative transition-all duration-300 ${
+      className={`h-screen bg-gradient-to-b from-gray-900/98 to-gray-900/95 backdrop-blur-xl border-r border-gray-500/20 flex flex-col relative transition-all duration-300 flex-shrink-0 ${
         isCollapsed ? 'w-20' : 'w-72'
       }`}
-      initial={{ x: -280 }}
-      animate={{ x: 0, width: isCollapsed ? '5rem' : '18rem' }}
-      transition={{ duration: 0.3 }}
+      initial={false}
+      animate={{ width: isCollapsed ? '5rem' : '18rem' }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      style={{ minWidth: isCollapsed ? '5rem' : '18rem' }}
     >
       {/* Toggle Button */}
       <button

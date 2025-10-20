@@ -83,11 +83,13 @@ export const DashboardContainer: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-black overflow-hidden">
-      {/* Sidebar */}
-      <DashboardSidebar />
+      {/* Sidebar - Always visible */}
+      <div className="flex-shrink-0">
+        <DashboardSidebar />
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Top Bar */}
         <DashboardTopBar onSearch={handleSearch} />
 
