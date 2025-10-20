@@ -43,7 +43,7 @@ export const LoginForm: React.FC = () => {
           routing="path"
           path="/login"
           signUpUrl="/signup"
-          afterSignInUrl="/"
+          afterSignInUrl="/dashboard"
         />
       </motion.div>
     </ClerkProvider>
