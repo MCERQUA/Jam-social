@@ -1,13 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { ClerkProvider } from '../components/providers/ClerkProvider';
 import { DashboardContainer } from '../components/dashboard/DashboardContainer';
 ---
 
 <Layout title="Dashboard - Jam Social Media" description="Manage your media assets">
-  <ClerkProvider client:only="react">
-    <DashboardContainer client:only="react" />
-  </ClerkProvider>
+  <DashboardContainer client:only="react" />
 </Layout>
 
 <style>

@@ -8,8 +8,9 @@ import { MediaCard } from "./MediaCard";
 import { FileUploader } from "./FileUploader";
 import { apiClient, type UserFile } from "../../lib/api/client";
 import { useUser } from "@clerk/clerk-react";
+import { ClerkProvider } from "../providers/ClerkProvider";
 
-export const DashboardContainer: React.FC = () => {
+const DashboardContent: React.FC = () => {
   const [files, setFiles] = useState<UserFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -184,5 +185,13 @@ export const DashboardContainer: React.FC = () => {
         )}
       </AnimatePresence>
     </div>
+  );
+};
+
+export const DashboardContainer: React.FC = () => {
+  return (
+    <ClerkProvider>
+      <DashboardContent />
+    </ClerkProvider>
   );
 };
