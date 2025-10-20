@@ -203,6 +203,32 @@ class ApiClient {
     return `${this.baseUrl}/files/${fileId}/thumbnail`;
   }
 
+  async getThumbnailBlob(fileId: string): Promise<string | null> {
+    try {
+      const token = await this.getAuthToken();
+
+      const headers: HeadersInit = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${this.baseUrl}/files/${fileId}/thumbnail`, {
+        headers,
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch thumbnail:', response.status);
+        return null;
+      }
+
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+      console.error('Error fetching thumbnail blob:', error);
+      return null;
+    }
+  }
+
   getDownloadUrl(fileId: string): string {
     return `${this.baseUrl}/files/${fileId}/download`;
   }

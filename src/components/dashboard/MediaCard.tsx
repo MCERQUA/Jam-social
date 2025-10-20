@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { apiClient, type UserFile } from "../../lib/api/client";
 
@@ -13,6 +13,7 @@ interface MediaCardProps {
 export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [thumbnailBlobUrl, setThumbnailBlobUrl] = useState<string | null>(null);
 
   const typeIcons = {
     video: "🎥",
@@ -21,6 +22,30 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     project: "📁",
     audio: "🎵",
   };
+
+  // Fetch thumbnail with authentication
+  useEffect(() => {
+    let mounted = true;
+    let blobUrl: string | null = null;
+
+    const fetchThumbnail = async () => {
+      if (item.thumbnailPath) {
+        blobUrl = await apiClient.getThumbnailBlob(item.id);
+        if (mounted && blobUrl) {
+          setThumbnailBlobUrl(blobUrl);
+        }
+      }
+    };
+
+    fetchThumbnail();
+
+    return () => {
+      mounted = false;
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [item.id, item.thumbnailPath]);
 
   const handleDownload = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -58,12 +83,9 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     }
   };
 
-  // Get thumbnail URL
-  const thumbnailUrl = item.thumbnailPath
-    ? apiClient.getThumbnailUrl(item.id)
-    : item.fileType === 'image'
-    ? apiClient.getDownloadUrl(item.id)
-    : 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
+  // Get thumbnail URL - use blob URL if available, otherwise fallback
+  const thumbnailUrl = thumbnailBlobUrl
+    || (item.fileType === 'image' ? apiClient.getDownloadUrl(item.id) : 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop');
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -114,8 +136,8 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
 
         {/* Type Badge */}
         <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-md text-xs font-medium text-white">
-          <span>{typeIcons[item.type]}</span>
-          <span className="capitalize">{item.type}</span>
+          <span>{typeIcons[item.fileType]}</span>
+          <span className="capitalize">{item.fileType}</span>
         </div>
 
         {/* Duration Badge (for videos) */}
@@ -126,7 +148,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
         )}
 
         {/* Play Overlay (for videos) */}
-        {item.type === "video" && (
+        {item.fileType === "video" && (
           <motion.div
             className="absolute inset-0 flex items-center justify-center bg-black/30"
             initial={{ opacity: 0 }}
