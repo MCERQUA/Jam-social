@@ -12,6 +12,7 @@ if (!process.env.CLERK_SECRET_KEY) {
  * Middleware to verify Clerk session token
  */
 export async function requireAuth(req, res, next) {
+  const startTime = Date.now();
   try {
     // Get token from Authorization header
     const authHeader = req.headers.authorization;
@@ -25,23 +26,34 @@ export async function requireAuth(req, res, next) {
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    // Verify the session token with Clerk
-    const session = await clerkClient.sessions.verifySession(token, token);
+    console.log('[AUTH] Starting token verification...');
+    const verifyStart = Date.now();
 
-    if (!session || !session.userId) {
+    // Verify the JWT token with Clerk
+    // Note: In Clerk SDK v4, we use verifyToken to verify the JWT
+    const payload = await clerkClient.verifyToken(token);
+
+    const verifyTime = Date.now() - verifyStart;
+    console.log(`[AUTH] Token verification completed in ${verifyTime}ms`);
+
+    if (!payload || !payload.sub) {
       return res.status(401).json({
         success: false,
-        error: 'Invalid or expired session'
+        error: 'Invalid or expired token'
       });
     }
 
-    // Attach user ID to request
-    req.userId = session.userId;
-    req.session = session;
+    // Attach user ID to request (sub is the user ID in JWT)
+    req.userId = payload.sub;
+    req.tokenPayload = payload;
+
+    const totalTime = Date.now() - startTime;
+    console.log(`[AUTH] Total auth middleware time: ${totalTime}ms for user ${payload.sub}`);
 
     next();
   } catch (error) {
-    console.error('Authentication error:', error);
+    const totalTime = Date.now() - startTime;
+    console.error(`[AUTH] Authentication error after ${totalTime}ms:`, error.message);
     return res.status(401).json({
       success: false,
       error: 'Authentication failed',

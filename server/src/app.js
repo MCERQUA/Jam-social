@@ -28,6 +28,13 @@ app.use(cors(corsOptions));
 // Compression
 app.use(compression());
 
+// Request logging middleware (before all routes)
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.url} - Origin: ${req.headers.origin || 'none'} - IP: ${req.ip}`);
+  next();
+});
+
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));

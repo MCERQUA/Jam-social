@@ -6,9 +6,20 @@
   NODE_VERSION = "18"
 
 # Proxy API requests to VPS backend (bypasses mixed content blocking)
+# IMPORTANT: After HTTPS is set up on VPS, change to HTTPS URL
+# See: HTTPS-SETUP-GUIDE.md for setup instructions
+
+# CURRENT (HTTP - WILL NOT WORK - Netlify requires HTTPS backends)
+# [[redirects]]
+#   from = "/api/*"
+#   to = "http://178.156.181.117:3007/api/:splat"
+#   status = 200
+#   force = true
+
+# AFTER HTTPS SETUP (uncomment this and remove the above)
 [[redirects]]
   from = "/api/*"
-  to = "http://178.156.181.117:3007/api/:splat"
+  to = "https://api.jamsocial.app/api/:splat"
   status = 200
   force = true
 
