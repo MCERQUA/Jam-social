@@ -1,6 +1,6 @@
 // API Client for file storage backend
 
-const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3007/api';
 
 export interface StorageInfo {
   userId: string;
