@@ -25,7 +25,7 @@ export const FloatingChatButton: React.FC = () => {
       <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-spin-slow" />
       
       {/* Pulse animation ring */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 animate-ping opacity-75" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 animate-ping opacity-75" />
       
       {/* Black background circle */}
       <div className="relative w-16 h-16 bg-black rounded-full flex items-center justify-center border-2 border-transparent m-[2px]">

@@ -68,7 +68,7 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
               onClick={() => handleViewChange("grid")}
               className={`p-2 rounded transition-all ${
                 currentView === "grid"
-                  ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white"
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                   : "text-gray-400 hover:text-white"
               }`}
               title="Grid view"
@@ -81,7 +81,7 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
               onClick={() => handleViewChange("list")}
               className={`p-2 rounded transition-all ${
                 currentView === "list"
-                  ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white"
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                   : "text-gray-400 hover:text-white"
               }`}
               title="List view"
@@ -110,7 +110,7 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
             onClick={() => setShowFilters(!showFilters)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
               showFilters
-                ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white"
+                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                 : "bg-gray-800/50 text-gray-300 hover:text-white border border-gray-500/30"
             }`}
           >
@@ -123,7 +123,7 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
 
         {/* Right: Upload & User */}
         <div className="flex items-center gap-3">
-          <button className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg shadow-purple-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
@@ -135,11 +135,11 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full"></span>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
           </button>
 
           {/* User Avatar */}
-          <button className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold hover:scale-105 transition-transform">
+          <button className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold hover:scale-105 transition-transform">
             JD
           </button>
         </div>

@@ -77,7 +77,7 @@ export const DashboardSidebar: React.FC = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-6 z-50 w-6 h-6 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110"
+        className="absolute -right-3 top-6 z-50 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110"
         title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         <svg
@@ -93,11 +93,11 @@ export const DashboardSidebar: React.FC = () => {
       {/* Logo */}
       <div className={`border-b border-gray-500/20 transition-all duration-300 ${isCollapsed ? 'p-4' : 'p-6'}`}>
         {isCollapsed ? (
-          <div className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent text-center">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent text-center">
             J
           </div>
         ) : (
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
             Jam Dashboard
           </h1>
         )}
@@ -151,7 +151,7 @@ export const DashboardSidebar: React.FC = () => {
               </div>
               <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-pink-500 to-purple-500"
+                  className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
                   initial={{ width: 0 }}
                   animate={{ width: "24%" }}
                   transition={{ duration: 1, delay: 0.5 }}
@@ -183,7 +183,7 @@ export const DashboardSidebar: React.FC = () => {
                     isCollapsed ? 'justify-center p-3' : 'justify-between px-3 py-2.5'
                   } ${
                     activeItem === item.id
-                      ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-purple-500/30"
+                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30"
                       : "text-gray-300 hover:bg-gray-800/50 hover:text-white"
                   }`}
                   title={isCollapsed ? item.label : undefined}
@@ -219,7 +219,7 @@ export const DashboardSidebar: React.FC = () => {
       {/* Upload Button */}
       <div className={`border-t border-gray-500/20 ${isCollapsed ? 'p-2' : 'p-4'}`}>
         <button
-          className={`w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center ${
+          className={`w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center ${
             isCollapsed ? 'p-3' : 'py-3 px-4 gap-2'
           }`}
           title={isCollapsed ? "Upload Media" : undefined}
