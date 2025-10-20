@@ -1,6 +1,6 @@
 // API Client for file storage backend
-
-const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3007/api';
+// Uses relative URL so Netlify proxy can route to VPS backend (bypasses mixed content)
+const API_URL = import.meta.env.PUBLIC_API_URL || '/api';
 
 export interface StorageInfo {
   userId: string;
