@@ -83,7 +83,7 @@ const DashboardContent: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-black overflow-hidden">
+    <div className="flex h-screen bg-black overflow-hidden pt-20">
       {/* Sidebar - Always visible */}
       <div className="flex-shrink-0">
         <DashboardSidebar />
@@ -95,7 +95,7 @@ const DashboardContent: React.FC = () => {
         <DashboardTopBar onSearch={handleSearch} />
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-6 pt-8">
           <div className="max-w-[1800px] mx-auto">
             {/* Header */}
             <div className="mb-8 flex items-center justify-between">
