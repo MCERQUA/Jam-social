@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "@clerk/clerk-react";
 
 interface NavItem {
   id: string;
@@ -19,6 +20,7 @@ interface NavSection {
 export const DashboardSidebar: React.FC = () => {
   const [activeItem, setActiveItem] = useState("home");
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { user, isLoaded } = useUser();
 
   // Auto-collapse on mobile
   useEffect(() => {
@@ -100,6 +102,38 @@ export const DashboardSidebar: React.FC = () => {
           </h1>
         )}
       </div>
+
+      {/* User Profile Section */}
+      {isLoaded && user && (
+        <div className={`border-b border-gray-500/20 transition-all duration-300 ${isCollapsed ? 'p-2' : 'px-6 py-4'}`}>
+          {isCollapsed ? (
+            <div className="flex justify-center">
+              <img
+                src={user.imageUrl}
+                alt={user.fullName || user.username || 'User'}
+                className="w-10 h-10 rounded-full border-2 border-purple-500/50"
+                title={user.fullName || user.username || 'User'}
+              />
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <img
+                src={user.imageUrl}
+                alt={user.fullName || user.username || 'User'}
+                className="w-12 h-12 rounded-full border-2 border-purple-500/50"
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-white truncate">
+                  {user.fullName || user.username || 'User'}
+                </p>
+                <p className="text-xs text-gray-400 truncate">
+                  {user.primaryEmailAddress?.emailAddress}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Storage Indicator */}
       <AnimatePresence>
