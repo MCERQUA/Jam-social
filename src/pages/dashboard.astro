@@ -1,0 +1,216 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DashboardSidebar } from '../components/dashboard/DashboardSidebar';
+import { DashboardTopBar } from '../components/dashboard/DashboardTopBar';
+import { MediaCard } from '../components/dashboard/MediaCard';
+
+// Placeholder data - this would come from your database
+const placeholderMedia = [
+  {
+    id: '1',
+    type: 'video' as const,
+    title: 'Product Demo - Final Cut',
+    thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=225&fit=crop',
+    duration: '00:45',
+    resolution: '1920x1080',
+    size: '24.5 MB',
+    date: '2 days ago',
+    package: 'Gold Package',
+    tags: ['product', 'demo', 'final'],
+    favorite: true,
+  },
+  {
+    id: '2',
+    type: 'image' as const,
+    title: 'Brand Logo - Transparent',
+    thumbnail: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=225&fit=crop',
+    resolution: '4000x4000',
+    size: '2.1 MB',
+    date: '5 days ago',
+    package: 'Bronze Package',
+    tags: ['logo', 'branding'],
+    favorite: false,
+  },
+  {
+    id: '3',
+    type: 'video' as const,
+    title: 'Summer Campaign - Scene 3',
+    thumbnail: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=225&fit=crop',
+    duration: '01:15',
+    resolution: '3840x2160',
+    size: '156.8 MB',
+    date: '1 week ago',
+    package: 'Platinum Package',
+    tags: ['campaign', 'summer', 'social'],
+    favorite: true,
+  },
+  {
+    id: '4',
+    type: 'scene' as const,
+    title: 'Instagram Reel Template',
+    thumbnail: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop',
+    resolution: '1080x1920',
+    size: '45.2 MB',
+    date: '1 week ago',
+    package: 'Silver Package',
+    tags: ['instagram', 'reel', 'template'],
+    favorite: false,
+  },
+  {
+    id: '5',
+    type: 'image' as const,
+    title: 'Social Media Banner Set',
+    thumbnail: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop',
+    resolution: '1920x1080',
+    size: '8.4 MB',
+    date: '2 weeks ago',
+    package: 'Gold Package',
+    tags: ['banner', 'social', 'design'],
+    favorite: true,
+  },
+  {
+    id: '6',
+    type: 'video' as const,
+    title: 'Brand Story Animation',
+    thumbnail: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=225&fit=crop',
+    duration: '02:30',
+    resolution: '1920x1080',
+    size: '89.7 MB',
+    date: '2 weeks ago',
+    package: 'Platinum Package',
+    tags: ['animation', 'brand', 'story'],
+    favorite: false,
+  },
+  {
+    id: '7',
+    type: 'project' as const,
+    title: 'Q4 Marketing Campaign',
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=225&fit=crop',
+    size: '234.5 MB',
+    date: '3 weeks ago',
+    package: 'Gold Package',
+    tags: ['campaign', 'marketing', 'Q4'],
+    favorite: true,
+  },
+  {
+    id: '8',
+    type: 'image' as const,
+    title: 'Product Photography Set',
+    thumbnail: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=225&fit=crop',
+    resolution: '6000x4000',
+    size: '12.3 MB',
+    date: '3 weeks ago',
+    package: 'Silver Package',
+    tags: ['product', 'photography'],
+    favorite: false,
+  },
+  {
+    id: '9',
+    type: 'video' as const,
+    title: 'Tutorial - Social Media Tips',
+    thumbnail: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&h=225&fit=crop',
+    duration: '03:45',
+    resolution: '1920x1080',
+    size: '178.9 MB',
+    date: '1 month ago',
+    package: 'Bronze Package',
+    tags: ['tutorial', 'social', 'tips'],
+    favorite: true,
+  },
+  {
+    id: '10',
+    type: 'scene' as const,
+    title: 'YouTube Intro Template',
+    thumbnail: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=400&h=225&fit=crop',
+    resolution: '1920x1080',
+    size: '67.2 MB',
+    date: '1 month ago',
+    package: 'Platinum Package',
+    tags: ['youtube', 'intro', 'template'],
+    favorite: false,
+  },
+  {
+    id: '11',
+    type: 'image' as const,
+    title: 'Event Poster Design',
+    thumbnail: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=225&fit=crop',
+    resolution: '2480x3508',
+    size: '5.6 MB',
+    date: '1 month ago',
+    package: 'Gold Package',
+    tags: ['poster', 'event', 'design'],
+    favorite: false,
+  },
+  {
+    id: '12',
+    type: 'video' as const,
+    title: 'Customer Testimonial',
+    thumbnail: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=225&fit=crop',
+    duration: '01:20',
+    resolution: '1920x1080',
+    size: '54.3 MB',
+    date: '2 months ago',
+    package: 'Silver Package',
+    tags: ['testimonial', 'customer'],
+    favorite: true,
+  },
+];
+---
+
+<Layout title="Dashboard - Jam Social Media" description="Manage your media assets">
+  <div class="flex h-screen bg-black overflow-hidden">
+    <!-- Sidebar -->
+    <DashboardSidebar client:load />
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Top Bar -->
+      <DashboardTopBar client:load />
+
+      <!-- Content Area -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-[1800px] mx-auto">
+          <!-- Header -->
+          <div class="mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">All Media</h1>
+            <p class="text-gray-400">Browse and manage your media assets</p>
+          </div>
+
+          <!-- Media Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {placeholderMedia.map((item) => (
+              <MediaCard item={item} client:load />
+            ))}
+          </div>
+
+          <!-- Load More -->}
+          <div class="mt-12 text-center">
+            <button class="px-8 py-3 bg-gray-800/50 hover:bg-gray-700 border border-gray-500/30 hover:border-gray-500/50 text-white rounded-lg transition-all">
+              Load More
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Custom scrollbar for dashboard */
+  main::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  main::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  main::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ec4899 0%, #a855f7 100%);
+    border-radius: 4px;
+  }
+
+  main::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #f472b6 0%, #c084fc 100%);
+  }
+</style>
