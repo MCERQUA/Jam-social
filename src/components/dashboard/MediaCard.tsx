@@ -2,35 +2,95 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
-export interface MediaItem {
-  id: string;
-  type: "video" | "image" | "scene" | "project";
-  title: string;
-  thumbnail: string;
-  duration?: string;
-  resolution?: string;
-  size: string;
-  date: string;
-  package?: string;
-  tags: string[];
-  favorite: boolean;
-}
+import { apiClient, type UserFile } from "../../lib/api/client";
 
 interface MediaCardProps {
-  item: MediaItem;
-  onPreview?: (item: MediaItem) => void;
+  item: UserFile;
+  onPreview?: (item: UserFile) => void;
+  onUpdate?: () => void;
 }
 
-export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
+export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const typeIcons = {
     video: "🎥",
     image: "🖼️",
     scene: "🎬",
     project: "📁",
+    audio: "🎵",
   };
+
+  const handleDownload = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      const url = apiClient.getDownloadUrl(item.id);
+      window.open(url, '_blank');
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Failed to download file');
+    }
+  };
+
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm(`Delete "${item.originalName}"?`)) return;
+
+    setIsDeleting(true);
+    try {
+      await apiClient.deleteFile(item.id);
+      onUpdate?.();
+    } catch (error) {
+      console.error('Delete error:', error);
+      alert('Failed to delete file');
+      setIsDeleting(false);
+    }
+  };
+
+  const handleToggleFavorite = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await apiClient.toggleFavorite(item.id);
+      onUpdate?.();
+    } catch (error) {
+      console.error('Toggle favorite error:', error);
+    }
+  };
+
+  // Get thumbnail URL
+  const thumbnailUrl = item.thumbnailPath
+    ? apiClient.getThumbnailUrl(item.id)
+    : item.fileType === 'image'
+    ? apiClient.getDownloadUrl(item.id)
+    : 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
+
+  // Format date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+    return date.toLocaleDateString();
+  };
+
+  if (isDeleting) {
+    return (
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0, scale: 0.9 }}
+        className="bg-gray-800/60 backdrop-blur-sm border border-gray-500/20 rounded-xl overflow-hidden aspect-video flex items-center justify-center"
+      >
+        <p className="text-gray-400">Deleting...</p>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -43,9 +103,13 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
       {/* Thumbnail */}
       <div className="relative aspect-video bg-gray-900 overflow-hidden cursor-pointer" onClick={() => onPreview?.(item)}>
         <img
-          src={item.thumbnail}
-          alt={item.title}
+          src={thumbnailUrl}
+          alt={item.originalName}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            // Fallback to placeholder on error
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
+          }}
         />
 
         {/* Type Badge */}
@@ -96,7 +160,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
       <div className="p-4 space-y-3">
         {/* Title */}
         <h3 className="text-white font-semibold line-clamp-1 group-hover:text-purple-300 transition-colors">
-          {item.title}
+          {item.originalName}
         </h3>
 
         {/* Metadata */}
@@ -107,17 +171,17 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
               <span>•</span>
             </>
           )}
-          <span>{item.size}</span>
+          <span>{item.fileSizeFormatted}</span>
           <span>•</span>
-          <span>{item.date}</span>
+          <span>{formatDate(item.uploadDate)}</span>
         </div>
 
         {/* Tags */}
-        {item.tags.length > 0 && (
+        {item.tags && item.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {item.tags.slice(0, 3).map((tag) => (
+            {item.tags.slice(0, 3).map((tag, index) => (
               <span
-                key={tag}
+                key={index}
                 className="px-2 py-0.5 bg-gray-700/50 text-gray-300 text-xs rounded-full"
               >
                 {tag}
@@ -132,10 +196,10 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
         )}
 
         {/* Package Badge */}
-        {item.package && (
+        {item.packageName && (
           <div className="flex items-center gap-2 text-xs">
             <span className="text-gray-500">📦</span>
-            <span className="text-gray-400">{item.package}</span>
+            <span className="text-gray-400">{item.packageName}</span>
           </div>
         )}
       </div>
@@ -150,29 +214,29 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview }) => {
         <button
           className="p-2 bg-gray-900/80 hover:bg-purple-600 text-white rounded-lg transition-colors"
           title="Download"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleDownload}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
         </button>
         <button
-          className="p-2 bg-gray-900/80 hover:bg-purple-600 text-white rounded-lg transition-colors"
-          title="Share"
-          onClick={(e) => e.stopPropagation()}
+          className="p-2 bg-gray-900/80 hover:bg-red-600 text-white rounded-lg transition-colors"
+          title="Delete"
+          onClick={handleDelete}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
         <button
           className={`p-2 bg-gray-900/80 rounded-lg transition-colors ${
-            item.favorite ? "text-yellow-500 hover:text-yellow-600" : "text-white hover:bg-purple-600"
+            item.isFavorite ? "text-yellow-500 hover:text-yellow-600" : "text-white hover:bg-purple-600"
           }`}
-          title={item.favorite ? "Remove from favorites" : "Add to favorites"}
-          onClick={(e) => e.stopPropagation()}
+          title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}
+          onClick={handleToggleFavorite}
         >
-          <svg className="w-4 h-4" fill={item.favorite ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4" fill={item.isFavorite ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
           </svg>
         </button>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
+import { apiClient, type StorageInfo } from "../../lib/api/client";
 
 interface NavItem {
   id: string;
@@ -20,7 +21,24 @@ interface NavSection {
 export const DashboardSidebar: React.FC = () => {
   const [activeItem, setActiveItem] = useState("home");
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [storage, setStorage] = useState<StorageInfo | null>(null);
+  const [storageLoading, setStorageLoading] = useState(false);
   const { user, isLoaded } = useUser();
+
+  // Fetch storage info
+  useEffect(() => {
+    if (isLoaded && user) {
+      setStorageLoading(true);
+      apiClient.getStorageUsage()
+        .then(setStorage)
+        .catch((error) => {
+          console.error('Failed to fetch storage:', error);
+          // Initialize storage if it doesn't exist
+          return apiClient.initializeStorage().then(setStorage);
+        })
+        .finally(() => setStorageLoading(false));
+    }
+  }, [isLoaded, user]);
 
   // Auto-collapse on mobile
   useEffect(() => {
@@ -144,20 +162,49 @@ export const DashboardSidebar: React.FC = () => {
             exit={{ opacity: 0, height: 0 }}
             className="px-6 py-4 border-b border-gray-500/20"
           >
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Storage</span>
-                <span className="text-white font-semibold">2.4 GB / 10 GB</span>
+            {storageLoading ? (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Storage</span>
+                  <span className="text-gray-500 font-semibold">Loading...</span>
+                </div>
+                <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-full w-1/4 bg-gradient-to-r from-blue-500 to-purple-500 animate-pulse" />
+                </div>
               </div>
-              <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                  initial={{ width: 0 }}
-                  animate={{ width: "24%" }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                />
+            ) : storage ? (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Storage</span>
+                  <span className="text-white font-semibold">
+                    {storage.totalFormatted} / {storage.maxFormatted}
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${storage.percentage}%` }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                  />
+                </div>
+                {storage.percentage > 80 && (
+                  <p className="text-xs text-yellow-400">
+                    ⚠️ {storage.availableFormatted} remaining
+                  </p>
+                )}
               </div>
-            </div>
+            ) : (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Storage</span>
+                  <span className="text-white font-semibold">0 Bytes / 10 GB</span>
+                </div>
+                <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-full w-0 bg-gradient-to-r from-blue-500 to-purple-500" />
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
