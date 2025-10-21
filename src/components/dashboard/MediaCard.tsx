@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { apiClient, type UserFile } from "../../lib/api/client";
+import { ImagePreview } from "./ImagePreview";
 
 interface MediaCardProps {
   item: UserFile;
@@ -14,6 +15,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
   const [isHovered, setIsHovered] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   const typeIcons = {
     video: "🎥",
@@ -115,15 +117,16 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
   }
 
   return (
-    <motion.div
-      className="group relative bg-gray-800/60 backdrop-blur-sm border border-gray-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:bg-gray-700/80 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/20"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -4 }}
-      layout
-    >
-      {/* Thumbnail */}
-      <div className="relative aspect-video bg-gray-900 overflow-hidden cursor-pointer" onClick={() => onPreview?.(item)}>
+    <>
+      <motion.div
+        className="group relative bg-gray-800/60 backdrop-blur-sm border border-gray-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:bg-gray-700/80 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/20"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        whileHover={{ y: -4 }}
+        layout
+      >
+        {/* Thumbnail */}
+        <div className="relative aspect-video bg-gray-900 overflow-hidden cursor-pointer" onClick={() => setShowPreview(true)}>
         <img
           src={thumbnailUrl}
           alt={item.originalName}
@@ -264,5 +267,14 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
         </button>
       </motion.div>
     </motion.div>
+
+    {/* Image Preview Modal */}
+    {showPreview && (
+      <ImagePreview
+        file={item}
+        onClose={() => setShowPreview(false)}
+      />
+    )}
+  </>
   );
 };
