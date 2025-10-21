@@ -1,6 +1,8 @@
 // API Client for file storage backend
 // Uses relative URL so Netlify proxy can route to VPS backend (bypasses mixed content)
+// For large uploads (admin uploads), use direct VPS connection to avoid Netlify timeout
 const API_URL = import.meta.env.PUBLIC_API_URL || '/api';
+const DIRECT_API_URL = import.meta.env.PUBLIC_DIRECT_API_URL || 'https://api.jamsocial.app/api';
 
 export interface StorageInfo {
   userId: string;
@@ -328,7 +330,9 @@ class ApiClient {
       if (metadata.aiMetadata) formData.append('aiMetadata', JSON.stringify(metadata.aiMetadata));
     }
 
-    const response = await fetch(`${this.baseUrl}/files/admin/upload`, {
+    // Use DIRECT API URL to bypass Netlify proxy timeout (26s limit)
+    // Large file uploads go directly to VPS backend
+    const response = await fetch(`${DIRECT_API_URL}/files/admin/upload`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
