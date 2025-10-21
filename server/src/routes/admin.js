@@ -14,13 +14,16 @@ router.get('/users', requireAuth, getUserInfo, requireAdmin, async (req, res) =>
     console.log(`[ADMIN] ${req.userEmail} fetching user list`);
 
     // Fetch all users from Clerk
-    const users = await clerkClient.users.getUserList({
+    const response = await clerkClient.users.getUserList({
       limit: 500, // Adjust as needed
       orderBy: '-created_at',
     });
 
+    // The response is an array-like object, not { data: [...] }
+    const userList = Array.isArray(response) ? response : (response.data || []);
+
     // Format user data
-    const formattedUsers = users.data.map(user => ({
+    const formattedUsers = userList.map(user => ({
       id: user.id,
       email: user.emailAddresses?.[0]?.emailAddress || 'No email',
       firstName: user.firstName || '',
