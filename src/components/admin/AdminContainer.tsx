@@ -21,7 +21,7 @@ const AdminContent: React.FC = () => {
   const { user, isLoaded } = useUser();
 
   // Check if current user is admin
-  const adminEmails = ['mikecerqua@gmail.com', 'erquadanielle@gmail.com'];
+  const adminEmails = ['mikecerqua@gmail.com', 'cerquadanielle@gmail.com'];
   const isAdmin = user?.primaryEmailAddress?.emailAddress &&
                   adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 

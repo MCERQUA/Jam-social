@@ -5,8 +5,8 @@
 
 // Admin user IDs or emails (can be moved to env vars)
 const ADMIN_USERS = [
-  'mikecerqua@gmail.com',      // user_32fZ9uWDwFB5TPbiavdSexQYtvr
-  'erquadanielle@gmail.com',   // user_32lH1ok1VkZxg9j4m6Phc7SLwZt
+  'mikecerqua@gmail.com',       // user_32fZ9uWDwFB5TPbiavdSexQYtvr
+  'cerquadanielle@gmail.com',   // user_32lH1ok1VkZxg9j4m6Phc7SLwZt
 ];
 
 export function requireAdmin(req, res, next) {

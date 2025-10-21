@@ -29,7 +29,7 @@ const DashboardContent: React.FC = () => {
   // Redirect admins to admin dashboard
   useEffect(() => {
     if (isLoaded && user) {
-      const adminEmails = ['mikecerqua@gmail.com', 'erquadanielle@gmail.com'];
+      const adminEmails = ['mikecerqua@gmail.com', 'cerquadanielle@gmail.com'];
       const isAdmin = user.primaryEmailAddress?.emailAddress &&
                       adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 
