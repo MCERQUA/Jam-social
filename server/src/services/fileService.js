@@ -56,13 +56,18 @@ export async function saveUserFile(userId, file, metadata = {}) {
     }
   }
 
-  // Save file metadata to database
+  // Save file metadata to database with DAM fields
   const result = await query(
     `INSERT INTO user_files (
       user_id, file_name, original_name, file_type, mime_type,
       file_size, file_path, thumbnail_path, resolution,
-      duration, package_name, tags
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      duration, package_name, tags,
+      asset_category, usage_tags, character_names, object_description,
+      scene_location, has_alpha_channel,
+      audio_category, audio_duration_seconds, audio_style, audio_vocals,
+      audio_lyrics, audio_tempo, audio_key, voiceover_type, voiceover_script,
+      ai_metadata
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28)
     RETURNING *`,
     [
       userId,
@@ -77,6 +82,25 @@ export async function saveUserFile(userId, file, metadata = {}) {
       metadata.duration || null,
       metadata.packageName || null,
       metadata.tags || [],
+      // DAM metadata
+      metadata.assetCategory || null,
+      metadata.usageTags || [],
+      metadata.characterNames || [],
+      metadata.objectDescription || null,
+      metadata.sceneLocation || null,
+      metadata.hasAlphaChannel || false,
+      // Audio metadata
+      metadata.audioCategory || null,
+      metadata.audioDurationSeconds || null,
+      metadata.audioStyle || null,
+      metadata.audioVocals || false,
+      metadata.audioLyrics || null,
+      metadata.audioTempo || null,
+      metadata.audioKey || null,
+      metadata.voiceoverType || null,
+      metadata.voiceoverScript || null,
+      // AI metadata
+      metadata.aiMetadata || {},
     ]
   );
 
@@ -84,7 +108,7 @@ export async function saveUserFile(userId, file, metadata = {}) {
 }
 
 /**
- * Get user's files with optional filters
+ * Get user's files with optional filters (including DAM filters)
  */
 export async function getUserFiles(userId, options = {}) {
   const {
@@ -92,6 +116,10 @@ export async function getUserFiles(userId, options = {}) {
     isFavorite,
     packageName,
     tags,
+    assetCategory,
+    usageTags,
+    audioCategory,
+    characterNames,
     limit = 50,
     offset = 0,
     sortBy = 'upload_date',
@@ -123,6 +151,31 @@ export async function getUserFiles(userId, options = {}) {
   if (tags && tags.length > 0) {
     queryText += ` AND tags && $${paramIndex}`;
     params.push(tags);
+    paramIndex++;
+  }
+
+  // DAM filters
+  if (assetCategory) {
+    queryText += ` AND asset_category = $${paramIndex}`;
+    params.push(assetCategory);
+    paramIndex++;
+  }
+
+  if (usageTags && usageTags.length > 0) {
+    queryText += ` AND usage_tags && $${paramIndex}`;
+    params.push(usageTags);
+    paramIndex++;
+  }
+
+  if (audioCategory) {
+    queryText += ` AND audio_category = $${paramIndex}`;
+    params.push(audioCategory);
+    paramIndex++;
+  }
+
+  if (characterNames && characterNames.length > 0) {
+    queryText += ` AND character_names && $${paramIndex}`;
+    params.push(characterNames);
     paramIndex++;
   }
 
@@ -226,7 +279,7 @@ export async function updateFileTags(fileId, userId, tags) {
 }
 
 /**
- * Format file response
+ * Format file response with DAM metadata
  */
 function formatFileResponse(file) {
   return {
@@ -247,6 +300,28 @@ function formatFileResponse(file) {
     isFavorite: file.is_favorite,
     uploadDate: file.upload_date,
     createdAt: file.created_at,
+
+    // DAM metadata
+    assetCategory: file.asset_category,
+    usageTags: file.usage_tags || [],
+    characterNames: file.character_names || [],
+    objectDescription: file.object_description,
+    sceneLocation: file.scene_location,
+    hasAlphaChannel: file.has_alpha_channel || false,
+
+    // Audio metadata
+    audioCategory: file.audio_category,
+    audioDurationSeconds: file.audio_duration_seconds,
+    audioStyle: file.audio_style,
+    audioVocals: file.audio_vocals || false,
+    audioLyrics: file.audio_lyrics,
+    audioTempo: file.audio_tempo,
+    audioKey: file.audio_key,
+    voiceoverType: file.voiceover_type,
+    voiceoverScript: file.voiceover_script,
+
+    // AI metadata
+    aiMetadata: file.ai_metadata || {},
   };
 }
 

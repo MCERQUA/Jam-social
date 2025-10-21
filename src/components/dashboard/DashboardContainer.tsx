@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { DashboardTopBar } from "./DashboardTopBar";
 import { MediaCard } from "./MediaCard";
-import { FileUploader } from "./FileUploader";
+import { FileUploader } from "./FileUploaderEnhanced";
 import { apiClient, type UserFile } from "../../lib/api/client";
 import { useUser } from "@clerk/clerk-react";
 import { ClerkProvider } from "../providers/ClerkProvider";
@@ -15,12 +15,49 @@ const DashboardContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showUploader, setShowUploader] = useState(false);
+  const [activeView, setActiveView] = useState("home");
   const [filters, setFilters] = useState({
     type: undefined as string | undefined,
     favorite: undefined as boolean | undefined,
     search: "",
+    assetCategory: undefined as string | undefined,
+    audioCategory: undefined as string | undefined,
+    usageTags: undefined as string[] | undefined,
   });
   const { user, isLoaded } = useUser();
+
+  // Handle sidebar filter selection
+  const handleSidebarFilter = (itemId: string) => {
+    setActiveView(itemId);
+
+    // Map sidebar item IDs to filter configurations
+    const filterMap: Record<string, Partial<typeof filters>> = {
+      home: { assetCategory: undefined, audioCategory: undefined, favorite: undefined },
+      recent: { assetCategory: undefined, audioCategory: undefined },
+      favorites: { favorite: true, assetCategory: undefined, audioCategory: undefined },
+      // Visual asset categories
+      character: { assetCategory: 'character', audioCategory: undefined },
+      object: { assetCategory: 'object', audioCategory: undefined },
+      scene: { assetCategory: 'scene', audioCategory: undefined },
+      greenscreen: { assetCategory: 'greenscreen', audioCategory: undefined },
+      background: { assetCategory: 'background', audioCategory: undefined },
+      full_video: { assetCategory: 'full_video', audioCategory: undefined },
+      clip: { assetCategory: 'clip', audioCategory: undefined },
+      template: { assetCategory: 'template', audioCategory: undefined },
+      // Audio categories
+      jingle: { assetCategory: 'audio', audioCategory: 'jingle' },
+      commercial_song: { assetCategory: 'audio', audioCategory: 'commercial_song' },
+      radio_song: { assetCategory: 'audio', audioCategory: 'radio_song' },
+      voiceover: { assetCategory: 'audio', audioCategory: 'voiceover' },
+      sfx: { assetCategory: 'audio', audioCategory: 'sfx' },
+      background_music: { assetCategory: 'audio', audioCategory: 'background_music' },
+    };
+
+    const newFilters = filterMap[itemId];
+    if (newFilters) {
+      setFilters((prev) => ({ ...prev, ...newFilters }));
+    }
+  };
 
   // Fetch files
   const fetchFiles = async () => {
@@ -33,6 +70,9 @@ const DashboardContent: React.FC = () => {
       const fetchedFiles = await apiClient.getFiles({
         type: filters.type,
         favorite: filters.favorite,
+        assetCategory: filters.assetCategory,
+        audioCategory: filters.audioCategory,
+        usageTags: filters.usageTags,
         limit: 50,
         sortBy: "upload_date",
         sortOrder: "DESC",
@@ -44,7 +84,8 @@ const DashboardContent: React.FC = () => {
         const searchLower = filters.search.toLowerCase();
         filteredFiles = fetchedFiles.filter((file) =>
           file.originalName.toLowerCase().includes(searchLower) ||
-          file.tags?.some((tag) => tag.toLowerCase().includes(searchLower))
+          file.tags?.some((tag) => tag.toLowerCase().includes(searchLower)) ||
+          file.usageTags?.some((tag) => tag.toLowerCase().includes(searchLower))
         );
       }
 
@@ -60,7 +101,7 @@ const DashboardContent: React.FC = () => {
   // Fetch files on mount and when filters change
   useEffect(() => {
     fetchFiles();
-  }, [isLoaded, user, filters.type, filters.favorite]);
+  }, [isLoaded, user, filters.type, filters.favorite, filters.assetCategory, filters.audioCategory, filters.usageTags]);
 
   // Debounced search
   useEffect(() => {
@@ -82,11 +123,36 @@ const DashboardContent: React.FC = () => {
     fetchFiles();
   };
 
+  // Get view title
+  const getViewTitle = () => {
+    const titleMap: Record<string, string> = {
+      home: "All Assets",
+      recent: "Recent Uploads",
+      favorites: "Favorites",
+      character: "Characters",
+      object: "Objects",
+      scene: "Scenes",
+      greenscreen: "Greenscreen",
+      background: "Backgrounds",
+      full_video: "Full Videos",
+      clip: "Clips",
+      template: "Templates",
+      jingle: "Logo Jingles",
+      commercial_song: "Commercial Songs",
+      radio_song: "Radio Songs",
+      voiceover: "Voice Overs",
+      sfx: "Sound Effects",
+      background_music: "Background Music",
+      packages: "Packages",
+    };
+    return titleMap[activeView] || "All Assets";
+  };
+
   return (
     <div className="flex h-screen bg-black overflow-hidden pt-20">
       {/* Sidebar - Always visible */}
       <div className="flex-shrink-0">
-        <DashboardSidebar />
+        <DashboardSidebar onFilterChange={handleSidebarFilter} activeItem={activeView} />
       </div>
 
       {/* Main Content */}
@@ -100,7 +166,7 @@ const DashboardContent: React.FC = () => {
             {/* Header */}
             <div className="mb-8 flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-white mb-2">All Media</h1>
+                <h1 className="text-3xl font-bold text-white mb-2">{getViewTitle()}</h1>
                 <p className="text-gray-400">
                   {loading ? "Loading..." : `${files.length} file${files.length !== 1 ? "s" : ""}`}
                 </p>

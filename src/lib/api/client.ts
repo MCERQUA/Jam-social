@@ -32,6 +32,28 @@ export interface UserFile {
   isFavorite: boolean;
   uploadDate: string;
   createdAt: string;
+
+  // DAM metadata
+  assetCategory?: string | null;
+  usageTags?: string[];
+  characterNames?: string[];
+  objectDescription?: string | null;
+  sceneLocation?: string | null;
+  hasAlphaChannel?: boolean;
+
+  // Audio metadata
+  audioCategory?: string | null;
+  audioDurationSeconds?: number | null;
+  audioStyle?: string | null;
+  audioVocals?: boolean;
+  audioLyrics?: string | null;
+  audioTempo?: number | null;
+  audioKey?: string | null;
+  voiceoverType?: string | null;
+  voiceoverScript?: string | null;
+
+  // AI metadata
+  aiMetadata?: Record<string, any>;
 }
 
 class ApiClient {
@@ -107,6 +129,10 @@ class ApiClient {
     favorite?: boolean;
     package?: string;
     tags?: string[];
+    assetCategory?: string;
+    usageTags?: string[];
+    audioCategory?: string;
+    characterNames?: string[];
     limit?: number;
     offset?: number;
     sortBy?: string;
@@ -120,6 +146,13 @@ class ApiClient {
         params.append('favorite', String(options.favorite));
       if (options.package) params.append('package', options.package);
       if (options.tags) params.append('tags', options.tags.join(','));
+
+      // DAM filters
+      if (options.assetCategory) params.append('assetCategory', options.assetCategory);
+      if (options.usageTags) params.append('usageTags', options.usageTags.join(','));
+      if (options.audioCategory) params.append('audioCategory', options.audioCategory);
+      if (options.characterNames) params.append('characterNames', options.characterNames.join(','));
+
       if (options.limit) params.append('limit', String(options.limit));
       if (options.offset) params.append('offset', String(options.offset));
       if (options.sortBy) params.append('sortBy', options.sortBy);
@@ -139,6 +172,28 @@ class ApiClient {
       fileType?: string;
       packageName?: string;
       tags?: string[];
+
+      // DAM metadata
+      assetCategory?: string;
+      usageTags?: string[];
+      characterNames?: string[];
+      objectDescription?: string;
+      sceneLocation?: string;
+      hasAlphaChannel?: boolean;
+
+      // Audio metadata
+      audioCategory?: string;
+      audioDurationSeconds?: number;
+      audioStyle?: string;
+      audioVocals?: boolean;
+      audioLyrics?: string;
+      audioTempo?: number;
+      audioKey?: string;
+      voiceoverType?: string;
+      voiceoverScript?: string;
+
+      // AI metadata
+      aiMetadata?: Record<string, any>;
     }
   ): Promise<{ files: UserFile[]; errors?: any[] }> {
     const token = await this.getAuthToken();
@@ -152,6 +207,28 @@ class ApiClient {
       if (metadata.fileType) formData.append('fileType', metadata.fileType);
       if (metadata.packageName) formData.append('packageName', metadata.packageName);
       if (metadata.tags) formData.append('tags', JSON.stringify(metadata.tags));
+
+      // DAM metadata
+      if (metadata.assetCategory) formData.append('assetCategory', metadata.assetCategory);
+      if (metadata.usageTags) formData.append('usageTags', JSON.stringify(metadata.usageTags));
+      if (metadata.characterNames) formData.append('characterNames', JSON.stringify(metadata.characterNames));
+      if (metadata.objectDescription) formData.append('objectDescription', metadata.objectDescription);
+      if (metadata.sceneLocation) formData.append('sceneLocation', metadata.sceneLocation);
+      if (metadata.hasAlphaChannel !== undefined) formData.append('hasAlphaChannel', String(metadata.hasAlphaChannel));
+
+      // Audio metadata
+      if (metadata.audioCategory) formData.append('audioCategory', metadata.audioCategory);
+      if (metadata.audioDurationSeconds) formData.append('audioDurationSeconds', String(metadata.audioDurationSeconds));
+      if (metadata.audioStyle) formData.append('audioStyle', metadata.audioStyle);
+      if (metadata.audioVocals !== undefined) formData.append('audioVocals', String(metadata.audioVocals));
+      if (metadata.audioLyrics) formData.append('audioLyrics', metadata.audioLyrics);
+      if (metadata.audioTempo) formData.append('audioTempo', String(metadata.audioTempo));
+      if (metadata.audioKey) formData.append('audioKey', metadata.audioKey);
+      if (metadata.voiceoverType) formData.append('voiceoverType', metadata.voiceoverType);
+      if (metadata.voiceoverScript) formData.append('voiceoverScript', metadata.voiceoverScript);
+
+      // AI metadata
+      if (metadata.aiMetadata) formData.append('aiMetadata', JSON.stringify(metadata.aiMetadata));
     }
 
     const response = await fetch(`${this.baseUrl}/files/upload`, {

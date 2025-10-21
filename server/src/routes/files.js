@@ -37,11 +37,57 @@ router.post(
             duration = await getVideoDuration(file.path).catch(() => null);
           }
 
+          // Extract metadata from request body
+          // Support both single file and multi-file uploads with per-file metadata
+          const fileIndex = req.files.indexOf(file);
+          const getMetadataField = (fieldName) => {
+            const value = req.body[fieldName];
+            if (Array.isArray(value)) {
+              return value[fileIndex];
+            }
+            return value;
+          };
+
           const metadata = {
-            fileType: req.body.fileType,
-            packageName: req.body.packageName,
+            fileType: getMetadataField('fileType'),
+            packageName: getMetadataField('packageName'),
             tags: req.body.tags ? JSON.parse(req.body.tags) : [],
             duration,
+
+            // DAM metadata
+            assetCategory: getMetadataField('assetCategory'),
+            usageTags: getMetadataField('usageTags') ?
+              (Array.isArray(getMetadataField('usageTags')) ?
+                getMetadataField('usageTags') :
+                JSON.parse(getMetadataField('usageTags') || '[]')) : [],
+
+            // Visual metadata
+            characterNames: getMetadataField('characterNames') ?
+              (Array.isArray(getMetadataField('characterNames')) ?
+                getMetadataField('characterNames') :
+                JSON.parse(getMetadataField('characterNames') || '[]')) : [],
+            objectDescription: getMetadataField('objectDescription'),
+            sceneLocation: getMetadataField('sceneLocation'),
+            hasAlphaChannel: getMetadataField('hasAlphaChannel') === 'true' ||
+                             getMetadataField('hasAlphaChannel') === true,
+
+            // Audio metadata
+            audioCategory: getMetadataField('audioCategory'),
+            audioDurationSeconds: getMetadataField('audioDurationSeconds') ?
+              parseInt(getMetadataField('audioDurationSeconds')) : null,
+            audioStyle: getMetadataField('audioStyle'),
+            audioVocals: getMetadataField('audioVocals') === 'true' ||
+                        getMetadataField('audioVocals') === true,
+            audioLyrics: getMetadataField('audioLyrics'),
+            audioTempo: getMetadataField('audioTempo') ?
+              parseInt(getMetadataField('audioTempo')) : null,
+            audioKey: getMetadataField('audioKey'),
+            voiceoverType: getMetadataField('voiceoverType'),
+            voiceoverScript: getMetadataField('voiceoverScript'),
+
+            // AI metadata
+            aiMetadata: getMetadataField('aiMetadata') ?
+              JSON.parse(getMetadataField('aiMetadata')) : {},
           };
 
           const savedFile = await fileService.saveUserFile(
@@ -81,7 +127,7 @@ router.post(
 
 /**
  * GET /api/files
- * List user's files with optional filters
+ * List user's files with optional filters (including DAM filters)
  */
 router.get('/', requireAuth, async (req, res) => {
   try {
@@ -90,6 +136,13 @@ router.get('/', requireAuth, async (req, res) => {
       isFavorite: req.query.favorite === 'true' ? true : undefined,
       packageName: req.query.package,
       tags: req.query.tags ? req.query.tags.split(',') : undefined,
+
+      // DAM filters
+      assetCategory: req.query.assetCategory,
+      usageTags: req.query.usageTags ? req.query.usageTags.split(',') : undefined,
+      audioCategory: req.query.audioCategory,
+      characterNames: req.query.characterNames ? req.query.characterNames.split(',') : undefined,
+
       limit: parseInt(req.query.limit) || 50,
       offset: parseInt(req.query.offset) || 0,
       sortBy: req.query.sortBy || 'upload_date',

@@ -31,49 +31,75 @@ const NavIcon: React.FC<{ name: string; className?: string }> = ({ name, classNa
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
       </svg>
     ),
-    videos: (
+    character: (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
     ),
-    images: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    scenes: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-      </svg>
-    ),
-    projects: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-      </svg>
-    ),
-    audio: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-      </svg>
-    ),
-    packages: (
+    object: (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
       </svg>
     ),
-    collections: (
+    scene: (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
-    shared: (
+    greenscreen: (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
       </svg>
     ),
-    trash: (
+    background: (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+      </svg>
+    ),
+    full_video: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+      </svg>
+    ),
+    clip: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    template: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
+    jingle: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+      </svg>
+    ),
+    commercial_song: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+      </svg>
+    ),
+    voiceover: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+      </svg>
+    ),
+    sfx: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+      </svg>
+    ),
+    packages: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+      </svg>
+    ),
+    tag: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
       </svg>
     ),
     upload: (
@@ -91,18 +117,41 @@ interface NavSection {
   items: NavItem[];
 }
 
-export const DashboardSidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState("home");
+interface DashboardSidebarProps {
+  onFilterChange?: (itemId: string) => void;
+  activeItem?: string;
+}
+
+export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
+  onFilterChange,
+  activeItem: externalActiveItem
+}) => {
+  const [localActiveItem, setLocalActiveItem] = useState("home");
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Use external activeItem if provided, otherwise use local state
+  const activeItem = externalActiveItem || localActiveItem;
   const [storage, setStorage] = useState<StorageInfo | null>(null);
   const [storageLoading, setStorageLoading] = useState(false);
   const [fileCounts, setFileCounts] = useState({
     total: 0,
-    videos: 0,
-    images: 0,
-    scenes: 0,
-    projects: 0,
+    // Visual assets
+    character: 0,
+    object: 0,
+    scene: 0,
+    greenscreen: 0,
+    background: 0,
+    full_video: 0,
+    clip: 0,
+    template: 0,
+    // Audio assets
     audio: 0,
+    jingle: 0,
+    commercial_song: 0,
+    radio_song: 0,
+    voiceover: 0,
+    sfx: 0,
+    background_music: 0,
   });
   const { user, isLoaded } = useUser();
 
@@ -129,11 +178,23 @@ export const DashboardSidebar: React.FC = () => {
           const allFiles = await apiClient.getFiles({ limit: 1000 });
           const counts = {
             total: allFiles.length,
-            videos: allFiles.filter(f => f.fileType === 'video').length,
-            images: allFiles.filter(f => f.fileType === 'image').length,
-            scenes: allFiles.filter(f => f.fileType === 'scene').length,
-            projects: allFiles.filter(f => f.fileType === 'project').length,
-            audio: allFiles.filter(f => f.fileType === 'audio').length,
+            // Visual assets - count by assetCategory
+            character: allFiles.filter(f => f.assetCategory === 'character').length,
+            object: allFiles.filter(f => f.assetCategory === 'object').length,
+            scene: allFiles.filter(f => f.assetCategory === 'scene').length,
+            greenscreen: allFiles.filter(f => f.assetCategory === 'greenscreen').length,
+            background: allFiles.filter(f => f.assetCategory === 'background').length,
+            full_video: allFiles.filter(f => f.assetCategory === 'full_video').length,
+            clip: allFiles.filter(f => f.assetCategory === 'clip').length,
+            template: allFiles.filter(f => f.assetCategory === 'template').length,
+            // Audio assets - count by audioCategory
+            audio: allFiles.filter(f => f.assetCategory === 'audio').length,
+            jingle: allFiles.filter(f => f.audioCategory === 'jingle').length,
+            commercial_song: allFiles.filter(f => f.audioCategory === 'commercial_song').length,
+            radio_song: allFiles.filter(f => f.audioCategory === 'radio_song').length,
+            voiceover: allFiles.filter(f => f.audioCategory === 'voiceover').length,
+            sfx: allFiles.filter(f => f.audioCategory === 'sfx').length,
+            background_music: allFiles.filter(f => f.audioCategory === 'background_music').length,
           };
           setFileCounts(counts);
         } catch (error) {
@@ -159,30 +220,41 @@ export const DashboardSidebar: React.FC = () => {
 
   const navSections: NavSection[] = [
     {
-      title: "Main",
+      title: "Dashboard",
       items: [
-        { id: "home", label: "All Media", icon: "home", count: fileCounts.total },
+        { id: "home", label: "All Assets", icon: "home", count: fileCounts.total },
         { id: "recent", label: "Recent", icon: "recent" },
         { id: "favorites", label: "Favorites", icon: "favorites" },
       ],
     },
     {
-      title: "Media Types",
+      title: "Visual Assets",
       items: [
-        { id: "videos", label: "Videos", icon: "videos", count: fileCounts.videos },
-        { id: "images", label: "Images", icon: "images", count: fileCounts.images },
-        { id: "scenes", label: "Scenes", icon: "scenes", count: fileCounts.scenes },
-        { id: "projects", label: "Projects", icon: "projects", count: fileCounts.projects },
-        { id: "audio", label: "Audio", icon: "audio", count: fileCounts.audio },
+        { id: "character", label: "Characters", icon: "character", count: fileCounts.character },
+        { id: "object", label: "Objects", icon: "object", count: fileCounts.object },
+        { id: "scene", label: "Scenes", icon: "scene", count: fileCounts.scene },
+        { id: "greenscreen", label: "Greenscreen", icon: "greenscreen", count: fileCounts.greenscreen },
+        { id: "background", label: "Backgrounds", icon: "background", count: fileCounts.background },
+        { id: "full_video", label: "Full Videos", icon: "full_video", count: fileCounts.full_video },
+        { id: "clip", label: "Clips", icon: "clip", count: fileCounts.clip },
+        { id: "template", label: "Templates", icon: "template", count: fileCounts.template },
       ],
     },
     {
-      title: "Organization",
+      title: "Audio Assets",
       items: [
-        { id: "packages", label: "Packages", icon: "packages" },
-        { id: "collections", label: "Collections", icon: "collections" },
-        { id: "shared", label: "Shared", icon: "shared" },
-        { id: "trash", label: "Trash", icon: "trash" },
+        { id: "jingle", label: "Logo Jingles", icon: "jingle", count: fileCounts.jingle },
+        { id: "commercial_song", label: "Commercial Songs", icon: "commercial_song", count: fileCounts.commercial_song },
+        { id: "radio_song", label: "Radio Songs", icon: "commercial_song", count: fileCounts.radio_song },
+        { id: "voiceover", label: "Voice Overs", icon: "voiceover", count: fileCounts.voiceover },
+        { id: "sfx", label: "Sound Effects", icon: "sfx", count: fileCounts.sfx },
+        { id: "background_music", label: "Background Music", icon: "commercial_song", count: fileCounts.background_music },
+      ],
+    },
+    {
+      title: "Packages",
+      items: [
+        { id: "packages", label: "All Packages", icon: "packages" },
       ],
     },
   ];
@@ -348,7 +420,10 @@ export const DashboardSidebar: React.FC = () => {
               {section.items.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => setActiveItem(item.id)}
+                  onClick={() => {
+                    setLocalActiveItem(item.id);
+                    onFilterChange?.(item.id);
+                  }}
                   className={`w-full flex items-center rounded-lg transition-all duration-200 ${
                     isCollapsed ? 'justify-center p-3' : 'justify-between px-3 py-2.5'
                   } ${
