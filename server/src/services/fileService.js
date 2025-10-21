@@ -40,7 +40,21 @@ export async function saveUserFile(userId, file, metadata = {}) {
   // Generate safe filename
   const timestamp = Date.now();
   const ext = path.extname(file.originalname);
-  const filename = `${timestamp}-${path.basename(file.originalname, ext)}${ext}`;
+  const baseName = path.basename(file.originalname, ext);
+
+  // Sanitize filename: remove/replace problematic characters
+  const sanitizedName = baseName
+    .normalize('NFD') // Normalize Unicode characters
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .replace(/[^\w\s-]/g, '') // Remove special chars except word chars, spaces, hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, '') // Trim hyphens from start/end
+    .substring(0, 100) // Limit length to 100 chars
+    .toLowerCase() // Convert to lowercase for consistency
+    || 'file'; // Fallback if sanitization results in empty string
+
+  const filename = `${timestamp}-${sanitizedName}${ext}`;
   const filePath = getUserFilePath(userId, fileType, filename);
 
   // Move file from temp to permanent storage
