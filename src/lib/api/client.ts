@@ -414,6 +414,51 @@ class ApiClient {
     );
     return response.users;
   }
+
+  async getAdminUserFiles(
+    userId: string,
+    options?: {
+      type?: string;
+      favorite?: boolean;
+      package?: string;
+      tags?: string[];
+      assetCategory?: string;
+      usageTags?: string[];
+      audioCategory?: string;
+      characterNames?: string[];
+      limit?: number;
+      offset?: number;
+      sortBy?: string;
+      sortOrder?: 'ASC' | 'DESC';
+    }
+  ): Promise<UserFile[]> {
+    const params = new URLSearchParams();
+
+    if (options) {
+      if (options.type) params.append('type', options.type);
+      if (options.favorite !== undefined)
+        params.append('favorite', String(options.favorite));
+      if (options.package) params.append('package', options.package);
+      if (options.tags) params.append('tags', options.tags.join(','));
+
+      // DAM filters
+      if (options.assetCategory) params.append('assetCategory', options.assetCategory);
+      if (options.usageTags) params.append('usageTags', options.usageTags.join(','));
+      if (options.audioCategory) params.append('audioCategory', options.audioCategory);
+      if (options.characterNames) params.append('characterNames', options.characterNames.join(','));
+
+      if (options.limit) params.append('limit', String(options.limit));
+      if (options.offset) params.append('offset', String(options.offset));
+      if (options.sortBy) params.append('sortBy', options.sortBy);
+      if (options.sortOrder) params.append('sortOrder', options.sortOrder);
+    }
+
+    const query = params.toString();
+    const response = await this.request<{ success: boolean; files: UserFile[] }>(
+      `/admin/files/${userId}${query ? `?${query}` : ''}`
+    );
+    return response.files;
+  }
 }
 
 export const apiClient = new ApiClient(API_URL);

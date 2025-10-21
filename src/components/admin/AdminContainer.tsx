@@ -56,8 +56,8 @@ const AdminContent: React.FC = () => {
     setError(null);
 
     try {
-      // Note: This will need backend support for admin to fetch other users' files
-      const fetchedFiles = await apiClient.getFiles({
+      // Use admin endpoint to fetch files for the target user
+      const fetchedFiles = await apiClient.getAdminUserFiles(targetUserId, {
         limit: 50,
         sortBy: "upload_date",
         sortOrder: "DESC",
