@@ -158,7 +158,7 @@ const DashboardContent: React.FC = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Top Bar */}
-        <DashboardTopBar onSearch={handleSearch} />
+        <DashboardTopBar onSearch={handleSearch} onUpload={() => setShowUploader(true)} />
 
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto p-6 pt-8">
