@@ -221,30 +221,45 @@ router.get('/:id/download', requireAuth, async (req, res) => {
 
 /**
  * GET /api/files/:id/thumbnail
- * Get file thumbnail
+ * Get file thumbnail (or original image if no thumbnail exists)
  */
 router.get('/:id/thumbnail', requireAuth, async (req, res) => {
   try {
     const file = await fileService.getFileById(req.params.id, req.userId);
 
-    if (!file.thumbnailPath) {
+    let fullPath;
+    let contentType;
+
+    // If thumbnail exists, use it
+    if (file.thumbnailPath) {
+      fullPath = path.join(
+        process.env.USER_STORAGE_ROOT || '/mnt/user-storage/users',
+        file.thumbnailPath
+      );
+      contentType = 'image/jpeg';
+    }
+    // For images without thumbnails, serve the original image
+    else if (file.fileType === 'image') {
+      fullPath = path.join(
+        process.env.USER_STORAGE_ROOT || '/mnt/user-storage/users',
+        file.filePath
+      );
+      contentType = file.mimeType;
+    }
+    // No thumbnail and not an image
+    else {
       return res.status(404).json({
         success: false,
         error: 'Thumbnail not available',
       });
     }
 
-    const fullPath = path.join(
-      process.env.USER_STORAGE_ROOT || '/mnt/user-storage/users',
-      file.thumbnailPath
-    );
-
     // Check if file exists
     await fs.access(fullPath);
 
-    // Stream the thumbnail
+    // Stream the image
     const fileStream = (await import('fs')).createReadStream(fullPath);
-    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Type', contentType);
     fileStream.pipe(res);
   } catch (error) {
     res.status(404).json({

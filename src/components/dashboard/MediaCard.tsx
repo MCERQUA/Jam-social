@@ -13,7 +13,7 @@ interface MediaCardProps {
 export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [thumbnailBlobUrl, setThumbnailBlobUrl] = useState<string | null>(null);
+  const [mediaBlobUrl, setMediaBlobUrl] = useState<string | null>(null);
 
   const typeIcons = {
     video: "🎥",
@@ -23,21 +23,22 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     audio: "🎵",
   };
 
-  // Fetch thumbnail with authentication
+  // Fetch thumbnail/image with authentication
   useEffect(() => {
     let mounted = true;
     let blobUrl: string | null = null;
 
-    const fetchThumbnail = async () => {
-      if (item.thumbnailPath) {
+    const fetchMedia = async () => {
+      // Always use thumbnail blob URL for authenticated access
+      if (item.thumbnailPath || item.fileType === 'image') {
         blobUrl = await apiClient.getThumbnailBlob(item.id);
         if (mounted && blobUrl) {
-          setThumbnailBlobUrl(blobUrl);
+          setMediaBlobUrl(blobUrl);
         }
       }
     };
 
-    fetchThumbnail();
+    fetchMedia();
 
     return () => {
       mounted = false;
@@ -45,7 +46,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
         URL.revokeObjectURL(blobUrl);
       }
     };
-  }, [item.id, item.thumbnailPath]);
+  }, [item.id, item.thumbnailPath, item.fileType]);
 
   const handleDownload = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -83,9 +84,8 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     }
   };
 
-  // Get thumbnail URL - use blob URL if available, otherwise fallback
-  const thumbnailUrl = thumbnailBlobUrl
-    || (item.fileType === 'image' ? apiClient.getDownloadUrl(item.id) : 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop');
+  // Get thumbnail URL - use blob URL if available, otherwise fallback to placeholder
+  const thumbnailUrl = mediaBlobUrl || 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
 
   // Format date
   const formatDate = (dateString: string) => {
