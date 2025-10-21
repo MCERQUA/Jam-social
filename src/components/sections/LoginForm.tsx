@@ -40,8 +40,7 @@ export const LoginForm: React.FC = () => {
               footer: "hidden",
             },
           }}
-          routing="path"
-          path="/login"
+          routing="virtual"
           signUpUrl="/signup"
           afterSignInUrl="/dashboard"
         />
