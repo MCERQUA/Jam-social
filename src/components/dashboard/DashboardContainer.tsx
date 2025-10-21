@@ -26,6 +26,19 @@ const DashboardContent: React.FC = () => {
   });
   const { user, isLoaded } = useUser();
 
+  // Redirect admins to admin dashboard
+  useEffect(() => {
+    if (isLoaded && user) {
+      const adminEmails = ['mikecerqua@gmail.com', 'erquadanielle@gmail.com'];
+      const isAdmin = user.primaryEmailAddress?.emailAddress &&
+                      adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
+
+      if (isAdmin) {
+        window.location.href = '/admin';
+      }
+    }
+  }, [isLoaded, user]);
+
   // Handle sidebar filter selection
   const handleSidebarFilter = (itemId: string) => {
     setActiveView(itemId);
