@@ -15,7 +15,7 @@ const router = express.Router();
 router.post(
   '/upload',
   requireAuth,
-  upload.array('files', 10),
+  upload.array('files', 100),
   handleUploadErrors,
   async (req, res) => {
     try {
