@@ -6,7 +6,7 @@ import { DashboardSidebar } from "../dashboard/DashboardSidebar";
 import { MediaCard } from "../dashboard/MediaCard";
 import { AdminFileUploader } from "./AdminFileUploader";
 import { apiClient, type UserFile } from "../../lib/api/client";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, UserButton } from "@clerk/clerk-react";
 import { ClerkProvider } from "../providers/ClerkProvider";
 
 const AdminContent: React.FC = () => {
@@ -102,12 +102,24 @@ const AdminContent: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="text-right">
+                <div className="text-right hidden md:block">
                   <p className="text-xs text-gray-500">Logged in as</p>
                   <p className="text-sm font-medium text-white">{user?.primaryEmailAddress?.emailAddress}</p>
                 </div>
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                  {user?.firstName?.[0] || "A"}
+                <div className="flex items-center">
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10",
+                        userButtonPopoverCard: "bg-gray-800 border border-gray-500/20",
+                        userButtonPopoverActionButton: "text-gray-300 hover:text-white hover:bg-gray-700/50",
+                        userButtonPopoverActionButtonText: "text-gray-300",
+                        userButtonPopoverActionButtonIcon: "text-gray-400",
+                        userButtonPopoverFooter: "hidden",
+                      },
+                    }}
+                    afterSignOutUrl="/"
+                  />
                 </div>
               </div>
             </div>

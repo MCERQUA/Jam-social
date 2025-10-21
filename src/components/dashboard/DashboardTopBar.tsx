@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { UserButton } from "@clerk/clerk-react";
 
 interface DashboardTopBarProps {
   onSearch?: (query: string) => void;
@@ -127,7 +128,7 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onUpload}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2"
+            className="hidden md:flex px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -135,18 +136,33 @@ export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
             Upload
           </button>
 
-          {/* Notifications */}
-          <button className="relative p-2 text-gray-400 hover:text-white transition-colors">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          {/* Mobile Upload Button - Icon only */}
+          <button
+            onClick={onUpload}
+            className="md:hidden p-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg shadow-lg shadow-blue-500/30 transition-all"
+            title="Upload"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
           </button>
 
-          {/* User Avatar */}
-          <button className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold hover:scale-105 transition-transform">
-            JD
-          </button>
+          {/* User Menu with Sign Out */}
+          <div className="flex items-center">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10",
+                  userButtonPopoverCard: "bg-gray-800 border border-gray-500/20",
+                  userButtonPopoverActionButton: "text-gray-300 hover:text-white hover:bg-gray-700/50",
+                  userButtonPopoverActionButtonText: "text-gray-300",
+                  userButtonPopoverActionButtonIcon: "text-gray-400",
+                  userButtonPopoverFooter: "hidden",
+                },
+              }}
+              afterSignOutUrl="/"
+            />
+          </div>
         </div>
       </div>
 
