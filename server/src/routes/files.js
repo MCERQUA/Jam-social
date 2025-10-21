@@ -1,6 +1,7 @@
 import express from 'express';
 import { upload, handleUploadErrors } from '../middleware/upload.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth, getUserInfo } from '../middleware/auth.js';
+import { requireAdmin } from '../middleware/admin.js';
 import * as fileService from '../services/fileService.js';
 import { getVideoDuration } from '../services/thumbnailService.js';
 import path from 'path';
@@ -117,6 +118,138 @@ router.post(
       });
     } catch (error) {
       console.error('Upload error:', error);
+      res.status(500).json({
+        success: false,
+        error: error.message,
+      });
+    }
+  }
+);
+
+/**
+ * POST /api/files/admin/upload
+ * Admin endpoint to upload files for a specific user
+ */
+router.post(
+  '/admin/upload',
+  requireAuth,
+  getUserInfo,
+  requireAdmin,
+  upload.array('files', 100),
+  handleUploadErrors,
+  async (req, res) => {
+    try {
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: 'No files uploaded',
+        });
+      }
+
+      // Get target user ID from request body
+      const { targetUserId } = req.body;
+
+      if (!targetUserId) {
+        return res.status(400).json({
+          success: false,
+          error: 'targetUserId is required for admin uploads',
+        });
+      }
+
+      console.log(`[ADMIN UPLOAD] Admin ${req.userEmail} uploading ${req.files.length} files for user ${targetUserId}`);
+
+      const uploadedFiles = [];
+      const errors = [];
+
+      for (const file of req.files) {
+        try {
+          // Get video duration if it's a video
+          let duration = null;
+          if (file.mimetype.startsWith('video/')) {
+            duration = await getVideoDuration(file.path).catch(() => null);
+          }
+
+          // Extract metadata from request body
+          const fileIndex = req.files.indexOf(file);
+          const getMetadataField = (fieldName) => {
+            const value = req.body[fieldName];
+            if (Array.isArray(value)) {
+              return value[fileIndex];
+            }
+            return value;
+          };
+
+          const metadata = {
+            fileType: getMetadataField('fileType'),
+            packageName: getMetadataField('packageName'),
+            tags: req.body.tags ? JSON.parse(req.body.tags) : [],
+            duration,
+
+            // DAM metadata
+            assetCategory: getMetadataField('assetCategory'),
+            usageTags: getMetadataField('usageTags') ?
+              (Array.isArray(getMetadataField('usageTags')) ?
+                getMetadataField('usageTags') :
+                JSON.parse(getMetadataField('usageTags') || '[]')) : [],
+
+            // Visual metadata
+            characterNames: getMetadataField('characterNames') ?
+              (Array.isArray(getMetadataField('characterNames')) ?
+                getMetadataField('characterNames') :
+                JSON.parse(getMetadataField('characterNames') || '[]')) : [],
+            objectDescription: getMetadataField('objectDescription'),
+            sceneLocation: getMetadataField('sceneLocation'),
+            hasAlphaChannel: getMetadataField('hasAlphaChannel') === 'true' ||
+                             getMetadataField('hasAlphaChannel') === true,
+
+            // Audio metadata
+            audioCategory: getMetadataField('audioCategory'),
+            audioDurationSeconds: getMetadataField('audioDurationSeconds') ?
+              parseInt(getMetadataField('audioDurationSeconds')) : null,
+            audioStyle: getMetadataField('audioStyle'),
+            audioVocals: getMetadataField('audioVocals') === 'true' ||
+                        getMetadataField('audioVocals') === true,
+            audioLyrics: getMetadataField('audioLyrics'),
+            audioTempo: getMetadataField('audioTempo') ?
+              parseInt(getMetadataField('audioTempo')) : null,
+            audioKey: getMetadataField('audioKey'),
+            voiceoverType: getMetadataField('voiceoverType'),
+            voiceoverScript: getMetadataField('voiceoverScript'),
+
+            // AI metadata
+            aiMetadata: getMetadataField('aiMetadata') ?
+              JSON.parse(getMetadataField('aiMetadata')) : {},
+          };
+
+          // Save file for target user (not the admin)
+          const savedFile = await fileService.saveUserFile(
+            targetUserId,  // Use target user ID instead of req.userId
+            file,
+            metadata
+          );
+
+          uploadedFiles.push(savedFile);
+        } catch (error) {
+          errors.push({
+            filename: file.originalname,
+            error: error.message,
+          });
+
+          // Clean up temp file if it still exists
+          try {
+            await fs.unlink(file.path);
+          } catch {}
+        }
+      }
+
+      res.json({
+        success: true,
+        files: uploadedFiles,
+        errors: errors.length > 0 ? errors : undefined,
+        message: `Admin ${req.userEmail} uploaded ${uploadedFiles.length} files for user ${targetUserId}`,
+      });
+    } catch (error) {
+      console.error('Admin upload error:', error);
       res.status(500).json({
         success: false,
         error: error.message,

@@ -73,6 +73,7 @@ export async function getUserInfo(req, res, next) {
 
     const user = await clerkClient.users.getUser(req.userId);
     req.user = user;
+    req.userEmail = user.emailAddresses?.[0]?.emailAddress || null;
 
     next();
   } catch (error) {

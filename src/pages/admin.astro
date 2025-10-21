@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { AdminContainer } from '../components/admin/AdminContainer';
+---
+
+<Layout title="Admin - Jam Social Media" description="Admin dashboard for managing customer media">
+  <AdminContainer client:only="react" />
+</Layout>
+
+<style>
+  /* Custom scrollbar for admin dashboard */
+  :global(main::-webkit-scrollbar) {
+    width: 8px;
+  }
+
+  :global(main::-webkit-scrollbar-track) {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  :global(main::-webkit-scrollbar-thumb) {
+    background: linear-gradient(180deg, #3b82f6 0%, #a855f7 100%);
+    border-radius: 4px;
+  }
+
+  :global(main::-webkit-scrollbar-thumb:hover) {
+    background: linear-gradient(180deg, #60a5fa 0%, #c084fc 100%);
+  }
+</style>
