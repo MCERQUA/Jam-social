@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 // Import routes
 import filesRoutes from './routes/files.js';
 import storageRoutes from './routes/storage.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -65,6 +66,7 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/files', filesRoutes);
 app.use('/api/storage', storageRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {

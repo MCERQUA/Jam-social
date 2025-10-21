@@ -15,12 +15,35 @@ const AdminContent: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showUploader, setShowUploader] = useState(false);
+  const [clerkUsers, setClerkUsers] = useState<any[]>([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [userSearchQuery, setUserSearchQuery] = useState("");
   const { user, isLoaded } = useUser();
 
   // Check if current user is admin
   const adminEmails = ['mikecerqua@gmail.com', 'erquadanielle@gmail.com'];
   const isAdmin = user?.primaryEmailAddress?.emailAddress &&
                   adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
+
+  // Fetch Clerk users
+  const fetchClerkUsers = async () => {
+    setLoadingUsers(true);
+    try {
+      const users = await apiClient.getClerkUsers();
+      setClerkUsers(users);
+    } catch (err) {
+      console.error("Error fetching Clerk users:", err);
+    } finally {
+      setLoadingUsers(false);
+    }
+  };
+
+  // Load users on mount
+  useEffect(() => {
+    if (isLoaded && isAdmin) {
+      fetchClerkUsers();
+    }
+  }, [isLoaded, isAdmin]);
 
   // Fetch files for target user
   const fetchFiles = async () => {
@@ -130,30 +153,30 @@ const AdminContent: React.FC = () => {
         <main className="flex-1 overflow-y-auto p-6 pt-8">
           <div className="max-w-[1800px] mx-auto">
             {/* Customer Selection */}
-            <div className="mb-8 bg-gray-800/50 border border-gray-500/20 rounded-lg p-6">
-              <h2 className="text-xl font-bold text-white mb-4">Select Customer</h2>
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-gray-400 mb-2">
-                    Customer Clerk User ID
-                  </label>
-                  <input
-                    type="text"
-                    value={targetUserId}
-                    onChange={(e) => setTargetUserId(e.target.value)}
-                    placeholder="user_2xxx..."
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                  <p className="mt-2 text-xs text-gray-500">
-                    Enter the Clerk user ID to upload files for that customer
-                  </p>
-                </div>
-
-                <div className="flex items-end">
+            <div className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Manual User ID Input */}
+              <div className="bg-gray-800/50 border border-gray-500/20 rounded-lg p-6">
+                <h2 className="text-xl font-bold text-white mb-4">Manual Input</h2>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
+                      Customer Clerk User ID
+                    </label>
+                    <input
+                      type="text"
+                      value={targetUserId}
+                      onChange={(e) => setTargetUserId(e.target.value)}
+                      placeholder="user_2xxx..."
+                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    />
+                    <p className="mt-2 text-xs text-gray-500">
+                      Enter or paste a Clerk user ID
+                    </p>
+                  </div>
                   <button
                     onClick={() => setShowUploader(true)}
                     disabled={!targetUserId}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2"
+                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
@@ -165,6 +188,82 @@ const AdminContent: React.FC = () => {
                     </svg>
                     Upload for Customer
                   </button>
+                </div>
+              </div>
+
+              {/* User List */}
+              <div className="bg-gray-800/50 border border-gray-500/20 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-white">Select from List</h2>
+                  <button
+                    onClick={fetchClerkUsers}
+                    disabled={loadingUsers}
+                    className="p-2 text-gray-400 hover:text-white transition-colors disabled:opacity-50"
+                    title="Refresh user list"
+                  >
+                    <svg className={`w-5 h-5 ${loadingUsers ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Search */}
+                <input
+                  type="text"
+                  value={userSearchQuery}
+                  onChange={(e) => setUserSearchQuery(e.target.value)}
+                  placeholder="Search users..."
+                  className="w-full px-4 py-2 mb-4 bg-gray-900/50 border border-gray-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+
+                {/* User List */}
+                <div className="max-h-64 overflow-y-auto space-y-2">
+                  {loadingUsers ? (
+                    <div className="text-center py-8 text-gray-400">
+                      <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+                      Loading users...
+                    </div>
+                  ) : clerkUsers.filter(u =>
+                    u.fullName.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
+                    u.email.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
+                    u.id.toLowerCase().includes(userSearchQuery.toLowerCase())
+                  ).length > 0 ? (
+                    clerkUsers
+                      .filter(u =>
+                        u.fullName.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
+                        u.email.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
+                        u.id.toLowerCase().includes(userSearchQuery.toLowerCase())
+                      )
+                      .map((clerkUser) => (
+                        <button
+                          key={clerkUser.id}
+                          onClick={() => setTargetUserId(clerkUser.id)}
+                          className={`w-full text-left p-3 rounded-lg border transition-all ${
+                            targetUserId === clerkUser.id
+                              ? 'border-purple-500 bg-purple-500/10'
+                              : 'border-gray-500/20 hover:border-gray-500/40 bg-gray-900/30'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            {clerkUser.imageUrl ? (
+                              <img src={clerkUser.imageUrl} alt={clerkUser.fullName} className="w-8 h-8 rounded-full" />
+                            ) : (
+                              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                                {clerkUser.fullName?.[0] || 'U'}
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white font-medium truncate">{clerkUser.fullName}</p>
+                              <p className="text-xs text-gray-400 truncate">{clerkUser.email}</p>
+                            </div>
+                          </div>
+                        </button>
+                      ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-400">
+                      {userSearchQuery ? 'No users found' : 'No users available'}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

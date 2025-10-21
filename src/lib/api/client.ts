@@ -406,6 +406,14 @@ class ApiClient {
   getDownloadUrl(fileId: string): string {
     return `${this.baseUrl}/files/${fileId}/download`;
   }
+
+  // Admin endpoints
+  async getClerkUsers(): Promise<any[]> {
+    const response = await this.request<{ success: boolean; users: any[]; count: number }>(
+      '/admin/users'
+    );
+    return response.users;
+  }
 }
 
 export const apiClient = new ApiClient(API_URL);
