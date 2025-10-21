@@ -24,6 +24,10 @@ export async function saveUserFile(userId, file, metadata = {}) {
     throw new Error('Unsupported file type');
   }
 
+  // Initialize storage for new users (will do nothing if already exists)
+  const { initializeUserStorage } = await import('./storageService.js');
+  await initializeUserStorage(userId);
+
   // Check storage availability
   const hasSpace = await checkStorageAvailable(userId, file.size);
 
