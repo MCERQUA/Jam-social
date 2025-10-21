@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Aurora from '../components/ui/Aurora';
+import { WaveText } from '../components/ui/wave-text';
+import { SignupRestrictedForm } from '../components/sections/SignupRestrictedForm';
+---
+
+<Layout title="Sign Up - Jam Social Media" description="Sign up for Jam Social Media">
+  <section class="relative min-h-screen bg-black overflow-hidden flex items-center justify-center -mt-20 pt-20">
+    {/* Aurora Background */}
+    <div class="absolute inset-0 z-0">
+      <Aurora
+        client:only="react"
+        colorStops={["#a855f7", "#ec4899", "#3b82f6"]}
+        blend={0.9}
+        amplitude={1.5}
+        speed={0.35}
+      />
+    </div>
+
+    {/* Gradient Overlay */}
+    <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/10 via-black/30 to-black/70"></div>
+
+    {/* Content Container */}
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 py-12">
+      <div class="flex flex-col items-center justify-center min-h-screen">
+        {/* Animated Title */}
+        <div class="mb-12 text-center">
+          <WaveText
+            client:only="react"
+            text="Join Jam AI"
+            className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6"
+            delay={0.2}
+            gradientWords={["Jam"]}
+            repeatDelay={4}
+          />
+          <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            Exclusive access for our valued customers
+          </p>
+        </div>
+
+        {/* Signup Restricted Form */}
+        <SignupRestrictedForm client:only="react" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Ensure full height */
+  section {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+</style>
