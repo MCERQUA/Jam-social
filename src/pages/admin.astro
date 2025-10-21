@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { AdminContainer } from '../components/admin/AdminContainer';
+import { FloatingVideoButton } from '../components/ui/FloatingVideoButton';
 ---
 
 <Layout title="Admin - Jam Social Media" description="Admin dashboard for managing customer media">
+  <FloatingVideoButton client:only="react" />
   <AdminContainer client:only="react" />
 </Layout>
 

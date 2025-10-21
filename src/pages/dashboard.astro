@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { DashboardContainer } from '../components/dashboard/DashboardContainer';
+import { FloatingVideoButton } from '../components/ui/FloatingVideoButton';
 ---
 
 <Layout title="Dashboard - Jam Social Media" description="Manage your media assets">
+  <FloatingVideoButton client:only="react" />
   <DashboardContainer client:only="react" />
 </Layout>
 
