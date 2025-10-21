@@ -68,7 +68,14 @@ class ApiClient {
     if (typeof window !== 'undefined') {
       const { Clerk } = window as any;
       if (Clerk?.session) {
-        return await Clerk.session.getToken();
+        try {
+          // Force refresh to get a fresh token
+          const token = await Clerk.session.getToken({ template: undefined });
+          return token;
+        } catch (error) {
+          console.error('Error getting auth token:', error);
+          return null;
+        }
       }
     }
     return null;
@@ -76,7 +83,8 @@ class ApiClient {
 
   private async request<T>(
     endpoint: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
+    retryCount = 0
   ): Promise<T> {
     const token = await this.getAuthToken();
 
@@ -93,6 +101,14 @@ class ApiClient {
       ...options,
       headers,
     });
+
+    // Retry once on 401 Unauthorized (expired token)
+    if (!response.ok && response.status === 401 && retryCount === 0) {
+      console.log('Token expired, retrying with fresh token...');
+      // Wait a moment before retrying
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return this.request<T>(endpoint, options, 1);
+    }
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({
