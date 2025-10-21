@@ -17,9 +17,10 @@ const AdminContent: React.FC = () => {
   const [showUploader, setShowUploader] = useState(false);
   const { user, isLoaded } = useUser();
 
-  // Check if current user is admin (for now, we'll use email check)
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "mike@koolfoam.com" ||
-                  user?.primaryEmailAddress?.emailAddress?.includes("admin");
+  // Check if current user is admin
+  const adminEmails = ['mikecerqua@gmail.com', 'erquadanielle@gmail.com'];
+  const isAdmin = user?.primaryEmailAddress?.emailAddress &&
+                  adminEmails.includes(user.primaryEmailAddress.emailAddress.toLowerCase());
 
   // Fetch files for target user
   const fetchFiles = async () => {
