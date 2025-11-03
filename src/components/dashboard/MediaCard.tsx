@@ -57,7 +57,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     };
   }, [item.id, item.thumbnailPath, item.fileType]);
 
-  // Fetch video blob for hover preview (preload metadata only)
+  // Fetch video blob for hover preview
   useEffect(() => {
     if (item.fileType !== 'video') return;
 
@@ -65,9 +65,30 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     let blobUrl: string | null = null;
 
     const fetchVideo = async () => {
-      blobUrl = await apiClient.getVideoBlob(item.id);
-      if (mounted && blobUrl) {
-        setVideoBlobUrl(blobUrl);
+      try {
+        // Get auth token
+        const token = await (window as any).Clerk?.session?.getToken();
+
+        // Fetch video with authentication
+        const response = await fetch(apiClient.getStreamUrl(item.id), {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error('Failed to fetch video:', response.status);
+          return;
+        }
+
+        const blob = await response.blob();
+        blobUrl = URL.createObjectURL(blob);
+
+        if (mounted) {
+          setVideoBlobUrl(blobUrl);
+        }
+      } catch (error) {
+        console.error('Error fetching video:', error);
       }
     };
 

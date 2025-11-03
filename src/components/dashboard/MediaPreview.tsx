@@ -27,17 +27,34 @@ export const MediaPreview: React.FC<MediaPreviewProps> = ({ file, onClose }) => 
     const fetchMedia = async () => {
       setIsLoading(true);
       try {
+        const token = await (window as any).Clerk?.session?.getToken();
+
         // Fetch appropriate media type
-        if (file.fileType === 'video') {
-          blobUrl = await apiClient.getVideoBlob(file.id);
-        } else if (file.fileType === 'audio') {
-          blobUrl = await apiClient.getAudioBlob(file.id);
+        let response;
+        if (file.fileType === 'video' || file.fileType === 'audio') {
+          response = await fetch(apiClient.getStreamUrl(file.id), {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
         } else {
           // Image - use thumbnail endpoint which serves original
-          blobUrl = await apiClient.getThumbnailBlob(file.id);
+          response = await fetch(apiClient.getThumbnailUrl(file.id), {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
         }
 
-        if (mounted && blobUrl) {
+        if (!response.ok) {
+          console.error('Failed to fetch media:', response.status);
+          return;
+        }
+
+        const blob = await response.blob();
+        blobUrl = URL.createObjectURL(blob);
+
+        if (mounted) {
           setMediaBlobUrl(blobUrl);
         }
       } catch (error) {
