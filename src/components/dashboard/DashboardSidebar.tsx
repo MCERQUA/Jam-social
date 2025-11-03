@@ -152,6 +152,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     voiceover: 0,
     sfx: 0,
     background_music: 0,
+    // Uncategorized
+    uncategorized: 0,
   });
   const { user, isLoaded } = useUser();
 
@@ -176,6 +178,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       const fetchCounts = async () => {
         try {
           const allFiles = await apiClient.getFiles({ limit: 1000 });
+
+          // Count files by category
           const counts = {
             total: allFiles.length,
             // Visual assets - count by assetCategory
@@ -184,7 +188,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             scene: allFiles.filter(f => f.assetCategory === 'scene').length,
             greenscreen: allFiles.filter(f => f.assetCategory === 'greenscreen').length,
             background: allFiles.filter(f => f.assetCategory === 'background').length,
-            full_video: allFiles.filter(f => f.assetCategory === 'full_video').length,
+            // Count both 'video' and 'full_video' as Videos
+            full_video: allFiles.filter(f => f.assetCategory === 'full_video' || f.assetCategory === 'video').length,
             clip: allFiles.filter(f => f.assetCategory === 'clip').length,
             template: allFiles.filter(f => f.assetCategory === 'template').length,
             // Audio assets - count by audioCategory
@@ -196,6 +201,36 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             sfx: allFiles.filter(f => f.audioCategory === 'sfx').length,
             background_music: allFiles.filter(f => f.audioCategory === 'background_music').length,
           };
+
+          // Calculate total categorized files and find uncategorized ones
+          const categorizedCount = counts.character + counts.object + counts.scene +
+                                   counts.greenscreen + counts.background + counts.full_video +
+                                   counts.clip + counts.template +
+                                   counts.jingle + counts.commercial_song + counts.radio_song +
+                                   counts.voiceover + counts.sfx + counts.background_music;
+
+          // Count uncategorized files (including both 'video' and 'full_video' as categorized)
+          const uncategorizedFiles = allFiles.filter(f => {
+            const isVideoCategory = ['character', 'object', 'scene', 'greenscreen', 'background', 'full_video', 'video', 'clip', 'template'].includes(f.assetCategory);
+            const isAudioFile = f.assetCategory === 'audio';
+            const hasAudioSubcategory = ['jingle', 'commercial_song', 'radio_song', 'voiceover', 'sfx', 'background_music'].includes(f.audioCategory);
+
+            return !isVideoCategory && !(isAudioFile && hasAudioSubcategory);
+          });
+
+          counts.uncategorized = uncategorizedFiles.length;
+
+          // Log warning if there are uncategorized files
+          if (uncategorizedFiles.length > 0) {
+            console.warn(`⚠️ ${uncategorizedFiles.length} files are not properly categorized`);
+            console.warn('Uncategorized files:', uncategorizedFiles.map(f => ({
+              name: f.originalName,
+              assetCategory: f.assetCategory,
+              audioCategory: f.audioCategory,
+              type: f.type
+            })));
+          }
+
           setFileCounts(counts);
         } catch (error) {
           console.error('Failed to fetch file counts:', error);
@@ -235,7 +270,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         { id: "scene", label: "Scenes", icon: "scene", count: fileCounts.scene },
         { id: "greenscreen", label: "Greenscreen", icon: "greenscreen", count: fileCounts.greenscreen },
         { id: "background", label: "Backgrounds", icon: "background", count: fileCounts.background },
-        { id: "full_video", label: "Full Videos", icon: "full_video", count: fileCounts.full_video },
+        { id: "full_video", label: "Videos", icon: "full_video", count: fileCounts.full_video },
         { id: "clip", label: "Clips", icon: "clip", count: fileCounts.clip },
         { id: "template", label: "Templates", icon: "template", count: fileCounts.template },
       ],
@@ -257,6 +292,12 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         { id: "packages", label: "All Packages", icon: "packages" },
       ],
     },
+    ...(fileCounts.uncategorized > 0 ? [{
+      title: "Other",
+      items: [
+        { id: "uncategorized", label: "Uncategorized", icon: "tag", count: fileCounts.uncategorized },
+      ],
+    }] : []),
   ];
 
   return (

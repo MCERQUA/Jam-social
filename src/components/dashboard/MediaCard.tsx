@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { VolumeX, Volume2, Maximize2, Play } from "lucide-react";
 import { apiClient, type UserFile } from "../../lib/api/client";
-import { ImagePreview } from "./ImagePreview";
+import { MediaPreview } from "./MediaPreview";
 
 interface MediaCardProps {
   item: UserFile;
@@ -16,6 +17,12 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
   const [isDeleting, setIsDeleting] = useState(false);
   const [mediaBlobUrl, setMediaBlobUrl] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+
+  // Video/Audio state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoBlobUrl, setVideoBlobUrl] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const typeIcons = {
     video: "🎥",
@@ -50,11 +57,81 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     };
   }, [item.id, item.thumbnailPath, item.fileType]);
 
+  // Fetch video blob for hover preview (preload metadata only)
+  useEffect(() => {
+    if (item.fileType !== 'video') return;
+
+    let mounted = true;
+    let blobUrl: string | null = null;
+
+    const fetchVideo = async () => {
+      blobUrl = await apiClient.getVideoBlob(item.id);
+      if (mounted && blobUrl) {
+        setVideoBlobUrl(blobUrl);
+      }
+    };
+
+    fetchVideo();
+
+    return () => {
+      mounted = false;
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [item.id, item.fileType]);
+
+  // Video hover handlers
+  const handleVideoHoverEnter = () => {
+    if (item.fileType === 'video' && videoRef.current) {
+      setIsHovered(true);
+      videoRef.current.play().catch(err => {
+        console.log('Autoplay prevented:', err);
+      });
+      setIsPlaying(true);
+    }
+  };
+
+  const handleVideoHoverLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
+      setIsHovered(false);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   const handleDownload = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const url = apiClient.getDownloadUrl(item.id);
-      window.open(url, '_blank');
+      // Get authenticated blob URL for download
+      const response = await fetch(apiClient.getDownloadUrl(item.id), {
+        headers: {
+          Authorization: `Bearer ${await (window as any).Clerk?.session?.getToken()}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = item.originalName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Download error:', error);
       alert('Failed to download file');
@@ -120,65 +197,98 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
     <>
       <motion.div
         className="group relative bg-gray-800/60 backdrop-blur-sm border border-gray-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:bg-gray-700/80 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/20"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={item.fileType === 'video' ? handleVideoHoverEnter : () => setIsHovered(true)}
+        onMouseLeave={item.fileType === 'video' ? handleVideoHoverLeave : () => setIsHovered(false)}
         whileHover={{ y: -4 }}
         layout
       >
         {/* Thumbnail */}
         <div className="relative aspect-video bg-gray-900 overflow-hidden cursor-pointer" onClick={() => setShowPreview(true)}>
-        <img
-          src={thumbnailUrl}
-          alt={item.originalName}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            // Fallback to placeholder on error
-            e.currentTarget.src = 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
-          }}
-        />
-
-        {/* Type Badge */}
-        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-md text-xs font-medium text-white">
-          <span>{typeIcons[item.fileType]}</span>
-          <span className="capitalize">{item.fileType}</span>
-        </div>
-
-        {/* Duration Badge (for videos) */}
-        {item.duration && (
-          <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-md text-xs font-medium text-white">
-            {item.duration}
-          </div>
-        )}
-
-        {/* Play Overlay (for videos) */}
-        {item.fileType === "video" && (
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-black/30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Select Checkbox */}
-        <motion.div
-          className="absolute top-2 right-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <input
-            type="checkbox"
-            className="w-5 h-5 accent-purple-500 rounded cursor-pointer"
-            onClick={(e) => e.stopPropagation()}
+          {/* Thumbnail Image Layer */}
+          <img
+            src={thumbnailUrl}
+            alt={item.originalName}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
+              isPlaying ? 'opacity-0' : 'opacity-100 group-hover:scale-105'
+            }`}
+            onError={(e) => {
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=225&fit=crop';
+            }}
           />
-        </motion.div>
+
+          {/* Video Layer (for video files) */}
+          {item.fileType === 'video' && videoBlobUrl && (
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              muted={isMuted}
+              loop
+              playsInline
+              preload="metadata"
+              src={videoBlobUrl}
+            />
+          )}
+
+          {/* Type Badge */}
+          <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-md text-xs font-medium text-white z-10">
+            <span>{typeIcons[item.fileType]}</span>
+            <span className="capitalize">{item.fileType}</span>
+          </div>
+
+          {/* Duration Badge (for videos) */}
+          {item.duration && (
+            <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-md text-xs font-medium text-white z-10">
+              {item.duration}
+            </div>
+          )}
+
+          {/* Play Icon Overlay (for videos when not playing) */}
+          {item.fileType === "video" && !isPlaying && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg transition-opacity group-hover:opacity-0">
+                <Play className="w-6 h-6 text-gray-900 ml-0.5" />
+              </div>
+            </div>
+          )}
+
+          {/* Audio/Video Controls (top-right) */}
+          {item.fileType === 'video' && (
+            <div className="absolute top-2 right-2 flex gap-2 opacity-100 md:opacity-0 transition-opacity duration-200 md:group-hover:opacity-100 z-20">
+              <button
+                className="p-2 bg-black/70 backdrop-blur-sm rounded-full hover:bg-black/80 border border-white/20 transition-all"
+                onClick={toggleMute}
+                title={isMuted ? "Unmute" : "Mute"}
+              >
+                {isMuted ? <VolumeX className="w-4 h-4 text-white" /> : <Volume2 className="w-4 h-4 text-white" />}
+              </button>
+              <button
+                className="p-2 bg-black/70 backdrop-blur-sm rounded-full hover:bg-black/80 border border-white/20 transition-all"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPreview(true);
+                }}
+                title="Expand"
+              >
+                <Maximize2 className="w-4 h-4 text-white" />
+              </button>
+            </div>
+          )}
+
+          {/* Select Checkbox (hide when controls are visible) */}
+          {item.fileType !== 'video' && (
+            <motion.div
+              className="absolute top-2 right-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <input
+                type="checkbox"
+                className="w-5 h-5 accent-purple-500 rounded cursor-pointer"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </motion.div>
+          )}
       </div>
 
       {/* Content */}
@@ -268,9 +378,9 @@ export const MediaCard: React.FC<MediaCardProps> = ({ item, onPreview, onUpdate 
       </motion.div>
     </motion.div>
 
-    {/* Image Preview Modal */}
+    {/* Media Preview Modal */}
     {showPreview && (
-      <ImagePreview
+      <MediaPreview
         file={item}
         onClose={() => setShowPreview(false)}
       />

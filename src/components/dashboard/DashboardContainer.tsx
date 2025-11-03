@@ -64,6 +64,8 @@ const DashboardContent: React.FC = () => {
       voiceover: { assetCategory: 'audio', audioCategory: 'voiceover' },
       sfx: { assetCategory: 'audio', audioCategory: 'sfx' },
       background_music: { assetCategory: 'audio', audioCategory: 'background_music' },
+      // Special case: uncategorized files (will be filtered client-side)
+      uncategorized: { assetCategory: undefined, audioCategory: undefined },
     };
 
     const newFilters = filterMap[itemId];
@@ -100,6 +102,24 @@ const DashboardContent: React.FC = () => {
           file.tags?.some((tag) => tag.toLowerCase().includes(searchLower)) ||
           file.usageTags?.some((tag) => tag.toLowerCase().includes(searchLower))
         );
+      }
+
+      // Special handling for video category - include both 'video' and 'full_video'
+      if (activeView === 'full_video') {
+        filteredFiles = filteredFiles.filter((file) =>
+          file.assetCategory === 'full_video' || file.assetCategory === 'video'
+        );
+      }
+
+      // Special handling for uncategorized view
+      if (activeView === 'uncategorized') {
+        filteredFiles = filteredFiles.filter((file) => {
+          const isVideoCategory = ['character', 'object', 'scene', 'greenscreen', 'background', 'full_video', 'video', 'clip', 'template'].includes(file.assetCategory);
+          const isAudioFile = file.assetCategory === 'audio';
+          const hasAudioSubcategory = ['jingle', 'commercial_song', 'radio_song', 'voiceover', 'sfx', 'background_music'].includes(file.audioCategory);
+
+          return !isVideoCategory && !(isAudioFile && hasAudioSubcategory);
+        });
       }
 
       setFiles(filteredFiles);
@@ -147,7 +167,7 @@ const DashboardContent: React.FC = () => {
       scene: "Scenes",
       greenscreen: "Greenscreen",
       background: "Backgrounds",
-      full_video: "Full Videos",
+      full_video: "Videos",
       clip: "Clips",
       template: "Templates",
       jingle: "Logo Jingles",
@@ -157,6 +177,7 @@ const DashboardContent: React.FC = () => {
       sfx: "Sound Effects",
       background_music: "Background Music",
       packages: "Packages",
+      uncategorized: "Uncategorized Assets",
     };
     return titleMap[activeView] || "All Assets";
   };

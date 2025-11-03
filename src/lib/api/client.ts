@@ -411,6 +411,65 @@ class ApiClient {
     return `${this.baseUrl}/files/${fileId}/download`;
   }
 
+  // Get video/audio stream URL for playback
+  getStreamUrl(fileId: string): string {
+    return `${this.baseUrl}/files/${fileId}/stream`;
+  }
+
+  // Get video blob URL for hover preview
+  async getVideoBlob(fileId: string): Promise<string | null> {
+    try {
+      const token = await this.getAuthToken();
+
+      const headers: HeadersInit = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${this.baseUrl}/files/${fileId}/stream`, {
+        headers,
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch video:', response.status);
+        return null;
+      }
+
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+      console.error('Error fetching video blob:', error);
+      return null;
+    }
+  }
+
+  // Get audio blob URL for playback
+  async getAudioBlob(fileId: string): Promise<string | null> {
+    try {
+      const token = await this.getAuthToken();
+
+      const headers: HeadersInit = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${this.baseUrl}/files/${fileId}/stream`, {
+        headers,
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch audio:', response.status);
+        return null;
+      }
+
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+      console.error('Error fetching audio blob:', error);
+      return null;
+    }
+  }
+
   // Admin endpoints
   async getClerkUsers(): Promise<any[]> {
     const response = await this.request<{ success: boolean; users: any[]; count: number }>(

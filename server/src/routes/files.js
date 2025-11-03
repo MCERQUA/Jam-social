@@ -403,6 +403,68 @@ router.get('/:id/thumbnail', requireAuth, async (req, res) => {
 });
 
 /**
+ * GET /api/files/:id/stream
+ * Stream video/audio file with range support for progressive playback
+ */
+router.get('/:id/stream', requireAuth, async (req, res) => {
+  try {
+    const file = await fileService.getFileById(req.params.id, req.userId);
+
+    // Only allow streaming for video and audio files
+    if (file.fileType !== 'video' && file.fileType !== 'audio') {
+      return res.status(400).json({
+        success: false,
+        error: 'Streaming only available for video and audio files',
+      });
+    }
+
+    const fullPath = path.join(
+      process.env.USER_STORAGE_ROOT || '/mnt/user-storage/users',
+      file.filePath
+    );
+
+    // Check if file exists
+    const stat = await fs.stat(fullPath);
+    const fileSize = stat.size;
+    const range = req.headers.range;
+
+    // Set content type
+    res.setHeader('Content-Type', file.mimeType);
+    res.setHeader('Accept-Ranges', 'bytes');
+
+    if (range) {
+      // Parse range header
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+      const chunksize = (end - start) + 1;
+
+      // Create read stream for the requested range
+      const fileStream = (await import('fs')).createReadStream(fullPath, { start, end });
+
+      // Set 206 Partial Content headers
+      res.status(206);
+      res.setHeader('Content-Range', `bytes ${start}-${end}/${fileSize}`);
+      res.setHeader('Content-Length', chunksize);
+
+      fileStream.pipe(res);
+    } else {
+      // No range requested, stream the entire file
+      res.setHeader('Content-Length', fileSize);
+
+      const fileStream = (await import('fs')).createReadStream(fullPath);
+      fileStream.pipe(res);
+    }
+  } catch (error) {
+    console.error('Stream error:', error);
+    res.status(404).json({
+      success: false,
+      error: 'File not found or cannot be streamed',
+    });
+  }
+});
+
+/**
  * DELETE /api/files/:id
  * Delete file
  */
